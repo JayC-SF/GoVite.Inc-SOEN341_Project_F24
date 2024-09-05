@@ -1,8 +1,11 @@
 # SOEN341 Project
-## Members
-| Name | School ID |
+## Collaborators
+| Name | Concordia ID |
 | -------------- | --- |
-| Daniel Lam | ??????? |
+| Anh Thien Nguyen | ??????? |
+| Daniel Lam | 40248073 |
 | Juan-Carlos Sreng-Flores | 40101813 |
-Mouhamed Coundoul | 40248237 |
-Ming-Yang Calvin Lee | ??????? |
+| Ming-Yang Calvin Lee | ??????? |
+| Mouhamed Coundoul | 40248237 |
+
+## References
