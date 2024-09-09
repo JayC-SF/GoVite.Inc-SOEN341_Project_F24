@@ -2,7 +2,9 @@ package main
 
 import (
 	"net/http"
+	"path/filepath"
 
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +14,7 @@ func setupRouter() *gin.Engine {
 	// Disable Console Color
 	// gin.DisableConsoleColor()
 	r := gin.Default()
+	r.Use(static.Serve("/", static.LocalFile(filepath.Join("..", "frontend", "dist"), true)))
 
 	// Ping test
 	r.GET("/ping", func(c *gin.Context) {
