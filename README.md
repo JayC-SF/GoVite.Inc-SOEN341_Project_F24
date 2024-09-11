@@ -2,7 +2,7 @@
 ## Collaborators
 | Name | Concordia ID |
 | -------------- | --- |
-| Anh Thien Nguyen | ??????? |
+| Anh Thien Nguyen | 40122030 |
 | Daniel Lam | 40248073 |
 | Juan-Carlos Sreng-Flores | 40101813 |
 | Ming-Yang Calvin Lee | 40264581 |
