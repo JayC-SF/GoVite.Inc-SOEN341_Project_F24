@@ -1,14 +1,14 @@
-import { createBrowserRouter } from 'react-router-dom'
-import HomePage from './pages/home/HomePage'
-import SignInPage from './pages/sign-in/SignInPage'
+import { createBrowserRouter } from "react-router-dom";
+import HomePage from "./pages/home/HomePage";
+import SignUpPage from "./pages/sign-up/SignUpPage";
 
 export const AppRoutes = createBrowserRouter([
-    {
-        path: "/",
-        element: <HomePage />
-    },
-    {
-        path: "/sign-in",
-        element: <SignInPage/>
-    }
-])
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/sign-up",
+    element: <SignUpPage />,
+  },
+]);
