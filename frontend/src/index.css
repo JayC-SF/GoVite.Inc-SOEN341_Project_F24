@@ -2,4 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
+/* Resize the title without overiding the "text-6xl" class*/
+@media (min-width: 640px) {
+  .sm\:text-5-5xl {
+    font-size: 3.6rem /* 60px */;
+    line-height: 1;
+  }
+}

@@ -8,16 +8,22 @@ export default function HomePage() {
         >
           <div className="flex lg:flex-1">
             <a href="/" className="-m-1.5 p-1.5">
-              <p className="font-black italic text-2xl"> RateMyPeer</p>
+              <p className="font-black italic text-2xl"> RateMyPeers</p>
             </a>
           </div>
 
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-3">
+            <a
+              href="/sign-up"
+              className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign Up
+            </a>
             <a
               href="/login"
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="rounded-md px-3.5 py-2.5 text-sm font-semibold text-gray-900 hover:bg-black hover:text-white hover:shadow-sm"
             >
-              Log in <span aria-hidden="true">&rarr;</span>
+              Login
             </a>
           </div>
         </nav>
@@ -39,28 +45,30 @@ export default function HomePage() {
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5-5xl">
               Welcome to{" "}
-              <span className="font-black italic text-red-500">RateMyPeer</span>
+              <span className="font-black italic text-red-500">
+                RateMyPeers
+              </span>
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              RateMyPeer is a Peer Assessment System for university team
+              RateMyPeers is a Peer Assessment System for university team
               projects is designed to allow students to evaluate the
               contributions and performance of their teammates
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
-                href="/sign-in"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                href="/sign-up"
+                className="w-32 rounded-md bg-indigo-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign Up
               </a>
-              <a
+              {/* <a
                 href="/login"
                 className="text-sm font-semibold leading-6 text-gray-900"
               >
                 Login <span aria-hidden="true">→</span>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
