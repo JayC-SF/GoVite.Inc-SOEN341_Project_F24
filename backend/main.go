@@ -1,7 +1,7 @@
 package main
 
 import (
-	"backend/middlewares"
+	"backend/middleware"
 	"backend/routes"
 	"net/http"
 	"path/filepath"
@@ -71,8 +71,8 @@ func setupRouter() *gin.Engine {
 func main() {
 	// create gin engine object
 	r := gin.Default()
-	// register all middlewares of the server
-	middlewares.RegisterAllMiddleWares(r)
+	// register all middleware of the server
+	middleware.RegisterAllMiddleware(r)
 	// register all routes for the server
 	routes.RegisterAllRoutes(r)
 	// Listen and Server in 0.0.0.0:8080

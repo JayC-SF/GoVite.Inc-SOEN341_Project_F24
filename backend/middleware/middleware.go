@@ -1,4 +1,4 @@
-package middlewares
+package middleware
 
 import (
 	"backend/util"
@@ -8,7 +8,7 @@ import (
 )
 
 // register function for all middlewares of the server
-func RegisterAllMiddleWares(r *gin.Engine) {
+func RegisterAllMiddleware(r *gin.Engine) {
 	// register static serving middleware
 	r.Use(static.Serve("/", static.LocalFile(util.FRONTEND_STATIC_FILES, true)))
 }
