@@ -70,7 +70,7 @@ func setupRouter() *gin.Engine {
 }
 
 func main() {
-	// load the environment variables configured for the program
+	// load the environment variables configured in the backend/.env file
 	godotenv.Load()
 	// create gin engine object
 	r := gin.Default()
