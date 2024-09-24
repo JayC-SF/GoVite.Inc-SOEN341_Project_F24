@@ -1,6 +1,8 @@
 package main
 
 import (
+	"backend/middlewares"
+	"backend/routes"
 	"net/http"
 	"path/filepath"
 
@@ -10,16 +12,12 @@ import (
 
 var db = make(map[string]string)
 
+// keep this function as reference for future api requests to do
 func setupRouter() *gin.Engine {
 	// Disable Console Color
 	// gin.DisableConsoleColor()
 	r := gin.Default()
 	r.Use(static.Serve("/", static.LocalFile(filepath.Join("..", "frontend", "dist"), true)))
-
-	// Ping test
-	r.GET("/ping", func(c *gin.Context) {
-		c.String(http.StatusOK, "pong")
-	})
 
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
@@ -71,7 +69,12 @@ func setupRouter() *gin.Engine {
 }
 
 func main() {
-	r := setupRouter()
+	// create gin engine object
+	r := gin.Default()
+	// register all middlewares of the server
+	middlewares.RegisterAllMiddleWares(r)
+	// register all routes for the server
+	routes.RegisterAllRoutes(r)
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
 }
