@@ -17,4 +17,8 @@ func RegisterApiRoutes(router *gin.Engine) {
 	// GET Endpoint for Students
 	// localhost:8080/api/students
 	api.GET("/students", controllers.GetStudents)
+
+	// GET Endpoint for Students
+	// localhost:8080/api/students
+	api.GET("/teachers", controllers.GetTeachers)
 }
