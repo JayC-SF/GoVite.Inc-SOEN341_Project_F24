@@ -4,11 +4,13 @@ import (
 	"backend/database"
 	"backend/middlewares"
 	"backend/routes"
+	"context"
 	"net/http"
 	"path/filepath"
 
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 
 	// Add the MongoDB driver packages
 
@@ -106,20 +108,38 @@ func init() {
 	godotenv.Load()
 }
 
-func main() {
+// GET /movies - Get all movies
+func getStudents(c *gin.Context) {
+	// Find movies
+	cursor, err := database.GetInstance().Database("RateMyPeersDB").Collection("Students").Find(context.TODO(), bson.D{{}})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
-	client := database.GetInstance()
+	// Map results
+	var movies []bson.M
+	if err = cursor.All(context.TODO(), &movies); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Return movies
+	c.JSON(http.StatusOK, movies)
+}
+
+func main() {
 
 	// create gin engine object
 	r := gin.Default()
 
-	// log.Println(dbPassword)
-	// log.Println(uri)
 	// register all middlewares of the server
 	middlewares.RegisterAllMiddleWares(r)
 
 	// register all routes for the server
 	routes.RegisterAllRoutes(r)
+
+	r.GET("/students", getStudents)
 
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
