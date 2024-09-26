@@ -13,4 +13,8 @@ func RegisterApiRoutes(router *gin.Engine) {
 
 	// register a test ping function
 	api.GET("/ping", controllers.Ping)
+
+	// GET Endpoint for Students
+	// localhost:8080/api/students
+	api.GET("/students", controllers.GetStudents)
 }

@@ -1,35 +1,19 @@
 package main
 
 import (
-	"backend/database"
 	"backend/middlewares"
 	"backend/routes"
-	"context"
 	"net/http"
 	"path/filepath"
 
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson"
-
-	// Add the MongoDB driver packages
-
-	// Add required Go packages
 
 	"github.com/joho/godotenv"
 )
 
 // ----------- GLOBAL VARIABLES -----------
 var db = make(map[string]string)
-
-// // Your MongoDB Atlas Connection String
-// var dbPassword = os.Getenv("DB_PASSWORD")
-
-// // var uri = fmt.Sprintf("mongodb+srv://LamDaniel1:%s@govitecluster.tw1m0.mongodb.net/?retryWrites=true&w=majority&appName=GoViteCluster", dbPassword)
-// const uri = "mongodb+srv://LamDaniel1:LPXpxNZBVYXtktZS@govitecluster.tw1m0.mongodb.net/?retryWrites=true&w=majority&appName=GoViteCluster"
-
-// // A global variable that will hold a reference to the MongoDB client
-// var mongoClient *mongo.Client
 
 // ----------------------------------------
 
@@ -108,26 +92,6 @@ func init() {
 	godotenv.Load()
 }
 
-// GET /movies - Get all movies
-func getStudents(c *gin.Context) {
-	// Find movies
-	cursor, err := database.GetInstance().Database("RateMyPeersDB").Collection("Students").Find(context.TODO(), bson.D{{}})
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	// Map results
-	var movies []bson.M
-	if err = cursor.All(context.TODO(), &movies); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	// Return movies
-	c.JSON(http.StatusOK, movies)
-}
-
 func main() {
 
 	// create gin engine object
@@ -138,8 +102,6 @@ func main() {
 
 	// register all routes for the server
 	routes.RegisterAllRoutes(r)
-
-	r.GET("/students", getStudents)
 
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
