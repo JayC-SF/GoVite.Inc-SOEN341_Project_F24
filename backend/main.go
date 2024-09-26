@@ -86,7 +86,7 @@ func setupRouter() *gin.Engine {
 }
 
 // Our implementation logic for connecting to MongoDB
-func connect_to_mongodb() error {
+func connectToDatabase() error {
 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
 	opts := options.Client().ApplyURI(uri).SetServerAPIOptions(serverAPI)
 
@@ -101,7 +101,7 @@ func connect_to_mongodb() error {
 
 // The init function will run before our main function to establish a connection to MongoDB. If it cannot connect it will fail and the program will exit.
 func init() {
-	if err := connect_to_mongodb(); err != nil {
+	if err := connectToDatabase(); err != nil {
 		log.Fatal("Could not connect to MongoDB")
 	}
 }
