@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 var db = make(map[string]string)
@@ -69,6 +70,8 @@ func setupRouter() *gin.Engine {
 }
 
 func main() {
+	// load the environment variables configured in the backend/.env file
+	godotenv.Load()
 	// create gin engine object
 	r := gin.Default()
 	// register all middlewares of the server
