@@ -1,6 +1,7 @@
 package main
 
 import (
+	"backend/database"
 	"backend/middlewares"
 	"backend/routes"
 	"net/http"
@@ -10,12 +11,8 @@ import (
 	"github.com/gin-gonic/gin"
 
 	// Add the MongoDB driver packages
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 
 	// Add required Go packages
-	"context"
-	"log"
 
 	"github.com/joho/godotenv"
 )
@@ -23,11 +20,14 @@ import (
 // ----------- GLOBAL VARIABLES -----------
 var db = make(map[string]string)
 
-// Your MongoDB Atlas Connection String
-const uri = "mongodb+srv://LamDaniel1:LPXpxNZBVYXtktZS@govitecluster.tw1m0.mongodb.net/?retryWrites=true&w=majority&appName=GoViteCluster"
+// // Your MongoDB Atlas Connection String
+// var dbPassword = os.Getenv("DB_PASSWORD")
 
-// A global variable that will hold a reference to the MongoDB client
-var mongoClient *mongo.Client
+// // var uri = fmt.Sprintf("mongodb+srv://LamDaniel1:%s@govitecluster.tw1m0.mongodb.net/?retryWrites=true&w=majority&appName=GoViteCluster", dbPassword)
+// const uri = "mongodb+srv://LamDaniel1:LPXpxNZBVYXtktZS@govitecluster.tw1m0.mongodb.net/?retryWrites=true&w=majority&appName=GoViteCluster"
+
+// // A global variable that will hold a reference to the MongoDB client
+// var mongoClient *mongo.Client
 
 // ----------------------------------------
 
@@ -88,32 +88,33 @@ func setupRouter() *gin.Engine {
 }
 
 // Our implementation logic for connecting to MongoDB
-func connectToDatabase() error {
-	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
-	opts := options.Client().ApplyURI(uri).SetServerAPIOptions(serverAPI)
+// func connectToDatabase() error {
+// 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+// 	opts := options.Client().ApplyURI(uri).SetServerAPIOptions(serverAPI)
 
-	client, err := mongo.Connect(context.TODO(), opts)
-	if err != nil {
-		panic(err)
-	}
-	err = client.Ping(context.TODO(), nil)
-	mongoClient = client
-	return err
-}
+// 	client, err := mongo.Connect(context.TODO(), opts)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	err = client.Ping(context.TODO(), nil)
+// 	mongoClient = client
+// 	return err
+// }
 
 // The init function will run before our main function to establish a connection to MongoDB. If it cannot connect it will fail and the program will exit.
 func init() {
-	if err := connectToDatabase(); err != nil {
-		log.Fatal("Could not connect to MongoDB")
-	}
+	godotenv.Load()
 }
 
 func main() {
-	// load the environment variables configured in the backend/.env file
-	godotenv.Load()
+
+	client := database.GetInstance()
+
 	// create gin engine object
 	r := gin.Default()
 
+	// log.Println(dbPassword)
+	// log.Println(uri)
 	// register all middlewares of the server
 	middlewares.RegisterAllMiddleWares(r)
 
