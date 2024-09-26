@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
+<<<<<<< HEAD
 
 	// Add the MongoDB driver packages
 	"go.mongodb.org/mongo-driver/mongo"
@@ -16,6 +17,9 @@ import (
 	// Add required Go packages
 	"context"
 	"log"
+=======
+	"github.com/joho/godotenv"
+>>>>>>> 9194217ee0ae197a12d77fcecb426a6723933dd0
 )
 
 // ----------- GLOBAL VARIABLES -----------
@@ -107,6 +111,8 @@ func init() {
 }
 
 func main() {
+	// load the environment variables configured in the backend/.env file
+	godotenv.Load()
 	// create gin engine object
 	r := gin.Default()
 
