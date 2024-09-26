@@ -15,7 +15,7 @@ var uri string
 
 func GetInstance() *mongo.Client {
 	if mongoClient == nil && connectToDatabase() != nil {
-		log.Fatal("Connection to database failed.!")
+		log.Fatal("Connection to database failed!")
 	} else {
 		log.Println("Connected to database!")
 	}
@@ -27,6 +27,7 @@ func GetInstance() *mongo.Client {
 func connectToDatabase() error {
 
 	uri = os.Getenv("URI")
+	log.Println(uri)
 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
 	opts := options.Client().ApplyURI(uri).SetServerAPIOptions(serverAPI)
 
