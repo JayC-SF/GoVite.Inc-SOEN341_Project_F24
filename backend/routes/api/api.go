@@ -2,15 +2,21 @@ package api
 
 import (
 	"backend/controllers"
+	"backend/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 // register function for all controllers under the /api route
-func RegisterApiRoutes(router *gin.Engine) {
-	// set /api as base path
-	api := router.Group("/api")
+func RegisterApiRoutes(r *gin.Engine) {
+	// only apply session middleware for login and signup
+	api := r.Group("/api", middleware.SessionMiddleware())
+	// register a test ping function /api/login and /api/signup
+	// both login and sign up pages do not require the requests to be authenticated.
+	api.POST("/login", controllers.LoginController)
+	api.POST("/signup", controllers.SignUpController)
 
-	// register a test ping function
+	// apply session and auth for the following registered requests
+	api = r.Group("/api", middleware.SessionMiddleware(), middleware.AuthenticationMiddleware())
 	api.GET("/ping", controllers.Ping)
 }
