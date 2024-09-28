@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/home/HomePage";
-import SignUpPage from "./pages/sign-up/SignUpPage";
+import TeacherSignUp from "./pages/sign-up/TeacherSignUp";
+import StudentSignUp from "./pages/sign-up/StudentSignUp";
 
 export const AppRoutes = createBrowserRouter([
   {
@@ -8,7 +9,11 @@ export const AppRoutes = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: "/sign-up",
-    element: <SignUpPage />,
+    path: "/sign-up/student",
+    element: <StudentSignUp />,
+  },
+  {
+    path: "/sign-up/teacher",
+    element: <TeacherSignUp />,
   },
 ]);
