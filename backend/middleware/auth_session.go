@@ -33,7 +33,7 @@ func AuthenticationMiddleware() gin.HandlerFunc {
 		session := sessions.Default(c)
 		username := session.Get(config.SessionFields.Username)
 		if username == nil {
-			c.Redirect(http.StatusFound, "/login")
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized, please login"})
 			c.Abort()
 			return
 		}
