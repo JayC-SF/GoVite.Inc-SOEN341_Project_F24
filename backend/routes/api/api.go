@@ -14,7 +14,7 @@ func RegisterApiRoutes(r *gin.Engine) {
 	// register a test ping function /api/login and /api/signup
 	// both login and sign up pages do not require the requests to be authenticated.
 	api.POST("/login", controllers.LoginController)
-	api.POST("/signup", controllers.SignUpController)
+	api.POST("/sign-up", controllers.SignUpController)
 
 	// apply session and auth for the following registered requests
 	api = r.Group("/api", middleware.SessionMiddleware(), middleware.AuthenticationMiddleware())

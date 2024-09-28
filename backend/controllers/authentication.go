@@ -2,23 +2,15 @@ package controllers
 
 import (
 	"backend/config"
-	"log"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
-// login body supports
+// login body data definiton
 type Login struct {
 	Username string `form:"username" json:"username" binding:"required"`
-	Password string `form:"password" json:"password" binding:"required"`
-}
-
-// login body supports
-type SignUp struct {
-	Username string `form:"username" json:"username" binding:"required"`
-	Email    string `form:"email" json:"email" binding:"required"`
 	Password string `form:"password" json:"password" binding:"required"`
 }
 
@@ -39,8 +31,11 @@ func LoginController(c *gin.Context) {
 			return
 		}
 	}
-	log.Println(body)
-	// dummy login assessment
+
+	// TODO: REMOVE DUMMY ASSESSMENT AND VALIDATE HASHED PASSWORD WITH DATABASE
+	// ok := util.CompareHashAndPassword(body.Password, <hashed_password>)
+
+	// dummy login assessment for now, to remove
 	if body.Username != "user" || body.Password != "password" {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials or format"})
 		return
@@ -56,6 +51,14 @@ func LoginController(c *gin.Context) {
 		return
 	}
 	c.Redirect(http.StatusFound, "/dashboard")
+}
+
+// Signup body data definition
+type SignUp struct {
+	Username string `form:"username" json:"username" binding:"required"`
+	Email    string `form:"email" json:"email" binding:"required"`
+	Password string `form:"password" json:"password" binding:"required"`
+	Role     string `form:"role" json:"role" binding:"required"`
 }
 
 // This function takes care of signing up a user to the database
@@ -76,13 +79,19 @@ func SignUpController(c *gin.Context) {
 		}
 	}
 
+	// TODO: CREATE USER IN DATABASE AND HASH PASSWORD
+	// hashedPassword, err := util.HashPassword(body.Password)
+
+	// once all data is put in db, create session for user
 	session := sessions.Default(c)
 	session.Set(config.SessionFields.Username, body.Username)
-	// dummy role for now
-	session.Set(config.SessionFields.Role, "instructor")
+	session.Set(config.SessionFields.Role, body.Role)
+
 	if err := session.Save(); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Session could not be saved"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Session could not be saved, try logging in instead"})
 		return
 	}
+
+	// redirect user to dashboard page
 	c.Redirect(http.StatusFound, "/dashboard")
 }
