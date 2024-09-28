@@ -86,7 +86,7 @@ go run main.go
 
 ## Technologies
 
-⚫ Frontend: HTML, CSS, JavaScript, React
+⚫ Frontend: HTML, CSS, TypeScript, Vite + React
 
 ⚫ Backend: Java, Go, Node.js
 
@@ -94,7 +94,7 @@ go run main.go
 
 ⚫ Version Control: Git, GitHub
 
-⚫ Other Libraries: Bootstrap
+⚫ Other Libraries: Tailwind CSS
 
 ## CopyRight
 
