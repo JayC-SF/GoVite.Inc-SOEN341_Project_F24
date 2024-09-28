@@ -31,7 +31,7 @@ func SessionMiddleware() gin.HandlerFunc {
 func AuthenticationMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
-		username := session.Get(config.SessionFields.Username)
+		username := session.Get(config.SessionFields.Email)
 		if username == nil {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized, please login"})
 			c.Abort()

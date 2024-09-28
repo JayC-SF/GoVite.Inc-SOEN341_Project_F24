@@ -10,8 +10,9 @@ import (
 
 // login body data definiton
 type Login struct {
-	Username string `form:"username" json:"username" binding:"required"`
-	Password string `form:"password" json:"password" binding:"required"`
+	Email      string `form:"email" json:"email" binding:"required"`
+	Password   string `form:"password" json:"password" binding:"required"`
+	RememberMe bool   `form:"remember-me" json:"remember-me"`
 }
 
 // login controller supports two encoding: json and x-www-form-urlencoded
@@ -34,16 +35,14 @@ func LoginController(c *gin.Context) {
 
 	// TODO: REMOVE DUMMY ASSESSMENT AND VALIDATE HASHED PASSWORD WITH DATABASE
 	// ok := util.CompareHashAndPassword(body.Password, <hashed_password>)
-
-	// dummy login assessment for now, to remove
-	if body.Username != "user" || body.Password != "password" {
+	if body.Email != "user@hotmail.com" || body.Password != "password" {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials or format"})
 		return
 	}
 
 	session := sessions.Default(c)
-	session.Set(config.SessionFields.Username, body.Username)
-	// dummy role for now
+	session.Set(config.SessionFields.Email, body.Email)
+	// TODO: REMOVE DUMMY ROLE IN THE FUTURE
 	session.Set(config.SessionFields.Role, "instructor")
 
 	if err := session.Save(); err != nil {
@@ -84,7 +83,7 @@ func SignUpController(c *gin.Context) {
 
 	// once all data is put in db, create session for user
 	session := sessions.Default(c)
-	session.Set(config.SessionFields.Username, body.Username)
+	session.Set(config.SessionFields.Email, body.Email)
 	session.Set(config.SessionFields.Role, body.Role)
 
 	if err := session.Save(); err != nil {
