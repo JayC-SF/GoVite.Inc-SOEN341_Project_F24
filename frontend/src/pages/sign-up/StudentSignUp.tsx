@@ -71,21 +71,21 @@ export default function StudentSignUp() {
         </div>
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="/api/student/dashboard" method="POST" className="space-y-6">
+          <form action="/api/sign-up" method="POST" className="space-y-6">
             <div>
               <label
-                htmlFor="fName"
+                htmlFor="firstname"
                 className="flex text-sm font-medium leading-6 text-gray-900"
               >
                 First Name
               </label>
               <div className="mt-2">
                 <input
-                  id="fName"
-                  name="fName"
+                  id="firstname"
+                  name="firstname"
                   type="text"
                   required
-                  autoComplete="fName"
+                  autoComplete="firstname"
                   placeholder="John"
                   className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -94,18 +94,18 @@ export default function StudentSignUp() {
 
             <div>
               <label
-                htmlFor="LName"
+                htmlFor="lastname"
                 className="flex text-sm font-medium leading-6 text-gray-900"
               >
                 Last Name
               </label>
               <div className="mt-2">
                 <input
-                  id="LName"
-                  name="LName"
+                  id="lastname"
+                  name="lastname"
                   type="text"
                   required
-                  autoComplete="LName"
+                  autoComplete="lastname"
                   placeholder="Doe"
                   className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -196,7 +196,6 @@ export default function StudentSignUp() {
               <div className="mt-2">
                 <input
                   id="cPassword"
-                  name="cPassword"
                   type="Password"
                   required
                   autoComplete="current-password"
@@ -205,7 +204,7 @@ export default function StudentSignUp() {
                 />
               </div>
             </div>
-
+            <input type="hidden" name="role" value="student"/>
             <div>
               <button
                 type="submit"

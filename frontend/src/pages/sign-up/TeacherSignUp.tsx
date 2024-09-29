@@ -71,7 +71,7 @@ export default function TeacherSignUp() {
         </div>
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="/api/teacher/dashboard" method="POST" className="space-y-6">
+          <form action="/api/sign-up" method="POST" className="space-y-6">
             <div>
               <label
                 htmlFor="fName"
@@ -196,7 +196,6 @@ export default function TeacherSignUp() {
               <div className="mt-2">
                 <input
                   id="cPassword"
-                  name="cPassword"
                   type="Password"
                   required
                   autoComplete="current-password"
@@ -206,7 +205,7 @@ export default function TeacherSignUp() {
               </div>
             </div>
 
-            
+            <input type="hidden" name="role" value="teacher"/>
 
             <div>
               <button

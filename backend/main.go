@@ -1,7 +1,6 @@
 package main
 
 import (
-	"backend/middlewares"
 	"backend/routes"
 	"net/http"
 	"path/filepath"
