@@ -96,9 +96,6 @@ func main() {
 	// create gin engine object
 	r := gin.Default()
 
-	// register all middlewares of the server
-	middlewares.RegisterAllMiddleWares(r)
-
 	// register all routes for the server
 	routes.RegisterAllRoutes(r)
 
