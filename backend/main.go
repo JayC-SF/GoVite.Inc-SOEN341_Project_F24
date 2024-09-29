@@ -1,7 +1,6 @@
 package main
 
 import (
-	"backend/middlewares"
 	"backend/routes"
 	"net/http"
 	"path/filepath"
@@ -74,8 +73,6 @@ func main() {
 	godotenv.Load()
 	// create gin engine object
 	r := gin.Default()
-	// register all middlewares of the server
-	middlewares.RegisterAllMiddleWares(r)
 	// register all routes for the server
 	routes.RegisterAllRoutes(r)
 	// Listen and Server in 0.0.0.0:8080
