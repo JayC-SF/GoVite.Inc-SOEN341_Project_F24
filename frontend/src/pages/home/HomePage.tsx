@@ -166,7 +166,7 @@ export default function HomePage() {
               <img
                 src="https://www.concordia.ca/content/concordia/en/admissions/undergraduate/university-life/2-campuses/_jcr_content/content-main/grid_container_945895843/grid-container-parsys/offset_block/adaptiveimage.img.full.medium.jpg/1650918615262.jpg"
                 alt="concordia"
-                className="rounded-xl h-full"
+                className="rounded-xl"
               />
             </div>
           </div>
