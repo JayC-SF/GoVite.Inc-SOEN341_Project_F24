@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"backend/database"
+	"backend/models"
 	"context"
 	"net/http"
 
@@ -27,4 +28,26 @@ func GetStudents(c *gin.Context) {
 
 	// Return students
 	c.JSON(http.StatusOK, students)
+}
+
+func RegisterStudent(c *gin.Context) {
+	var student Student
+
+	// Bind JSON request body to the student struct
+	if err := c.ShouldBindJSON(&student); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+		return
+	}
+
+	// Insert student data into the MongoDB collection
+	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Students")
+
+	student.ID = primitive.NewObjectID()
+	_, err := collection.InsertOne(ctx, student)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not register student"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Student registered successfully", "student": student})
 }
