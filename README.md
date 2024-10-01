@@ -77,7 +77,7 @@ go run main.go
 
 | Name                     | Concordia ID |
 | ------------------------ | ------------ |
-| Anh Thien Nguyen         | Upon request |
+| Anh Thien Nguyen         | 40122030     |
 | Daniel Lam               | 40248073     |
 | Juan-Carlos Sreng-Flores | 40101813     |
 | Ming-Yang Calvin Lee     | 40264581     |
@@ -88,7 +88,7 @@ go run main.go
 
 ⚫ Frontend: HTML, CSS, TypeScript, Vite + React
 
-⚫ Backend: Java, Go, Node.js
+⚫ Backend: Java, Gin, Golang, Node.js
 
 ⚫ Database: MongoDB
 
