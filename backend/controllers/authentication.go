@@ -2,10 +2,15 @@ package controllers
 
 import (
 	"backend/config"
+	"backend/database"
+	"context"
+	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 // login body data definiton
@@ -34,8 +39,33 @@ func LoginController(c *gin.Context) {
 	}
 
 	// TODO: REMOVE DUMMY ASSESSMENT AND VALIDATE HASHED PASSWORD WITH DATABASE
-	// ok := util.CompareHashAndPassword(body.Password, <hashed_password>)
-	if body.Email != "user@hotmail.com" || body.Password != "password" {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	filter := bson.M{"email": body.Email}
+	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Students")
+
+	var result bson.M
+	err := collection.FindOne(ctx, filter).Decode(&result)
+	if err != nil {
+		fmt.Println("Cannot find user!")
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Student not found in DB!"})
+		return
+	}
+
+	var ok bool
+	password := result["password"].(string)
+	if body.Password == password {
+		ok = true
+	}
+	// ok := util.CompareHashAndPassword(body.Password, password)
+	// fmt.Println(util.HashPassword(body.Password))
+	// if body.Email != "user@hotmail.com" || body.Password != "password" {
+	// 	c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials or format"})
+	// 	return
+	// }
+
+	if !ok {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials or format"})
 		return
 	}
@@ -43,7 +73,7 @@ func LoginController(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Set(config.SessionFields.Email, body.Email)
 	// TODO: REMOVE DUMMY ROLE IN THE FUTURE
-	session.Set(config.SessionFields.Role, "instructor")
+	session.Set(config.SessionFields.Role, "student")
 
 	if err := session.Save(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Session could not be saved"})
@@ -79,6 +109,7 @@ func SignUpController(c *gin.Context) {
 	}
 
 	// TODO: CREATE USER IN DATABASE AND HASH PASSWORD
+
 	// hashedPassword, err := util.HashPassword(body.Password)
 
 	// once all data is put in db, create session for user

@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"backend/database"
-	"backend/models"
 	"context"
 	"net/http"
 
@@ -30,26 +29,24 @@ func GetStudents(c *gin.Context) {
 	c.JSON(http.StatusOK, students)
 }
 
-func RegisterStudent(c *gin.Context) {
-	var student models.Student
+// func RegisterStudent(c *gin.Context) {
+// 	var student models.Student
 
-	// Bind JSON request body to the student struct
-	if err := c.ShouldBindJSON(&student); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
-		return
-	}
+// 	// Bind JSON request body to the student struct
+// 	if err := c.ShouldBindJSON(&student); err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+// 		return
+// 	}
 
-	// Insert student data into the MongoDB collection
-	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Students")
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+// 	// Insert student data into the MongoDB collection
+// 	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Students")
 
-	student.ID = primitive.NewObjectID()
-	_, err := collection.InsertOne(ctx, student)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not register student"})
-		return
-	}
+// 	student.ID = primitive.NewObjectID()
+// 	_, err := collection.InsertOne(ctx, student)
+// 	if err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not register student"})
+// 		return
+// 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Student registered successfully", "student": student})
-}
+// 	c.JSON(http.StatusOK, gin.H{"message": "Student registered successfully", "student": student})
+// }
