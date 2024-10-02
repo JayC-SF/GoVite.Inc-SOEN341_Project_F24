@@ -31,7 +31,7 @@ func GetStudents(c *gin.Context) {
 }
 
 func RegisterStudent(c *gin.Context) {
-	var student Student
+	var student models.Student
 
 	// Bind JSON request body to the student struct
 	if err := c.ShouldBindJSON(&student); err != nil {
@@ -41,6 +41,8 @@ func RegisterStudent(c *gin.Context) {
 
 	// Insert student data into the MongoDB collection
 	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Students")
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
 	student.ID = primitive.NewObjectID()
 	_, err := collection.InsertOne(ctx, student)
