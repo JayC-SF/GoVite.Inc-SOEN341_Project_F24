@@ -11,9 +11,11 @@ import Main from './pages/home/MainPage'
 export default function App() {
   // Use react router to send the user to the right page based on the current route
   return (
-    // <React.StrictMode>
-    //     <RouterProvider router={AppRoutes} />
-    // </React.StrictMode>
-    <Main/>
+    <React.StrictMode>
+        <RouterProvider router={AppRoutes} />
+    </React.StrictMode>
+
+    //Add this one for working with main page purposes.
+    // <Main/>
   )
 }
