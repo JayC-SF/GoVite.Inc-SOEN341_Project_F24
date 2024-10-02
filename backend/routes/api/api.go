@@ -19,4 +19,12 @@ func RegisterApiRoutes(r *gin.Engine) {
 	// apply session and auth for the following registered requests
 	api = r.Group("/api", middleware.SessionMiddleware(), middleware.AuthenticationMiddleware())
 	api.GET("/ping", controllers.Ping)
+
+	// GET Endpoint for Students
+	// localhost:8080/api/students
+	api.GET("/students", controllers.GetStudents)
+
+	// GET Endpoint for Students
+	// localhost:8080/api/students
+	api.GET("/teachers", controllers.GetTeachers)
 }
