@@ -88,7 +88,7 @@ go run main.go
 
 ⚫ Frontend: HTML, CSS, TypeScript, Vite + React
 
-⚫ Backend: Java, Go, Node.js
+⚫ Backend: Java, Gin, Golang, Node.js
 
 ⚫ Database: MongoDB
 
