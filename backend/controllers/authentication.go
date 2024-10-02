@@ -43,13 +43,13 @@ func LoginController(c *gin.Context) {
 	defer cancel()
 
 	filter := bson.M{"email": body.Email}
-	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Students")
+	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Users")
 
 	var result bson.M
 	err := collection.FindOne(ctx, filter).Decode(&result)
 	if err != nil {
 		fmt.Println("Cannot find user!")
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Student not found in DB!"})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found in DB!"})
 		return
 	}
 

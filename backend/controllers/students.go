@@ -12,7 +12,7 @@ import (
 // GET /students - Get all students
 func GetStudents(c *gin.Context) {
 	// Find students
-	cursor, err := database.GetInstance().Database("RateMyPeersDB").Collection("Students").Find(context.TODO(), bson.D{{}})
+	cursor, err := database.GetInstance().Database("RateMyPeersDB").Collection("Users").Find(context.TODO(), bson.M{"role": "student"})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -39,7 +39,7 @@ func GetStudents(c *gin.Context) {
 // 	}
 
 // 	// Insert student data into the MongoDB collection
-// 	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Students")
+// 	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Users")
 
 // 	student.ID = primitive.NewObjectID()
 // 	_, err := collection.InsertOne(ctx, student)

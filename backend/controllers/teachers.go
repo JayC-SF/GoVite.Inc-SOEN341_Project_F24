@@ -12,7 +12,7 @@ import (
 // GET /teachers - Get all teachers
 func GetTeachers(c *gin.Context) {
 	// Find teachers
-	cursor, err := database.GetInstance().Database("RateMyPeersDB").Collection("Teachers").Find(context.TODO(), bson.D{{}})
+	cursor, err := database.GetInstance().Database("RateMyPeersDB").Collection("Users").Find(context.TODO(), bson.M{"role": "teacher"})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
