@@ -121,3 +121,20 @@ func SignUpController(c *gin.Context) {
 	// redirect user to dashboard page
 	c.Redirect(http.StatusFound, "/dashboard")
 }
+
+// logout controller
+func LogoutController(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Options(sessions.Options{
+		MaxAge: -1,
+	})
+
+	session.Clear()
+
+	if err := session.Save(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Session could not be cleared"})
+		return
+	}
+
+	c.Status(http.StatusNoContent)
+}
