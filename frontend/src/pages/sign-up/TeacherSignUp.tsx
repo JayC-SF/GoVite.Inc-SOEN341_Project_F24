@@ -1,5 +1,10 @@
+import { redirectToMainIfLoggedIn } from "../../hooks/auth";
+import { AuthRoutes } from "../../network/routes";
+
 export default function TeacherSignUp() {
+  const isLoggedOut = redirectToMainIfLoggedIn()
   return (
+    isLoggedOut &&
     <>
       <div className="mx-auto">
         <header className="absolute inset-x-0 top-0 z-50">
@@ -71,7 +76,7 @@ export default function TeacherSignUp() {
         </div>
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="/api/sign-up" method="POST" className="space-y-6">
+          <form action={AuthRoutes.signup} method="POST" className="space-y-6">
             <div>
               <label
                 htmlFor="firstname"

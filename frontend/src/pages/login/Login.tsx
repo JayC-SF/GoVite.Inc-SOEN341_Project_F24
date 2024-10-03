@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
+import { AuthRoutes } from "../../network/routes";
+import { redirectToMainIfLoggedIn } from "../../hooks/auth";
 
 export default function LoginPage() {
+    const isLoggedOut = redirectToMainIfLoggedIn()
     return (
-    <>  
+    isLoggedOut &&
+    <> 
         <div className="min-h-screen flex flex-col">
             {/* Header */}
             <div className="mx-auto">
@@ -81,7 +85,7 @@ export default function LoginPage() {
                             </Link>
                         </p>
                     </div>
-                    <form className="mt-8 space-y-6" action="/api/login" method="POST">
+                    <form className="mt-8 space-y-6" action={AuthRoutes.login} method="POST">
                         <div className="-space-y-px rounded-md shadow-sm">
                             <div>
                                 <label htmlFor="email" className="sr-only">

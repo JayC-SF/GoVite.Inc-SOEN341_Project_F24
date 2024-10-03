@@ -4,7 +4,6 @@ import TeacherSignUp from "./pages/sign-up/TeacherSignUp";
 import StudentSignUp from "./pages/sign-up/StudentSignUp";
 import Login from "./pages/login/Login";
 
-import Dashboard from "./pages/home/Dashboard";
 import Main from "./pages/home/MainPage";
 
 export const AppRoutes = createBrowserRouter([
