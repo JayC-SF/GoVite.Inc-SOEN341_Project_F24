@@ -138,6 +138,6 @@ func LogoutController(c *gin.Context) {
 
 // controller determining if the user is authenticated or not. This controller is to be used with
 // the AuthenticationMiddleware in the middleware package
-func AuthenticationStatus(c *gin.Context) {
+func IsLoggedIn(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }

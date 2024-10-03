@@ -1,8 +1,8 @@
-import { redirectToMainIfLoggedIn } from "../../hooks/auth";
+import { useRequireUnauthenticated } from "../../hooks/auth";
 import { AuthRoutes } from "../../network/routes";
 
 export default function StudentSignUp() {
-  const isLoggedOut = redirectToMainIfLoggedIn()
+  const isLoggedOut = useRequireUnauthenticated()
 
   return (
     isLoggedOut &&

@@ -21,7 +21,7 @@ func RegisterApiRoutes(r *gin.Engine) {
 	api_session.POST("/login", controllers.LoginController)
 	api_session.POST("/sign-up", controllers.SignUpController)
 	api_session_auth.POST("/logout", controllers.LogoutController)
-	api_session_auth.GET("/authstatus", controllers.AuthenticationStatus)
+	api_session_auth.GET("/isloggedin", controllers.IsLoggedIn)
 
 	// GET Endpoint for Students
 	// localhost:8080/api/students

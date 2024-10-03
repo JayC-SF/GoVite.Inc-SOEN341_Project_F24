@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { AuthRoutes } from "../../network/routes";
-import { redirectToMainIfLoggedIn } from "../../hooks/auth";
+import { useRequireUnauthenticated } from "../../hooks/auth";
 
 export default function LoginPage() {
-    const isLoggedOut = redirectToMainIfLoggedIn()
+    const isLoggedOut = useRequireUnauthenticated()
     return (
     isLoggedOut &&
     <> 

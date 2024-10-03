@@ -1,15 +1,9 @@
-import { JsonRequest } from '../../network/http';
-import { AuthRoutes } from '../../network/routes';
+import { postLogout } from "../../network/services/authService"
 
 
 
 export const SidebarOptions = () => {
-  const onClickLogout = () => {
-    JsonRequest(AuthRoutes.logout, { method: "POST" }).then(
-      () => window.location.href = "/login",
-      console.log
-    )
-  }
+  const onClickLogout = () => postLogout().catch(console.error)
   return (
     <div>
       <nav className="flex min-w-[200] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
