@@ -33,7 +33,7 @@ func LoginController(c *gin.Context) {
 		}
 	}
 
-	// TODO: REMOVE DUMMY ASSESSMENT AND VALIDATE HASHED PASSWORD WITH DATABASE
+	// Validate hashed password with database
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -59,7 +59,6 @@ func LoginController(c *gin.Context) {
 
 	session := sessions.Default(c)
 	session.Set(config.SessionFields.Email, body.Email)
-	// TODO: REMOVE DUMMY ROLE IN THE FUTURE
 	session.Set(config.SessionFields.Role, "student")
 
 	if err := session.Save(); err != nil {
@@ -89,7 +88,7 @@ func SignUpController(c *gin.Context) {
 		}
 	}
 
-	// TODO: CREATE USER IN DATABASE AND HASH PASSWORD
+	// Create user in database and hash password
 	if hashedPassword, err := util.HashPassword(user.Password); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error when hashing password!"})
 		return
@@ -99,8 +98,6 @@ func SignUpController(c *gin.Context) {
 
 	// Insert the new user
 	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Users")
-
-	// TODO: ADD CODE
 
 	_, err := collection.InsertOne(context.TODO(), user)
 	if err != nil {
@@ -136,5 +133,11 @@ func LogoutController(c *gin.Context) {
 		return
 	}
 
+	c.Status(http.StatusNoContent)
+}
+
+// controller determining if the user is authenticated or not. This controller is to be used with
+// the AuthenticationMiddleware in the middleware package
+func IsLoggedIn(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }

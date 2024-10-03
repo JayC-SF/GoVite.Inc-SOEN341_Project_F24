@@ -9,23 +9,27 @@ import (
 
 // register function for all controllers under the /api route
 func RegisterApiRoutes(r *gin.Engine) {
-	// only apply session middleware for login and signup
-	api := r.Group("/api", middleware.SessionMiddleware())
-	// register a test ping function /api/login and /api/signup
-	// both login and sign up pages do not require the requests to be authenticated.
-	api.POST("/login", controllers.LoginController)
-	api.POST("/sign-up", controllers.SignUpController)
+	// group route /api where a session cookie store is applied.
+	// users does not need to be authenticated
+	api_session := r.Group("/api", middleware.SessionMiddleware())
 
-	// apply session and auth for the following registered requests
-	api = r.Group("/api", middleware.SessionMiddleware(), middleware.AuthenticationMiddleware())
-	api.POST("/logout", controllers.LogoutController)
-	api.GET("/ping", controllers.Ping)
+	// group route from api_session where applies an extra middleware
+	// requiring the user to be authenticated. Route of the group is still /api
+	api_session_auth := api_session.Group("/", middleware.AuthenticationMiddleware())
 
-	// GET Endpoint for Students
-	// localhost:8080/api/students
-	api.GET("/students", controllers.GetStudents)
+	// authentication controllers
+	api_session.POST("/login", controllers.LoginController)
+	api_session.POST("/sign-up", controllers.SignUpController)
+	api_session_auth.POST("/logout", controllers.LogoutController)
+	api_session_auth.GET("/isloggedin", controllers.IsLoggedIn)
 
 	// GET Endpoint for Students
 	// localhost:8080/api/students
-	api.GET("/teachers", controllers.GetTeachers)
+	api_session_auth.GET("/students", controllers.GetStudents)
+	// GET Endpoint for Students
+	// localhost:8080/api/students
+	api_session_auth.GET("/teachers", controllers.GetTeachers)
+
+	// register a test ping function /api/login
+	api_session_auth.GET("/ping", controllers.Ping)
 }
