@@ -1,5 +1,4 @@
 //This main page is used to test on implementing main page including dashboard, team, project, etc
-import React from 'react';
 
 export default function Dashboard() {
   return (

@@ -1,4 +1,3 @@
-import React from "react";
 import { AccountToggle } from "./AccountToggle";
 import { SidebarOptions } from "./SidebarOptions";
 
