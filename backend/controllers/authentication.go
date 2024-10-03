@@ -66,7 +66,7 @@ func LoginController(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Session could not be saved"})
 		return
 	}
-	c.Redirect(http.StatusFound, "/dashboard")
+	c.Redirect(http.StatusFound, "/main")
 }
 
 // This function takes care of signing up a user to the database
@@ -119,7 +119,7 @@ func SignUpController(c *gin.Context) {
 	}
 
 	// redirect user to dashboard page
-	c.Redirect(http.StatusFound, "/dashboard")
+	c.Redirect(http.StatusFound, "/main")
 }
 
 // logout controller
