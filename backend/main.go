@@ -1,16 +1,20 @@
 package main
 
 import (
-	"backend/middlewares"
 	"backend/routes"
 	"net/http"
 	"path/filepath"
 
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
+
+	"github.com/joho/godotenv"
 )
 
+// ----------- GLOBAL VARIABLES -----------
 var db = make(map[string]string)
+
+// ----------------------------------------
 
 // keep this function as reference for future api requests to do
 func setupRouter() *gin.Engine {
@@ -68,13 +72,33 @@ func setupRouter() *gin.Engine {
 	return r
 }
 
+// Our implementation logic for connecting to MongoDB
+// func connectToDatabase() error {
+// 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+// 	opts := options.Client().ApplyURI(uri).SetServerAPIOptions(serverAPI)
+
+// 	client, err := mongo.Connect(context.TODO(), opts)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	err = client.Ping(context.TODO(), nil)
+// 	mongoClient = client
+// 	return err
+// }
+
+// The init function will run before our main function to establish a connection to MongoDB. If it cannot connect it will fail and the program will exit.
+func init() {
+	godotenv.Load()
+}
+
 func main() {
+
 	// create gin engine object
 	r := gin.Default()
-	// register all middlewares of the server
-	middlewares.RegisterAllMiddleWares(r)
+
 	// register all routes for the server
 	routes.RegisterAllRoutes(r)
+
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
 }
