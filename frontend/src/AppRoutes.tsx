@@ -15,10 +15,6 @@ export const AppRoutes = createBrowserRouter([
     element: <SignUpPage />,
   },
   {
-    path: "/dashboard",
-    element: <Dashboard/>
-  },
-  {
     path: "/main",
     element: <Main/>
   }
