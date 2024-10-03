@@ -75,20 +75,24 @@ go run main.go
 
 ## Collaborators
 
-| Name                     | Concordia ID |
-| ------------------------ | ------------ |
-| Anh Thien Nguyen         | 40122030     |
-| Daniel Lam               | 40248073     |
-| Juan-Carlos Sreng-Flores | 40101813     |
-| Ming-Yang Calvin Lee     | 40264581     |
-| Mouhamed Coundoul        | 40248237     |
-| Samuditha Wijenarayana   | 40224895     |
+| Name                     | Concordia ID | Roles                     |
+| ------------------------ | ------------ | ------------------------- |
+| Anh Thien Nguyen         | 40122030     | Full-stack dev            |
+| Daniel Lam               | 40248073     | Scrum master & Full-stack |
+| Juan-Carlos Sreng-Flores | 40101813     | Team Lead & Full-stack    |
+| Ming-Yang Calvin Lee     | 40264581     | Front-end dev & UX        |
+| Mouhamed Coundoul        | 40248237     | Front-end dev & UX        |
+| Samuditha Wijenarayana   | 40224895     | Back-end dev              |
+
+**<u><mark>NOTE: Although some people have more roles than others, the work will be distributed fairly among all members of the project in terms of effort.</mark></u>**
+
+Roles are not strictly upheld. The nature of the project's framework makes it so every member touches on multiple aspects of the project during development.
 
 ## Technologies
 
 ⚫ Frontend: HTML, CSS, TypeScript, Vite + React
 
-⚫ Backend: Java, Go, Node.js
+⚫ Backend: Gin, Golang
 
 ⚫ Database: MongoDB
 
