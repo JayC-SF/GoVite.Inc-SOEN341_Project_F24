@@ -3,8 +3,7 @@ import HomePage from "./pages/home/HomePage";
 import TeacherSignUp from "./pages/sign-up/TeacherSignUp";
 import StudentSignUp from "./pages/sign-up/StudentSignUp";
 import Login from "./pages/login/Login";
-
-import Main from "./pages/home/MainPage";
+import Main from "./pages/main/MainPage";
 
 export const AppRoutes = createBrowserRouter([
   {

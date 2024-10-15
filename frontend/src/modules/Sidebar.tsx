@@ -1,3 +1,4 @@
+import { SidebarLogo } from "../components/SidebarLogo";
 import { AccountToggle } from "./AccountToggle";
 import { SidebarOptions } from "./SidebarOptions";
 
@@ -6,9 +7,11 @@ export const Sidebar = () =>{
         <div>
             <div>
                 {/* TODO: Main Sidebar content */}
-                <div className="overflow-y-scroll sticky top-4 h-[calc(100vh-32px-48px)]">
-                    <AccountToggle></AccountToggle>
+                <div className="overflow-y-scroll flex flex-col">
+                    <SidebarLogo />
+                    <hr/>
                     <SidebarOptions/>
+                    <AccountToggle/>
 
                 </div>
 

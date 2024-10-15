@@ -1,4 +1,4 @@
-import { postLogout } from "../../network/services/authService"
+import { postLogout } from "../network/services/authService"
 
 
 
@@ -17,7 +17,7 @@ export const SidebarOptions = () => {
                 clip-rule="evenodd"></path>
             </svg>
           </div>
-          Dashboard
+          Home
         </div>
         <div role="button"
           className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-stone-300 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
@@ -29,7 +29,7 @@ export const SidebarOptions = () => {
                 clip-rule="evenodd"></path>
             </svg>
           </div>
-          Teams
+          Classes
         </div>
         <div role="button"
           className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-stone-300 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
@@ -41,7 +41,7 @@ export const SidebarOptions = () => {
                 clip-rule="evenodd"></path>
             </svg>
           </div>
-          Settings
+          Groups
         </div>
         <div role="button"
           onClick={onClickLogout}
