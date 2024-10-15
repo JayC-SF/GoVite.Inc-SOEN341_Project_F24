@@ -9,7 +9,7 @@ export default function SidebarPageTemplate({ hidden, children }: SidebarPageTem
     return !hidden && (
         <div className='grid grid-cols-[200px,_1fr] text-stone-950 bg-primary-red h-[100vh] box-border'>
             <Sidebar />
-            <div className='bg-white rounded-lg pb-4 shadow'>
+            <div className='bg-white rounded-lg pb-4 shadow overflow-y-scroll'>
                 {children}
             </div>
         </div>
