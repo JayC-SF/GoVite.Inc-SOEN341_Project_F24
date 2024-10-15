@@ -7,9 +7,9 @@ interface SidebarPageTemplateProps {
 export default function SidebarPageTemplate({ hidden, children }: SidebarPageTemplateProps) {
     
     return !hidden && (
-        <div className='grid gap-4 p-4 grid-cols-[200px,_1fr] text-stone-950 bg-primary-red'>
+        <div className='grid grid-cols-[200px,_1fr] text-stone-950 bg-primary-red h-[100vh] box-border'>
             <Sidebar />
-            <div className='bg-white rounded-lg pb-4 shadow h-[200vh]'>
+            <div className='bg-white rounded-lg pb-4 shadow'>
                 {children}
             </div>
         </div>
