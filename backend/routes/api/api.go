@@ -29,6 +29,7 @@ func RegisterApiRoutes(r *gin.Engine) {
 	// GET Endpoint for Students
 	// localhost:8080/api/students
 	api_session_auth.GET("/teachers", controllers.GetTeachers)
+	api_session_auth.GET("/userinfo", controllers.GetUserInfo)
 
 	// register a test ping function /api/login
 	api_session_auth.GET("/ping", controllers.Ping)

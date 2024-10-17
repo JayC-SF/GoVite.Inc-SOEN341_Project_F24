@@ -13,6 +13,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 // login controller supports two encoding: json and x-www-form-urlencoded
@@ -140,4 +141,29 @@ func LogoutController(c *gin.Context) {
 // the AuthenticationMiddleware in the middleware package
 func IsLoggedIn(c *gin.Context) {
 	c.Status(http.StatusNoContent)
+}
+
+// controller determining if the user is authenticated or not. This controller is to be used with
+// the AuthenticationMiddleware in the middleware package
+func GetUserInfo(c *gin.Context) {
+	session := sessions.Default(c)
+	email, ok1 := session.Get(config.SessionFields.Email).(string)
+	role, ok2 := session.Get(config.SessionFields.Role).(string)
+	if !ok1 || !ok2 {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
+		return
+	}
+
+	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Users")
+	opts := options.FindOne().SetProjection(bson.M{"firstname": 1, "lastname": 1})
+	filter := bson.M{"email": email}
+	var user models.User
+	collection.FindOne(context.TODO(), filter, opts).Decode(&user)
+
+	c.JSON(http.StatusOK, gin.H{
+		"email":     email,
+		"role":      role,
+		"firstname": user.FirstName,
+		"lastname":  user.LastName,
+	})
 }
