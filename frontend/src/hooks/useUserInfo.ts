@@ -5,7 +5,7 @@ import { UserInfo } from "../contexts/userinfo";
 /**
  * User info hook that queries the user's information upon the first rendering 
  */
-export function userUserInfo() {
+export function useUserInfo() {
     const [userInfo, setUserInfo] = useState<UserInfo>()
     useEffect(() => {
         GetUserInfo().then(setUserInfo)

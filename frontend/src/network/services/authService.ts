@@ -21,5 +21,5 @@ export const postIsLoggedIn = () => (
 // post request to logout a user. The user will be redirected to login if unauthenticated
 export const postLogout = () =>
     JsonRequest(AuthRoutes.logout, { method: "POST" })
-        .then(() => (window.location.href = "/login", undefined))
+        .then(() => { window.location.href = "/login" })
         .catch(handleUnauthorizedError)

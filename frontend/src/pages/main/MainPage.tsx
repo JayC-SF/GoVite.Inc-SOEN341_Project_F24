@@ -3,12 +3,12 @@ import React from 'react';
 import { useRequireAuthenticated } from '../../hooks/auth';
 import SidebarPageTemplate from '../../templates/SidebarPageTemplate';
 import UserInfoContext from '../../contexts/userinfo';
-import { userUserInfo } from '../../hooks/useUserInfo';
+import { useUserInfo } from '../../hooks/useUserInfo';
 
 const Main: React.FC = () => {
   // add hook requiring authentication from the user.
   const displayContent = useRequireAuthenticated()
-  const userInfo = userUserInfo()
+  const userInfo = useUserInfo()
 
   return (
     <UserInfoContext.Provider value={userInfo}>
