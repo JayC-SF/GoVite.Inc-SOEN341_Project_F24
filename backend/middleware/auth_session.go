@@ -32,7 +32,8 @@ func AuthenticationMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		email := session.Get(config.SessionFields.Email)
-		if email == nil {
+		// checks if email is a string and also checks if email is not nil
+		if _, ok := email.(string); !ok {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized, please login"})
 			c.Abort()
 			return

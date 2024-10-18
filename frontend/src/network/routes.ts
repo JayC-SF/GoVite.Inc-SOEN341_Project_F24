@@ -8,3 +8,7 @@ export const AuthRoutes = {
 export const StudentsRoutes = {
     students: "/api/students",
 } as const
+
+export const UsersRoutes = { 
+    userinfo: "/api/userinfo"
+}
