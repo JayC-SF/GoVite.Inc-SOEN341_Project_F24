@@ -41,5 +41,5 @@ export async function JsonRequest(url: string, options: JsonRequestInit = {}) {
         return JSON.parse(text)
     }
     // no body in the response, let caller handle the data
-    return undefined
+    return null
 }
