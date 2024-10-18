@@ -32,15 +32,14 @@ export async function JsonRequest(url: string, options: JsonRequestInit = {}) {
     // Check if Content-Length is present and greater than zero
     if (contentLength && parseInt(contentLength) > 0) {
         // If Content-Length is greater than 0, read the body as JSON
-        return await response.json() as Json
+        return await response.json()
     }
     // Fallback: Read the response body as text
     const text = await response.text()
     if (text.length > 0) {
         // If text is not empty, parse it as JSON
-        return JSON.parse(text) as Json
+        return JSON.parse(text)
     }
     // no body in the response, let caller handle the data
     return null
-
 }
