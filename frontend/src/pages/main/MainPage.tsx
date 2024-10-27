@@ -31,7 +31,7 @@ const Main: React.FC = () => {
               <p className="mt-2 text-gray-200">You have 27 new student added to your domain. Please reach out to the Course Coordinator if you want them excluded from your domain.</p>
             </div>
             <div className="flex-shrink-0">
-              <img src="/src/assets/teacher.png" alt="Welcome Image" className="w-32 h-32 object-cover rounded-lg shadow-md" />
+              <img src="/src/assets/teacher.png" alt="Welcome Image" className="w-80 h-55 object-cover rounded-lg" />
             </div>
           </div>
 
