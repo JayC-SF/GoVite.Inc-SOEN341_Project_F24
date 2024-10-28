@@ -2,19 +2,23 @@ name: Backend CI
 
 on:
   push:
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches:
+      - main  
     paths: 
-    - 'backend/**'
-    pull_request:
-      paths: 
-    - 'backend/**'
+      - 'backend/**'
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Download repository
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
       - name: Setup Golang
-      - uses: actions/setup-go@v5
+        uses: actions/setup-go@v5
         with:
           go-version: '1.23.1'
-        - run: 'cd backend && go build'
+      - name: Build Go Code
+        run: cd backend && go build
