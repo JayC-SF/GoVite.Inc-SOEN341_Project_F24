@@ -1,10 +1,6 @@
 import { useContext } from "react";
 import UserInfoContext, { UserInfo } from "../contexts/userinfo";
 
-// interface GroupsModuleProps {
-//     // You can add props here if needed in the future
-// }
-
 export default function GroupsModule() {
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
     const currentDate = new Intl.DateTimeFormat('en-US', {
