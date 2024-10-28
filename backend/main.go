@@ -83,7 +83,7 @@ func setupRouter() *gin.Engine {
 // 	}
 // 	err = client.Ping(context.TODO(), nil)
 // 	mongoClient = client
-// 	 return err
+// 	return err
 // }
 
 // The init function will run before our main function to establish a connection to MongoDB. If it cannot connect it will fail and the program will exit.
@@ -102,3 +102,4 @@ func main() {
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
 }
+adfadsf
