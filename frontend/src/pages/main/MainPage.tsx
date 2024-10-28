@@ -4,6 +4,7 @@ import { useRequireAuthenticated } from '../../hooks/auth';
 import SidebarPageTemplate from '../../templates/SidebarPageTemplate';
 import UserInfoContext from '../../contexts/userinfo';
 import { useUserInfo } from '../../hooks/useUserInfo';
+import GroupsModule from '../../modules/GroupsModule';
 
 const Main: React.FC = () => {
   // add hook requiring authentication from the user.
@@ -12,11 +13,15 @@ const Main: React.FC = () => {
 
   return (
     <UserInfoContext.Provider value={userInfo}>
-      <SidebarPageTemplate hidden={!displayContent}>
-        {userInfo && <p>Hi! {userInfo?.firstname} {userInfo?.lastname} your email is {userInfo?.email} and your role is {userInfo?.role}</p>}
-      </SidebarPageTemplate>
+        <SidebarPageTemplate hidden={!displayContent}>
+            {userInfo && (
+                <div className="p-6 space-y-6">
+                    <GroupsModule />
+                </div>
+            )}
+        </SidebarPageTemplate>
     </UserInfoContext.Provider>
   );
 };
 
-export default Main;
+export default Main
