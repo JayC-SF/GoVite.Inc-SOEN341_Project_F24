@@ -10,15 +10,12 @@ const Main: React.FC = () => {
   // add hook requiring authentication from the user.
   const displayContent = useRequireAuthenticated()
   const userInfo = useUserInfo()
-
   return (
     <UserInfoContext.Provider value={userInfo}>
         <SidebarPageTemplate hidden={!displayContent}>
-            {userInfo && (
-                <div className="p-6 space-y-6">
-                    <GroupsModule />
-                </div>
-            )}
+          <div className="p-6 space-y-6">
+              <GroupsModule />
+          </div>
         </SidebarPageTemplate>
     </UserInfoContext.Provider>
   );

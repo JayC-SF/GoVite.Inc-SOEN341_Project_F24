@@ -57,10 +57,11 @@ func LoginController(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials or format"})
 		return
 	}
-
+	role := result["role"].(string)
+	email := result["email"].(string)
 	session := sessions.Default(c)
-	session.Set(config.SessionFields.Email, body.Email)
-	session.Set(config.SessionFields.Role, "student")
+	session.Set(config.SessionFields.Email, email)
+	session.Set(config.SessionFields.Role, role)
 
 	if err := session.Save(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Session could not be saved"})
