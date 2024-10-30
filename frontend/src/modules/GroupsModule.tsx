@@ -1,10 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import UserInfoContext, { UserInfo } from "../contexts/userinfo";
 import RatingQuestion from '../components/RatingQuestion';
 import CommentBox from '../components/CommentBox';
+import { RatingsRoutes } from "../network/routes";
 
 export default function GroupsModule() {
+    
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
+    const [rating, setRating] = useState(0);
     const currentDate = new Intl.DateTimeFormat('en-US', {
         month: 'long',
         day: 'numeric',
@@ -49,57 +52,30 @@ export default function GroupsModule() {
                     <h2 className="text-2xl font-bold text-primary-red mb-4">Rate My Peers - Assessment form</h2>
                     <p className="text-gray-600 mb-2">Please rate your peers on their cooperation, conceptual contributions, practical contributions, and work ethic within the group: </p>
 
-                    {/* Member Selection */}
-                    <div className="flex flex-col mb-12">
-                        <label className="text-lg font-semibold text-gray-800">Select Team Member:</label>
-                        <select className="border border-gray-300 rounded-md p-2" required>
-                            <option value="">Choose a team member</option>
-                            <option value="member1">Member 1</option>
-                            <option value="member2">Member 2</option>
-                            <option value="member3">Member 3</option>
-                        </select>
-                    </div>
-
                     {/* Rating Criteria */}
-                    <form className="space-y-4" onSubmit={handleSubmit}>
-                        {/* <h2 className="text-xl font-bold text-primary-red mb-4 ml-4">Cooperation</h2>
-                        <RatingQuestion label="1. Actively participating in meetings:" />
-                        <RatingQuestion label="2. Communicating within the group:" />
-                        <RatingQuestion label="3. Cooperating within the group:" />
-                        <RatingQuestion label="4. Assisting team-mates when needed:" />
-                        <RatingQuestion label="5. Volunteering for tasks:" />
-                        <CommentBox />
-                        <br></br><br></br>
+                    <form method="POST" action={RatingsRoutes.submitRating} className="space-y-4">
+                        {/* Member Selection */}
+                        <div className="flex flex-col mb-12">
+                            <label className="text-lg font-semibold text-gray-800">Select Team Member:</label>
+                            <select className="border border-gray-300 rounded-md p-2" required>
+                                <option value="">Choose a team member</option>
+                                <option value="member1">Member 1</option>
+                                <option value="member2">Member 2</option>
+                                <option value="member3">Member 3</option>
+                            </select>
+                        </div>
 
-                        <h2 className="text-xl font-bold text-primary-red mb-4 ml-4">Conceptual Contribution</h2>
-                        <RatingQuestion label="1. Researching and gathering information:" />
-                        <RatingQuestion label="2. Quality of individual contribution:" />
-                        <RatingQuestion label="3. Suggesting ideas:" />
-                        <RatingQuestion label="4. Tying ideas together:" />
-                        <RatingQuestion label="5. Identifying difficulties:" />
-                        <RatingQuestion label="6. Identifying effective approaches:" />
-                        <CommentBox />
-                        <br></br><br></br>
-
-                        <h2 className="text-xl font-bold text-primary-red mb-4 ml-4">Practical Contribution</h2>
-                        <RatingQuestion label="1. Writing of the report(s):" />
-                        <RatingQuestion label="2. Reviewing others’ report(s) or section(s):" />
-                        <RatingQuestion label="3. Providing constructive feedback on the report(s) or the presentation:" />
-                        <RatingQuestion label="4. Contributing to the organization of the work:" />
-                        <RatingQuestion label="5. Contributing to the preparation of presentation(s) :" />
-                        <CommentBox />
-                        <br></br><br></br>
-
-                        <h2 className="text-xl font-bold text-primary-red mb-4 ml-4">Work Ethic</h2>
-                        <RatingQuestion label="1. Displaying a positive attitude:" />
-                        <RatingQuestion label="2. Respecting team-mates:" />
-                        <RatingQuestion label="3. Respecting commitments:" />
-                        <RatingQuestion label="4. Respecting deadlines:" />
-                        <RatingQuestion label="5. Respecting team-mates' ideas:" />
-                        <CommentBox />
-                        <br></br><br></br> */}
-
-                        <RatingQuestion label="Overall Rating:"/>
+                        <div className="flex flex-col mb-12">
+                            <label className="text-lg font-semibold text-gray-800">Overall Rating:</label>
+                            <input 
+                                type="number" 
+                                min="1" 
+                                max="5" 
+                                className="border border-gray-300 rounded-md p-2"
+                                onChange={(e) => setRating(Number(e.target.value))} 
+                                required 
+                            />
+                        </div>
                         {/* Submit Button */}
                         <button type="submit" className="bg-primary-red text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
                             Submit Ratings
