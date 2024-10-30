@@ -32,6 +32,15 @@ export const SidebarOptions = () => {
                     </svg>
                     Groups
                 </SidebarItem>
+                <SidebarItem>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                        className="w-5 h-5">
+                        <path fill-rule="evenodd"
+                             d="M12 1.75a10.25 10.25 0 110 20.5A10.25 10.25 0 0112 1.75zm0 1.5a8.75 8.75 0 100 17.5 8.75 8.75 0 000-17.5zm.75 3.5a.75.75 0 00-1.5 0v5.25H7a.75.75 0 000 1.5h5.25v4.5a.75.75 0 001.5 0v-4.5H17a.75.75 0 000-1.5h-4.5V6.75z"
+                             clip-rule="evenodd"></path>
+                     </svg>
+                    Assessment
+                </SidebarItem>
                 <SidebarItem onClick={onClickLogout}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
                         className="w-5 h-5">
