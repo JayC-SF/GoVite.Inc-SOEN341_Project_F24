@@ -13,6 +13,9 @@ export const UsersRoutes = {
     userinfo: "/api/userinfo"
 }
 
+export const CourseRoutes = {
+    courseInfo: "/api/courses/courseinfo"
+}
 export const RatingsRoutes = {
     submitRating: "/api/submitRating"
 }
