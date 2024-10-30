@@ -62,7 +62,7 @@ export default function GroupsModule() {
 
                     {/* Rating Criteria */}
                     <form className="space-y-4" onSubmit={handleSubmit}>
-                        <h2 className="text-xl font-bold text-primary-red mb-4 ml-4">Cooperation</h2>
+                        {/* <h2 className="text-xl font-bold text-primary-red mb-4 ml-4">Cooperation</h2>
                         <RatingQuestion label="1. Actively participating in meetings:" />
                         <RatingQuestion label="2. Communicating within the group:" />
                         <RatingQuestion label="3. Cooperating within the group:" />
@@ -97,8 +97,9 @@ export default function GroupsModule() {
                         <RatingQuestion label="4. Respecting deadlines:" />
                         <RatingQuestion label="5. Respecting team-mates' ideas:" />
                         <CommentBox />
-                        <br></br><br></br>
+                        <br></br><br></br> */}
 
+                        <RatingQuestion label="Overall Rating:"/>
                         {/* Submit Button */}
                         <button type="submit" className="bg-primary-red text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
                             Submit Ratings
