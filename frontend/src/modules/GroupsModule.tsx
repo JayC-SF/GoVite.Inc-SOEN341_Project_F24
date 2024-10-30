@@ -7,7 +7,8 @@ import { RatingsRoutes } from "../network/routes";
 export default function GroupsModule() {
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
     const [students, setStudents] = useState<any[]>([])
-    const [rating, setRating] = useState(0);
+    const [selectedStudent, setSelectedStudent] = useState<any>()
+    const [rating, setRating] = useState(1);
     const currentDate = new Intl.DateTimeFormat('en-US', {
         month: 'long',
         day: 'numeric',
@@ -26,24 +27,32 @@ export default function GroupsModule() {
         loadStudents();
       }, []);
 
+    const handleIncrement = () => {
+        if (rating < 5) setRating(rating + 1);
+    };
+
+    const handleDecrement = () => {
+        if (rating > 1) setRating(rating - 1);
+    };
+
     // If userInfo is not defined or the user is not a student or teacher, render nothing
     if (!userInfo || (userInfo?.role !== "student" && userInfo?.role !== "teacher")) {
         return <></>;
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault(); // Prevent default form submission
-        const confirmSubmit = window.confirm("Are you sure you want to submit your ratings?");
+    // const handleSubmit = (e: React.FormEvent) => {
+    //     e.preventDefault(); // Prevent default form submission
+    //     const confirmSubmit = window.confirm("Are you sure you want to submit your ratings?");
 
-        if (confirmSubmit) {
-            // Handle the actual submission logic here
-            console.log("Ratings submitted");
-            alert("Submission completed"); // Show an alert on successful submission
-        } else {
-            console.log("Submission cancelled");
-            alert("Submission cancelled"); // Show an alert if cancelled
-        }
-    };
+    //     if (confirmSubmit) {
+    //         // Handle the actual submission logic here
+    //         console.log("Ratings submitted");
+    //         alert("Submission completed"); // Show an alert on successful submission
+    //     } else {
+    //         console.log("Submission cancelled");
+    //         alert("Submission cancelled"); // Show an alert if cancelled
+    //     }
+    // };
 
     // Render for student
     if (userInfo?.role === "student") {
@@ -68,8 +77,13 @@ export default function GroupsModule() {
                     <form method="POST" action={RatingsRoutes.submitRating} className="space-y-4">
                         {/* Member Selection */}
                         <div className="flex flex-col mb-12">
-                            <label className="text-lg font-semibold text-gray-800">Select Team Member:</label>
-                            <select className="border border-gray-300 rounded-md p-2" required>
+                            <label className="text-lg font-semibold text-gray-800">Choose a Team Member to Review:</label>
+                            <select className="border border-gray-300 rounded-md p-2" 
+                            onChange={(e) => { 
+                                setSelectedStudent(e.target.value)
+                                console.log(e.target.value)
+                            }}
+                            required>
                                 {/* <option value="">Choose a Team Member to Review:</option> */}
                                 {students.map((student) => (
                                     <option key={student.email} value={student.email}>
@@ -81,14 +95,20 @@ export default function GroupsModule() {
 
                         <div className="flex flex-col mb-12">
                             <label className="text-lg font-semibold text-gray-800">Overall Rating:</label>
-                            <input 
-                                type="number" 
-                                min="1" 
-                                max="5" 
-                                className="border border-gray-300 rounded-md p-2"
-                                onChange={(e) => setRating(Number(e.target.value))} 
-                                required 
-                            />
+                            <div className="flex items-center">
+                                <button type="button" onClick={handleDecrement} className="px-3 py-1 bg-gray-300 rounded-md">-</button>
+                                <input 
+                                    type="number" 
+                                    min="1" 
+                                    max="5"
+                                    value={rating}
+                                    className="border border-gray-300 text-center w-12 p-1"
+                                    onChange={(e) => setRating(Number(e.target.value))}
+                                    readOnly 
+                                    required 
+                                />
+                                <button type="button" onClick={handleIncrement} className="px-3 py-1 bg-gray-300 rounded-md">+</button>
+                            </div>
                         </div>
                         {/* Submit Button */}
                         <button type="submit" className="bg-primary-red text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
