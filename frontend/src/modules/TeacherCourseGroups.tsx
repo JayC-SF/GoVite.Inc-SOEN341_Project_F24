@@ -18,7 +18,7 @@ export function TeacherCourseGroups(props: TeacherCourseGroupsProps) {
   }
 
   return (
-    <div className="p-5">
+    <div>
       <h2 className="text-3xl">Groups</h2>
       <div>
         {props.courseInfo.groups.map((g) => (

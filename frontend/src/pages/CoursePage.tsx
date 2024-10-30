@@ -27,19 +27,18 @@ export default function CoursePage() {
     useEffect(() => {
         GetCourseInfo(courseid || "").then(setCourseInfo)
     }, [])
-
-    let content: ReactNode
-    if (userInfo?.role == "student") {
-        content = <StudentCourseGroups courseInfo={courseInfo} />
-    } else if (userInfo?.role == "teacher") {
-        content = <TeacherCourseGroups courseInfo={courseInfo} onAddGroup={onAddGroup}/>
-    }
     // if the user is not defined render nothing and wait for user to be defined
     return (
         <UserInfoContext.Provider value={userInfo}>
         <SidebarPageTemplate hidden={!displayContent}>
-            {/* have different code for teachers and students */}
-            {content}
+            <div className="p-5">
+                {/* have different code for teachers and students */}
+            <h1 className="text-4xl">
+                {courseInfo?.course?.coursename}
+            </h1>
+            {userInfo?.role =="teacher" && <TeacherCourseGroups courseInfo={courseInfo} onAddGroup={onAddGroup}/>}
+            {userInfo?.role =="student" && <StudentCourseGroups courseInfo={courseInfo} />}
+            </div>
         </SidebarPageTemplate>
     </UserInfoContext.Provider>
     )
