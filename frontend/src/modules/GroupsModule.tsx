@@ -2,6 +2,7 @@ import { useContext } from "react";
 import UserInfoContext, { UserInfo } from "../contexts/userinfo";
 import RatingQuestion from '../components/RatingQuestion';
 import CommentBox from '../components/CommentBox';
+import StudentCourses from "../pages/home/courses/StudentCourses";
 
 export default function GroupsModule() {
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
@@ -43,6 +44,18 @@ export default function GroupsModule() {
                         <p className="text-xl text-gray-200 mb-4">{currentDate}</p>
                     </div>
                 </div>
+
+
+                {/* Course Section */}
+                <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex flex">
+                    <div className="flex-1">
+                        <p className="header-w font-semibold text-2xl"> My Classes</p>
+                        <div className="flex flex-wrap justify-around">
+                            <StudentCourses></StudentCourses>
+                        </div>
+                    </div>
+                </div>
+
 
                 {/* Rating Form Section */}
                 <div className="rating-form-section bg-gray-100 rounded-lg shadow-md p-4 mt-6">
