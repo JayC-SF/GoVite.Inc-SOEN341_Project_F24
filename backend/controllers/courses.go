@@ -1,25 +1,28 @@
 package controllers
 
 import (
-	"backend/database"
+	"backend/config"
 	"backend/models"
-	"context"
-	"fmt"
 	"net/http"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+type GetCourseInformationResponse struct {
+	Course      models.Course  `json:"course"`
+	Groups      []models.Group `json:"groups"`
+	JoinedGroup *models.Group  `json:"joinedGroup,omitempty"`
+}
+
 // This handler function requires the courseid parameter
-func GetCourseDescription(c *gin.Context) {
+func GetCourseInformation(c *gin.Context) {
 	courseId := c.Param("id")
-	fmt.Println(courseId)
-	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Courses")
-	filter := bson.M{"courseid": courseId}
-	var course models.Course
-	err := collection.FindOne(context.TODO(), filter).Decode(&course)
+	session := sessions.Default(c)
+	email := session.Get(config.SessionFields.Email).(string)
+	role := session.Get(config.SessionFields.Role).(string)
+	course, err := models.GetCourseFromCourseId(courseId)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
 			c.JSON(http.StatusNotFound, gin.H{"error": "Class not found."})
@@ -28,5 +31,36 @@ func GetCourseDescription(c *gin.Context) {
 		}
 		return
 	}
-	c.JSON(http.StatusOK, course)
+
+	groups, err := course.GetAllGroups()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not get groups"})
+	}
+	response := GetCourseInformationResponse{
+		Groups: groups,
+		Course: *course,
+	}
+	// requester is a student
+	if role == "student" {
+		user, err := models.GetUserFromEmail(email)
+		group, err := course.GetStudentJoinedGroup(user)
+		if err != nil {
+			if err == mongo.ErrNoDocuments {
+				c.JSON(http.StatusOK, response)
+			}
+			return
+		}
+		for idx, g := range groups {
+			if g.ID == group.ID {
+				response.Groups = append(response.Groups[:idx], response.Groups[idx+1:]...)
+				break
+			}
+		}
+		response.JoinedGroup = group
+		c.JSON(http.StatusOK, response)
+		return
+	}
+
+	// requester is a teacher
+	c.JSON(http.StatusOK, response)
 }

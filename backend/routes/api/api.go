@@ -35,5 +35,5 @@ func RegisterApiRoutes(r *gin.Engine) {
 	api_session_auth.GET("/ping", controllers.Ping)
 
 	// courses endpoint
-	api_session_auth.GET("/courses/:id", controllers.GetCourseDescription)
+	api_session_auth.GET("/courses/:id", controllers.GetCourseInformation)
 }
