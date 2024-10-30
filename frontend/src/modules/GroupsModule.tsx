@@ -1,18 +1,30 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserInfoContext, { UserInfo } from "../contexts/userinfo";
 import RatingQuestion from '../components/RatingQuestion';
 import CommentBox from '../components/CommentBox';
 import { RatingsRoutes } from "../network/routes";
 
 export default function GroupsModule() {
-    
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
+    const [students, setStudents] = useState<any[]>([])
     const [rating, setRating] = useState(0);
     const currentDate = new Intl.DateTimeFormat('en-US', {
         month: 'long',
         day: 'numeric',
         year: 'numeric'
     }).format(new Date());
+
+    useEffect(() => {
+        const loadStudents = async () => {
+            const response = await fetch('/api/students');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setStudents(data);
+        };
+        loadStudents();
+      }, []);
 
     // If userInfo is not defined or the user is not a student or teacher, render nothing
     if (!userInfo || (userInfo?.role !== "student" && userInfo?.role !== "teacher")) {
@@ -58,10 +70,12 @@ export default function GroupsModule() {
                         <div className="flex flex-col mb-12">
                             <label className="text-lg font-semibold text-gray-800">Select Team Member:</label>
                             <select className="border border-gray-300 rounded-md p-2" required>
-                                <option value="">Choose a team member</option>
-                                <option value="member1">Member 1</option>
-                                <option value="member2">Member 2</option>
-                                <option value="member3">Member 3</option>
+                                {/* <option value="">Choose a Team Member to Review:</option> */}
+                                {students.map((student) => (
+                                    <option key={student.email} value={student.email}>
+                                    {`${student.firstname} ${student.lastname}`}
+                                    </option>
+                                ))}
                             </select>
                         </div>
 
