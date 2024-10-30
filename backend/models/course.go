@@ -7,6 +7,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // Data definiton for a course object.
@@ -49,18 +50,66 @@ func (c *Course) GetAllGroups() ([]Group, error) {
 
 func (c *Course) GetStudentJoinedGroup(user *User) (*Group, error) {
 	collection := database.GetInstance().Database("RateMyPeersDB").Collection("UsersGroups")
-	filter := bson.M{"email": user.Email}
-	var userGroup UserGroup
-	err := collection.FindOne(context.TODO(), filter).Decode(&userGroup)
-	if err != nil {
-		return nil, err
+	matchUserEmail := bson.D{
+		{Key: "$match", Value: bson.D{
+			{Key: "email", Value: user.Email},
+		}},
 	}
+	lookUpGroups := bson.D{
+		{Key: "$lookup", Value: bson.D{
+			{Key: "from", Value: "Groups"},
+			{Key: "localField", Value: "groupid"},
+			{Key: "foreignField", Value: "_id"},
+			{Key: "as", Value: "groups"},
+		}},
+	}
+	flattenGroups := bson.D{
+		{Key: "$unwind", Value: bson.D{
+			{Key: "path", Value: "$groups"},
+		}},
+	}
+	newRoot := bson.D{
+		{Key: "$replaceRoot", Value: bson.D{
+			{Key: "newRoot", Value: "$groups"},
+		}},
+	}
+	matchGroupsWithCourseId := bson.D{
+		{Key: "$match", Value: bson.D{
+			{Key: "courseid", Value: c.CourseId},
+		}},
+	}
+	pipeline := mongo.Pipeline{
+		matchUserEmail,
+		lookUpGroups,
+		flattenGroups,
+		newRoot,
+		matchGroupsWithCourseId,
+	}
+	cursor, err := collection.Aggregate(context.TODO(), pipeline)
 	var group Group
-	collection = database.GetInstance().Database("RateMyPeersDB").Collection("Groups")
-	filter = bson.M{"_id": userGroup.GroupId, "courseid": c.CourseId}
-	err = collection.FindOne(context.TODO(), filter).Decode(&group)
-	if err != nil {
-		return nil, err
+	if cursor.Next(context.TODO()) {
+		if err = cursor.Decode(&group); err != nil {
+			return nil, err
+		}
+	} else {
+		// Handle the case where no documents are found
+		fmt.Println("No orders found")
+		return nil, mongo.ErrNoDocuments
 	}
+
+	// filter := bson.M{"email": user.Email}
+	// var userGroup UserGroup
+	// err := collection.FindOne(context.TODO(), filter).Decode(&userGroup)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// var group Group
+	// collection = database.GetInstance().Database("RateMyPeersDB").Collection("Groups")
+	// filter = bson.M{"_id": userGroup.GroupId, "courseid": c.CourseId}
+	// err = collection.FindOne(context.TODO(), filter).Decode(&group)
+	// if err != nil {
+	// 	return nil, err
+	//
+	// }
 	return &group, nil
 }
