@@ -37,4 +37,9 @@ func RegisterApiRoutes(r *gin.Engine) {
 
 	// register a test ping function /api/login
 	api_session_auth.GET("/ping", controllers.Ping)
+
+	// courses endpoint
+	api_session_auth.GET("/courses/courseinfo", controllers.GetCourseInformation)
+	// create a new Rating POST Request: /api/submitRating
+	api_session_auth.POST("/submitRating", controllers.RatingsController)
 }

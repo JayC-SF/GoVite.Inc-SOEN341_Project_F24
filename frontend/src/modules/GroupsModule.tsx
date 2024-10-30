@@ -1,35 +1,57 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserInfoContext, { UserInfo } from "../contexts/userinfo";
-import RatingQuestion from '../components/RatingQuestion';
-import CommentBox from '../components/CommentBox';
+import { PostCreateNewRating } from "../network/services/ratingsService";
 import StudentCourses from "../pages/home/courses/StudentCourses";
 
 export default function GroupsModule() {
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
+    const [students, setStudents] = useState<any[]>([])
+    const [selectedStudent, setSelectedStudent] = useState<any>()
+    const [rating, setRating] = useState(1);
     const currentDate = new Intl.DateTimeFormat('en-US', {
         month: 'long',
         day: 'numeric',
         year: 'numeric'
     }).format(new Date());
 
+    useEffect(() => {
+        const loadStudents = async () => {
+            const response = await fetch('/api/students');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setStudents(data);
+        };
+        loadStudents();
+      }, []);
+
+    const handleIncrement = () => {
+        if (rating < 5) setRating(rating + 1);
+    };
+
+    const handleDecrement = () => {
+        if (rating > 1) setRating(rating - 1);
+    };
+
     // If userInfo is not defined or the user is not a student or teacher, render nothing
     if (!userInfo || (userInfo?.role !== "student" && userInfo?.role !== "teacher")) {
         return <></>;
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault(); // Prevent default form submission
-        const confirmSubmit = window.confirm("Are you sure you want to submit your ratings?");
+    // const handleSubmit = (e: React.FormEvent) => {
+    //     e.preventDefault(); // Prevent default form submission
+    //     const confirmSubmit = window.confirm("Are you sure you want to submit your ratings?");
 
-        if (confirmSubmit) {
-            // Handle the actual submission logic here
-            console.log("Ratings submitted");
-            alert("Submission completed"); // Show an alert on successful submission
-        } else {
-            console.log("Submission cancelled");
-            alert("Submission cancelled"); // Show an alert if cancelled
-        }
-    };
+    //     if (confirmSubmit) {
+    //         // Handle the actual submission logic here
+    //         console.log("Ratings submitted");
+    //         alert("Submission completed"); // Show an alert on successful submission
+    //     } else {
+    //         console.log("Submission cancelled");
+    //         alert("Submission cancelled"); // Show an alert if cancelled
+    //     }
+    // };
 
     // Render for student
     if (userInfo?.role === "student") {
@@ -39,7 +61,7 @@ export default function GroupsModule() {
                 <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex">
                     <div className="flex-1">
                         <p className="text-lg font-semibold text-white">
-                            Hi! {userInfo.firstname} {userInfo.lastname}, your email is {userInfo.email} and your role is {userInfo.role}
+                            Hi {userInfo.firstname} {userInfo.lastname}! Your email is {userInfo.email} and your role is {userInfo.role}!
                         </p><br></br>
                         <p className="text-xl text-gray-200 mb-4">{currentDate}</p>
                     </div>
@@ -59,61 +81,47 @@ export default function GroupsModule() {
 
                 {/* Rating Form Section */}
                 <div className="rating-form-section bg-gray-100 rounded-lg shadow-md p-4 mt-6">
-                    <h2 className="text-2xl font-bold text-primary-red mb-4">Rate My Peers - Assessment form</h2>
+                    <h2 className="text-2xl font-bold text-primary-red mb-4">Rate My Peers - Assessment Form</h2>
                     <p className="text-gray-600 mb-2">Please rate your peers on their cooperation, conceptual contributions, practical contributions, and work ethic within the group: </p>
 
-                    {/* Member Selection */}
-                    <div className="flex flex-col mb-12">
-                        <label className="text-lg font-semibold text-gray-800">Select Team Member:</label>
-                        <select className="border border-gray-300 rounded-md p-2" required>
-                            <option value="">Choose a team member</option>
-                            <option value="member1">Member 1</option>
-                            <option value="member2">Member 2</option>
-                            <option value="member3">Member 3</option>
-                        </select>
-                    </div>
-
                     {/* Rating Criteria */}
-                    <form className="space-y-4" onSubmit={handleSubmit}>
-                        <h2 className="text-xl font-bold text-primary-red mb-4 ml-4">Cooperation</h2>
-                        <RatingQuestion label="1. Actively participating in meetings:" />
-                        <RatingQuestion label="2. Communicating within the group:" />
-                        <RatingQuestion label="3. Cooperating within the group:" />
-                        <RatingQuestion label="4. Assisting team-mates when needed:" />
-                        <RatingQuestion label="5. Volunteering for tasks:" />
-                        <CommentBox />
-                        <br></br><br></br>
+                    <form className="space-y-4">
+                        {/* Member Selection */}
+                        <div className="flex flex-col mb-4">
+                            <label className="text-lg font-semibold text-gray-800">Choose a Team Member to Review:</label>
+                            <select className="border border-gray-300 rounded-md p-2" 
+                            onChange={(e) => { 
+                                setSelectedStudent(e.target.value)
+                            }}
+                            required>
+                                {/* <option value="">Choose a Team Member to Review:</option> */}
+                                {students.map((student) => (
+                                    <option key={student.email} value={student.email}>
+                                    {`${student.firstname} ${student.lastname}`}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-                        <h2 className="text-xl font-bold text-primary-red mb-4 ml-4">Conceptual Contribution</h2>
-                        <RatingQuestion label="1. Researching and gathering information:" />
-                        <RatingQuestion label="2. Quality of individual contribution:" />
-                        <RatingQuestion label="3. Suggesting ideas:" />
-                        <RatingQuestion label="4. Tying ideas together:" />
-                        <RatingQuestion label="5. Identifying difficulties:" />
-                        <RatingQuestion label="6. Identifying effective approaches:" />
-                        <CommentBox />
-                        <br></br><br></br>
-
-                        <h2 className="text-xl font-bold text-primary-red mb-4 ml-4">Practical Contribution</h2>
-                        <RatingQuestion label="1. Writing of the report(s):" />
-                        <RatingQuestion label="2. Reviewing others’ report(s) or section(s):" />
-                        <RatingQuestion label="3. Providing constructive feedback on the report(s) or the presentation:" />
-                        <RatingQuestion label="4. Contributing to the organization of the work:" />
-                        <RatingQuestion label="5. Contributing to the preparation of presentation(s) :" />
-                        <CommentBox />
-                        <br></br><br></br>
-
-                        <h2 className="text-xl font-bold text-primary-red mb-4 ml-4">Work Ethic</h2>
-                        <RatingQuestion label="1. Displaying a positive attitude:" />
-                        <RatingQuestion label="2. Respecting team-mates:" />
-                        <RatingQuestion label="3. Respecting commitments:" />
-                        <RatingQuestion label="4. Respecting deadlines:" />
-                        <RatingQuestion label="5. Respecting team-mates' ideas:" />
-                        <CommentBox />
-                        <br></br><br></br>
-
+                        <div className="flex flex-col mb-4">
+                            <label className="text-lg font-semibold text-gray-800">Overall Rating:</label>
+                            <div className="flex items-center">
+                                <button type="button" onClick={handleDecrement} className="px-3 py-1 bg-gray-300 rounded-md">-</button>
+                                <input 
+                                    type="number" 
+                                    min="1" 
+                                    max="5"
+                                    value={rating}
+                                    className="border border-gray-300 text-center w-12 p-1"
+                                    onChange={(e) => setRating(Number(e.target.value))}
+                                    readOnly 
+                                    required 
+                                />
+                                <button type="button" onClick={handleIncrement} className="px-3 py-1 bg-gray-300 rounded-md">+</button>
+                            </div>
+                        </div>
                         {/* Submit Button */}
-                        <button type="submit" className="bg-primary-red text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
+                        <button type="button" onClick={() => PostCreateNewRating( {"ratedstudent": selectedStudent, "rating": rating, "groupid": "67211117efa57b840254b949"})} className="bg-primary-red text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
                             Submit Ratings
                         </button>
                     </form>
@@ -152,7 +160,7 @@ export default function GroupsModule() {
                             <div className="p-4">
                                 <h3 className="text-lg font-semibold">SOEN 341</h3>
                                 <p className="text-sm text-gray-600">Software Process and Practices</p>
-                                <a href="/courses/course1" className="text-blue-600 hover:underline">View Course</a>
+                                <a href="/courses/soen-341" className="text-blue-600 hover:underline">View Course</a>
                             </div>
                         </div>
 
