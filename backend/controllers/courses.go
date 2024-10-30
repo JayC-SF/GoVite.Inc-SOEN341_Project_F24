@@ -18,7 +18,11 @@ type GetCourseInformationResponse struct {
 
 // This handler function requires the courseid parameter
 func GetCourseInformation(c *gin.Context) {
-	courseId := c.Param("id")
+	courseId := c.Query("courseid")
+	if courseId == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "courseid parameter is missing"})
+		return
+	}
 	session := sessions.Default(c)
 	email := session.Get(config.SessionFields.Email).(string)
 	role := session.Get(config.SessionFields.Role).(string)

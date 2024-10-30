@@ -41,12 +41,15 @@ func (c *Course) GetAllGroups() ([]Group, error) {
 		fmt.Errorf("%s", err.Error())
 		return nil, err
 	}
+	if groups == nil {
+		groups = []Group{}
+	}
 	return groups, nil
 }
 
 func (c *Course) GetStudentJoinedGroup(user *User) (*Group, error) {
 	collection := database.GetInstance().Database("RateMyPeersDB").Collection("UsersGroups")
-	filter := bson.M{"email": user.Email}
+	filter := bson.M{"email": user.Email, "courseid": c.CourseId}
 	var userGroup UserGroup
 	err := collection.FindOne(context.TODO(), filter).Decode(&userGroup)
 	if err != nil {
@@ -54,7 +57,7 @@ func (c *Course) GetStudentJoinedGroup(user *User) (*Group, error) {
 	}
 	var group Group
 	collection = database.GetInstance().Database("RateMyPeersDB").Collection("Groups")
-	filter = bson.M{"_id": userGroup.GroupId}
+	filter = bson.M{"_id": userGroup.GroupId, "courseid": c.CourseId}
 	err = collection.FindOne(context.TODO(), filter).Decode(&group)
 	if err != nil {
 		return nil, err
