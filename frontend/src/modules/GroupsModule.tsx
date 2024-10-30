@@ -3,6 +3,7 @@ import UserInfoContext, { UserInfo } from "../contexts/userinfo";
 import RatingQuestion from '../components/RatingQuestion';
 import CommentBox from '../components/CommentBox';
 import { RatingsRoutes } from "../network/routes";
+import { PostCreateNewRating } from "../network/services/ratingsService";
 
 export default function GroupsModule() {
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
@@ -74,14 +75,13 @@ export default function GroupsModule() {
                     <p className="text-gray-600 mb-2">Please rate your peers on their cooperation, conceptual contributions, practical contributions, and work ethic within the group: </p>
 
                     {/* Rating Criteria */}
-                    <form method="POST" action={RatingsRoutes.submitRating} className="space-y-4">
+                    <form className="space-y-4">
                         {/* Member Selection */}
-                        <div className="flex flex-col mb-12">
+                        <div className="flex flex-col mb-4">
                             <label className="text-lg font-semibold text-gray-800">Choose a Team Member to Review:</label>
                             <select className="border border-gray-300 rounded-md p-2" 
                             onChange={(e) => { 
                                 setSelectedStudent(e.target.value)
-                                console.log(e.target.value)
                             }}
                             required>
                                 {/* <option value="">Choose a Team Member to Review:</option> */}
@@ -93,7 +93,7 @@ export default function GroupsModule() {
                             </select>
                         </div>
 
-                        <div className="flex flex-col mb-12">
+                        <div className="flex flex-col mb-4">
                             <label className="text-lg font-semibold text-gray-800">Overall Rating:</label>
                             <div className="flex items-center">
                                 <button type="button" onClick={handleDecrement} className="px-3 py-1 bg-gray-300 rounded-md">-</button>
@@ -111,7 +111,7 @@ export default function GroupsModule() {
                             </div>
                         </div>
                         {/* Submit Button */}
-                        <button type="submit" className="bg-primary-red text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
+                        <button type="button" onClick={() => PostCreateNewRating( {"ratedstudent": selectedStudent, "rating": rating, "groupid": "67211117efa57b840254b949"})} className="bg-primary-red text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
                             Submit Ratings
                         </button>
                     </form>
