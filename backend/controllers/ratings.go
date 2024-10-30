@@ -15,6 +15,7 @@ import (
 func RatingsController(c *gin.Context) {
 	var rating models.Rating
 
+	// Retrieve session to retrieve email of student that's currently logged in
 	session := sessions.Default(c)
 	email, ok1 := session.Get(config.SessionFields.Email).(string)
 	if !ok1 {
@@ -22,13 +23,14 @@ func RatingsController(c *gin.Context) {
 		return
 	}
 
+	// Set email to RatingStudent field
 	if err := c.ShouldBindBodyWithJSON(&rating); err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid format"})
 		return
 	}
-
 	rating.RatingStudent = email
 
+	// insert new rating into db
 	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Ratings")
 	_, err := collection.InsertOne(context.TODO(), rating)
 

@@ -1,8 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import UserInfoContext, { UserInfo } from "../contexts/userinfo";
-import RatingQuestion from '../components/RatingQuestion';
-import CommentBox from '../components/CommentBox';
-import { RatingsRoutes } from "../network/routes";
 import { PostCreateNewRating } from "../network/services/ratingsService";
 
 export default function GroupsModule() {
