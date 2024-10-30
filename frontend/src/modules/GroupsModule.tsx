@@ -62,7 +62,7 @@ export default function GroupsModule() {
                             <div className="p-4">
                                 <h3 className="text-lg font-semibold">SOEN 341</h3>
                                 <p className="text-sm text-gray-600">Software Process and Practices</p>
-                                <a href="/courses/course1" className="text-blue-600 hover:underline">View Course</a>
+                                <a href="/courses/soen-341" className="text-blue-600 hover:underline">View Course</a>
                             </div>
                         </div>
                         

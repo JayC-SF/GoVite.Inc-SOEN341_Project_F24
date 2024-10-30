@@ -49,7 +49,7 @@ func (c *Course) GetAllGroups() ([]Group, error) {
 
 func (c *Course) GetStudentJoinedGroup(user *User) (*Group, error) {
 	collection := database.GetInstance().Database("RateMyPeersDB").Collection("UsersGroups")
-	filter := bson.M{"email": user.Email, "courseid": c.CourseId}
+	filter := bson.M{"email": user.Email}
 	var userGroup UserGroup
 	err := collection.FindOne(context.TODO(), filter).Decode(&userGroup)
 	if err != nil {

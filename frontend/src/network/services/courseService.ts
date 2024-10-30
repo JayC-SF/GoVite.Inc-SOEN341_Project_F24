@@ -3,7 +3,7 @@ import { JsonRequest } from "../http/jsonRequest"
 import { CourseRoutes } from "../routes"
 
 export interface Group {
-    id: string
+    id?: string
     groupname: string
     courseid: string
 }
