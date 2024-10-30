@@ -60,7 +60,7 @@ export default function GroupsModule() {
                 <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex">
                     <div className="flex-1">
                         <p className="text-lg font-semibold text-white">
-                            Hi! {userInfo.firstname} {userInfo.lastname}, your email is {userInfo.email} and your role is {userInfo.role}
+                            Hi {userInfo.firstname} {userInfo.lastname}! Your email is {userInfo.email} and your role is {userInfo.role}!
                         </p><br></br>
                         <p className="text-xl text-gray-200 mb-4">{currentDate}</p>
                     </div>
@@ -68,7 +68,7 @@ export default function GroupsModule() {
 
                 {/* Rating Form Section */}
                 <div className="rating-form-section bg-gray-100 rounded-lg shadow-md p-4 mt-6">
-                    <h2 className="text-2xl font-bold text-primary-red mb-4">Rate My Peers - Assessment form</h2>
+                    <h2 className="text-2xl font-bold text-primary-red mb-4">Rate My Peers - Assessment Form</h2>
                     <p className="text-gray-600 mb-2">Please rate your peers on their cooperation, conceptual contributions, practical contributions, and work ethic within the group: </p>
 
                     {/* Rating Criteria */}
