@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { CourseInfoResponse, GetCourseInfo, Group } from "../network/services/courseService"
 import UserInfoContext from "../contexts/userinfo"
@@ -15,7 +15,7 @@ export default function CoursePage() {
     const [courseInfo, setCourseInfo] = useState<CourseInfoResponse>()
     const userInfo = useUserInfo()
 
-    const onAddGroup = (group: Group) => {
+    const onAddGroup = (_: Group) => {
         // send post request to add a new group
 
         GetCourseInfo(courseid || "").then((res) => {
