@@ -97,19 +97,5 @@ func (c *Course) GetStudentJoinedGroup(user *User) (*Group, error) {
 		return nil, mongo.ErrNoDocuments
 	}
 
-	// filter := bson.M{"email": user.Email}
-	// var userGroup UserGroup
-	// err := collection.FindOne(context.TODO(), filter).Decode(&userGroup)
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// var group Group
-	// collection = database.GetInstance().Database("RateMyPeersDB").Collection("Groups")
-	// filter = bson.M{"_id": userGroup.GroupId, "courseid": c.CourseId}
-	// err = collection.FindOne(context.TODO(), filter).Decode(&group)
-	// if err != nil {
-	// 	return nil, err
-	//
-	// }
 	return &group, nil
 }
