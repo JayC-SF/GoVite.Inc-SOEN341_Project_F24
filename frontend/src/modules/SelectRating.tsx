@@ -1,6 +1,4 @@
 
-import React from 'react';
-
 const SelectRating = ({ required = true }) => (
     <select className="border border-gray-300 rounded-md p-2" required={required}>
         <option value="">Select rating</option>

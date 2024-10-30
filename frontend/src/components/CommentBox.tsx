@@ -1,6 +1,4 @@
 
-import React from 'react';
-
 const CommentBox = ({ placeholder = "Add your comments here..." }) => (
     <textarea
         className="border border-gray-300 rounded-md p-2 mt-2"
