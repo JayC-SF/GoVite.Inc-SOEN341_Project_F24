@@ -15,11 +15,20 @@ export default function TeacherCourses() {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const response = await fetch("/api/courses");
-      const data = await response.json();
+      try {
+        const response = await fetch("/api/courses");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
 
-      // Access the courses array from the response
-      setCourses(Array.isArray(data.courses) ? data.courses : []);
+        // Access the courses array from the response
+        setCourses(Array.isArray(data.courses) ? data.courses : []);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+        // Optionally, you can set an error state here if needed
+        // setError(error.message);
+      }
     };
     fetchCourses();
   }, []);
@@ -50,7 +59,7 @@ export default function TeacherCourses() {
                   {course.coursecode}
                 </h5>
                 <p className="font-normal text-xs text-gray-700 dark:text-gray-400">
-                  {course.coursename} | {course.courseteacher}
+                  {course.coursename}
                 </p>
               </a>
             </div>

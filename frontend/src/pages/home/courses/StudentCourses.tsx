@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import NoCoursesFound from "../../../../src/assets/NoCoursesFound.svg";
+
 interface Course {
   courseid: string;
   coursecode: string;
   coursename: string;
   coursedescription: string;
   coursecredits: number;
-  courseteacher: string;
+  teacher: string; // Updated to match your data
 }
 
 export default function StudentCourses() {
@@ -14,12 +15,33 @@ export default function StudentCourses() {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const response = await fetch("/api/courses");
-      const data = await response.json();
+      try {
+        const response = await fetch("/api/courses");
 
-      // Ensure data is an array before setting it to courses
-      setCourses(Array.isArray(data) ? data : []);
+        // Check if the response is successful
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Log the fetched data for debugging
+        console.log("Fetched data:", data);
+
+        // Directly set the courses from the data received
+        if (Array.isArray(data)) {
+          console.log("Courses array:", data); // Log the courses array
+          setCourses(data); // Set courses directly as it's an array
+        } else {
+          console.warn("Fetched data is not an array:", data);
+          setCourses([]); // Reset to empty array if not valid
+        }
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+        setCourses([]); // Reset to empty array on error
+      }
     };
+
     fetchCourses();
   }, []);
 
@@ -27,8 +49,15 @@ export default function StudentCourses() {
     <>
       {courses.length === 0 ? (
         <div className="mx-auto">
-          <img src={NoCoursesFound} className="mx-auto size-36"></img>
-          <p className="text-2xl text-center font-semibold text-white">You have no courses...</p>
+          <p>{courses.length}</p>
+          <img
+            src={NoCoursesFound}
+            className="mx-auto size-36"
+            alt="No courses found"
+          />
+          <p className="text-2xl text-center font-semibold text-white">
+            You have no courses...
+          </p>
         </div>
       ) : (
         <div className="flex flex-wrap gap-10 items-start">
@@ -42,7 +71,7 @@ export default function StudentCourses() {
                   {course.coursecode}
                 </h5>
                 <p className="font-normal text-xs text-gray-700 dark:text-gray-400">
-                  {course.coursename} | {course.courseteacher}
+                  {course.coursename}
                 </p>
               </a>
             </div>
