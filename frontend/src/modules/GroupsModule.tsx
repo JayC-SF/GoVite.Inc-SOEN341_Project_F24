@@ -88,6 +88,7 @@ export default function GroupsModule() {
 
                     {/* Rating Criteria */}
                     <form className="space-y-4">
+
                         {/* Member Selection */}
                         <div className="flex flex-col mb-4">
                             <label className="text-lg font-semibold text-gray-800">Choose a Team Member to Review:</label>
@@ -96,15 +97,19 @@ export default function GroupsModule() {
                                 setSelectedStudent(e.target.value)
                             }}
                             required>
-                                {/* <option value="">Choose a Team Member to Review:</option> */}
-                                {students.map((student) => (
-                                    <option key={student.email} value={student.email}>
-                                    {`${student.firstname} ${student.lastname}`}
-                                    </option>
-                                ))}
+                                {students
+                                    .filter(student => student.email !== userInfo.email)
+                                    .map((student) => (
+                                        <option key={student.email} value={student.email}>
+                                        {`${student.firstname} ${student.lastname}`}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
 
+
+                        {/* Input value to add overall rating */}
                         <div className="flex flex-col mb-4">
                             <label className="text-lg font-semibold text-gray-800">Overall Rating:</label>
                             <div className="flex items-center">
