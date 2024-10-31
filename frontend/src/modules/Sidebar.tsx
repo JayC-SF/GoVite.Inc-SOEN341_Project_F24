@@ -6,9 +6,9 @@ export const Sidebar = () => {
   return (
     <div className="flex justify-between flex-col h-full px-2 pt-2 ">
       {/* TODO: Main Sidebar content */}
-      <div className="overflow-y-scroll flex flex-col">
+      <div className="flex flex-col">
         <SidebarLogo />
-        <hr />
+        <hr className=" h-[3px] my-1 border-0 rounded bg-[#BE5A6C]"/>
         <SidebarOptions />
 
       </div>

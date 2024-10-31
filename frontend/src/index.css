@@ -72,3 +72,68 @@ html {
   z-index: 100;
   overflow: hidden;
 }
+
+/* Student Welcome */
+
+.module {
+  background: linear-gradient(98.5deg, #cc6772 53.12%, #dfcff7 155.43%);
+  box-shadow: 8px 8px 48px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+}
+
+.module-t {
+  background: linear-gradient(90deg, #cc6772 46%, #dfcff7 100%);
+  border-radius: 16px;
+}
+
+.account {
+  background: #be5a6c;
+  border-radius: 10px;
+}
+
+nav svg {
+  color: white;
+}
+
+/* Courses Style */
+.class-card-header {
+  position: relative;
+  justify-content: space-between;
+}
+
+.icon {
+  font-size: 28px;
+}
+
+.header-decoration {
+  background-color: #d14a5a; /* Your red color */
+  height: 40px;
+  width: 40px;
+  border-radius: 0 6px 0 6px;
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot {
+  width: 3px;
+  height: 3px;
+  background-color: white;
+  border-radius: 50%;
+  margin: 2px 0;
+}
+
+.course-code {
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+.course-description {
+  color: #6b7280;
+  font-size: 14px;
+}
