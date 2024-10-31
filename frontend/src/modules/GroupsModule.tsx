@@ -88,7 +88,7 @@ export default function GroupsModule() {
                 <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex flex">
                     <div className="flex-1">
                         <p className="header-w font-semibold text-2xl"> My Classes</p>
-                        <div className="flex flex-wrap justify-around">
+                        <div className="flex flex-wrap justify-left">
                             <StudentCourses></StudentCourses>
                         </div>
                     </div>
@@ -193,9 +193,6 @@ export default function GroupsModule() {
                 {/* Welcome Section */}
                 <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex">
                     <div className="flex-1">
-                        <p className="text-lg font-semibold text-white">
-                            Hi! {userInfo.firstname} {userInfo.lastname}, your email is {userInfo.email} and your role is {userInfo.role}
-                        </p><br></br>
                         <p className="text-xl text-gray-200 mb-4">{currentDate}</p>
                         <h2 className="text-2xl font-bold text-white mb-4">Welcome back to RateMyPeers!</h2>
                         <p className="mt-2 text-gray-200">You have 27 new students added to your domain. Please reach out to the Course Coordinator if you want them excluded from your domain.</p>
@@ -209,7 +206,7 @@ export default function GroupsModule() {
                 <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex flex">
                     <div className="flex-1">
                         <p className="header-w font-semibold text-2xl"> Available Courses</p>
-                        <div className="flex flex-wrap justify-around">
+                        <div className="flex flex-wrap justify-left">
                             <TeacherCourses></TeacherCourses>
                         </div>
                     </div>
