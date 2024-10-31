@@ -16,6 +16,7 @@ export default function GroupsModule() {
         year: 'numeric'
     }).format(new Date());
 
+    // Load in initial list of students from MongoDB
     useEffect(() => {
         const loadStudents = async () => {
             const response = await fetch('/api/students');
@@ -27,6 +28,17 @@ export default function GroupsModule() {
         };
         loadStudents();
       }, []);
+
+    
+    useEffect(() => {
+        // Update selectedStudent to the first student in the list once students data is available
+        if (students.length > 0) {
+            const filteredStudents = students.filter(student => student.email !== userInfo?.email);
+            if (filteredStudents.length > 0) {
+                setSelectedStudent(filteredStudents[0].email);
+            }
+        }
+    }, [students]);
 
     const handleIncrement = () => {
         if (rating < 5) setRating(rating + 1);
@@ -92,7 +104,7 @@ export default function GroupsModule() {
                         {/* Member Selection */}
                         <div className="flex flex-col mb-4">
                             <label className="text-lg font-semibold text-gray-800">Choose a Team Member to Review:</label>
-                            <select className="border border-gray-300 rounded-md p-2" 
+                            <select value={selectedStudent} className="border border-gray-300 rounded-md p-2" 
                             onChange={(e) => { 
                                 setSelectedStudent(e.target.value)
                             }}
