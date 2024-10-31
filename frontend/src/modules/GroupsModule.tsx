@@ -3,6 +3,8 @@ import UserInfoContext, { UserInfo } from "../contexts/userinfo";
 import { PostCreateNewRating } from "../network/services/ratingsService";
 import StudentCourses from "../pages/home/courses/StudentCourses";
 import TeacherCourses from "../pages/home/courses/TeacherCourses";
+import CommentBox from "../components/CommentBox";
+import RatingQuestion from "../components/RatingQuestion";
 
 export default function GroupsModule() {
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
@@ -120,7 +122,17 @@ export default function GroupsModule() {
                             </select>
                         </div>
 
-
+                        <div>
+                            <h2 className="text-xl underline font-semibold text-primary-red mb-4">Cooperation</h2>
+                            <RatingQuestion label="1. Actively participating in meetings:" />
+                            <RatingQuestion label="2. Communicating within the group:" />
+                            <RatingQuestion label="3. Cooperating within the group:" />
+                            <RatingQuestion label="4. Assisting team-mates when needed:" />
+                            <RatingQuestion label="5. Volunteering for tasks:" />
+                            <CommentBox />
+                            <br></br>
+                        </div>
+                        
                         {/* Input value to add overall rating */}
                         <div className="flex flex-col mb-4">
                             <label className="text-lg font-semibold text-gray-800">Overall Rating:</label>
