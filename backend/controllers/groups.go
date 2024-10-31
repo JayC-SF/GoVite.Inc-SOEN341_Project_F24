@@ -4,6 +4,7 @@ import (
 	"backend/database"
 	"backend/models"
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -32,9 +33,13 @@ func GroupsController(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }
 
+type StudentResponse struct {
+	models.User
+	Score float64 `json:"score"`
+}
 type GetGroupInfoResponse struct {
-	Group    models.Group  `json:"group"`
-	Students []models.User `json:"students"`
+	Group    models.Group      `json:"group"`
+	Students []StudentResponse `json:"students"`
 }
 
 func GetGroupInfo(c *gin.Context) {
@@ -57,9 +62,19 @@ func GetGroupInfo(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error getting students"})
 		return
 	}
+	students := []StudentResponse{}
+	for _, user := range users {
+		score, err := user.GetRatingScore(groupId)
+		if err != nil {
+			fmt.Println(err.Error())
+			score = -1
+		}
+		students = append(students, StudentResponse{user, score})
+		fmt.Println(students)
+	}
 	c.JSON(http.StatusOK, GetGroupInfoResponse{
 		Group:    *group,
-		Students: users,
+		Students: students,
 	})
 }
 

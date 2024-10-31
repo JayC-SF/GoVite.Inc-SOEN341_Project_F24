@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import UserInfoContext, { UserInfo } from "../contexts/userinfo";
-import { PostCreateNewRating } from "../network/services/ratingsService";
 import StudentCourses from "../pages/home/courses/StudentCourses";
 import TeacherCourses from "../pages/home/courses/TeacherCourses";
-import CommentBox from "../components/CommentBox";
+import { PostCreateNewRating } from "../network/services/ratingsService";
 import RatingQuestion from "../components/RatingQuestion";
+import CommentBox from "../components/CommentBox";
 
 export default function GroupsModule() {
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);

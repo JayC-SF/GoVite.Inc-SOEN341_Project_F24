@@ -6,6 +6,7 @@ import Login from "./pages/login/Login";
 import Main from "./pages/main/MainPage";
 import CoursePage from "./pages/CoursePage";
 import GroupPage from "./pages/home/GroupPage";
+import RatePage from "./pages/RatePage";
 
 export const AppRoutes = createBrowserRouter([
   {
@@ -35,5 +36,9 @@ export const AppRoutes = createBrowserRouter([
   {
     path: "/groups/:groupid",
     element: <GroupPage/>
+  },
+  {
+    path: "/ratings/:groupid/:email/new",
+    element: <RatePage/>
   }
 ]);

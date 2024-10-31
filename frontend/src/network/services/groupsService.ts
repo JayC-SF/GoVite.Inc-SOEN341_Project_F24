@@ -10,9 +10,12 @@ export interface Group{
     id: string
     groupname: string
 }
+export interface GroupStudentResponse extends UserInfo {
+    score: number
+}
 export interface GroupInfoResponse {
     group: Group
-    students : UserInfo[]
+    students : GroupStudentResponse[]
 }
 export const GetGroupInfo = (groupid: string) => (
     <Promise<GroupInfoResponse>>
@@ -21,7 +24,7 @@ export const GetGroupInfo = (groupid: string) => (
     // if unauthorized, reroute user to login page
     .catch(handleUnauthorizedError)
 )
-export const GetStudendsWithoutGroup = (groupid: string) => (
+export const GetStudentsWithoutGroup = (groupid: string) => (
     <Promise<UserInfo[]>>
     // typecast json request to a promise of course info
     JsonRequest(GroupsRoutes.studentsWithoutGroup, {params: {groupid}})

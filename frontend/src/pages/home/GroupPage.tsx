@@ -6,7 +6,7 @@ import { useRequireAuthenticated } from "../../hooks/auth";
 import { useUserInfo } from "../../hooks/useUserInfo";
 import {
   GetGroupInfo,
-  GetStudendsWithoutGroup,
+  GetStudentsWithoutGroup,
   GroupInfoResponse,
   PostNewStudentInGroup,
 } from "../../network/services/groupsService";
@@ -19,7 +19,7 @@ export default function GroupPage() {
   const [groupInfo, setGroupInfo] = useState<GroupInfoResponse>();
   const [newStudents, setNewStudents] = useState<UserInfo[]>();
   const selectRef = createRef<HTMLSelectElement>();
-
+  
   const onClickAddNewStudent = () => {
     PostNewStudentInGroup({
       groupid: groupid || "",
@@ -30,7 +30,7 @@ export default function GroupPage() {
 
   const refreshStudentList = () => {
     GetGroupInfo(groupid || "").then(setGroupInfo);
-    GetStudendsWithoutGroup(groupid || "").then(setNewStudents);
+    GetStudentsWithoutGroup(groupid || "").then(setNewStudents);
   };
 
   useEffect(() => {
@@ -45,9 +45,11 @@ export default function GroupPage() {
           <div className="mb-4">
             {groupInfo?.students?.length
               ? groupInfo?.students?.map((user, idx) => (<div>
-                  <span key={idx} className="m-3 flex items-center">
-                    {user.firstname} {user.lastname} - {user.email}
-                  </span> <RMPButton>Rate</RMPButton>
+                  <div key={idx} className="m-3 flex items-center gap-4">
+                        {user.firstname} {user.lastname} - {user.email}
+                  </div>
+                    <p className="m-3"> Score : {user.score == -1? "NA" : user.score}</p>
+                  <a href={`/ratings/${groupid}/${user.email}/new`}><RMPButton>Rate</RMPButton></a>
               </div>
                 ))
               : "No students belong to this group."}
