@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import UserInfoContext, { UserInfo } from "../contexts/userinfo";
 import { PostCreateNewRating } from "../network/services/ratingsService";
+import StudentCourses from "../pages/home/courses/StudentCourses";
+import TeacherCourses from "../pages/home/courses/TeacherCourses";
 
 export default function GroupsModule() {
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
@@ -65,6 +67,18 @@ export default function GroupsModule() {
                         <p className="text-xl text-gray-200 mb-4">{currentDate}</p>
                     </div>
                 </div>
+
+
+                {/* Course Section */}
+                <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex flex">
+                    <div className="flex-1">
+                        <p className="header-w font-semibold text-2xl"> My Classes</p>
+                        <div className="flex flex-wrap justify-around">
+                            <StudentCourses></StudentCourses>
+                        </div>
+                    </div>
+                </div>
+
 
                 {/* Rating Form Section */}
                 <div className="rating-form-section bg-gray-100 rounded-lg shadow-md p-4 mt-6">
@@ -138,42 +152,14 @@ export default function GroupsModule() {
                 </div>
 
                 {/* Courses Section */}
-                <div className="courses-section bg-primary-red rounded-lg shadow-md p-4">
-                    <h2 className="text-xl font-bold text-white mb-2">Available Courses</h2><br></br>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                        {/* Course 1 */}
-                        <div className="course-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
-                            <img src="/src/assets/SOEN 341.jfif" alt="Course 1" className="w-full h-40 object-cover" />
-                            <div className="p-4">
-                                <h3 className="text-lg font-semibold">SOEN 341</h3>
-                                <p className="text-sm text-gray-600">Software Process and Practices</p>
-                                <a href="/courses/soen-341" className="text-blue-600 hover:underline">View Course</a>
-                            </div>
+                <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex flex">
+                    <div className="flex-1">
+                        <p className="header-w font-semibold text-2xl"> Available Courses</p>
+                        <div className="flex flex-wrap justify-around">
+                            <TeacherCourses></TeacherCourses>
                         </div>
-
-                        {/* Course 2 */}
-                        <div className="course-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
-                            <img src="/path/to/course2-image.jpg" alt="Course 2" className="w-full h-40 object-cover" />
-                            <div className="p-4">
-                                <h3 className="text-lg font-semibold">Course 2</h3>
-                                <p className="text-sm text-gray-600">Short description of Course 2.</p>
-                                <a href="/courses/course2" className="text-blue-600 hover:underline">View Course</a>
-                            </div>
-                        </div>
-
-                        {/* Course 3 */}
-                        <div className="course-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
-                            <img src="/path/to/course3-image.jpg" alt="Course 3" className="w-full h-40 object-cover" />
-                            <div className="p-4">
-                                <h3 className="text-lg font-semibold">Course 3</h3>
-                                <p className="text-sm text-gray-600">Short description of Course 3.</p>
-                                <a href="/courses/course3" className="text-blue-600 hover:underline">View Course</a>
-                            </div>
-                        </div>
-                        {/* Add more courses as needed */}
                     </div>
                 </div>
-
                 {/* Recent Activities Section */}
                 <div className="recent-activities bg-primary-red rounded-lg shadow-md p-4">
                     <h2 className="text-xl font-bold text-white mb-2">Recent Activities</h2>
