@@ -3,18 +3,22 @@ import UserInfoContext, { UserInfo } from "../contexts/userinfo";
 import { PostCreateNewRating } from "../network/services/ratingsService";
 import StudentCourses from "../pages/home/courses/StudentCourses";
 import TeacherCourses from "../pages/home/courses/TeacherCourses";
+import CommentBox from "../components/CommentBox";
+import RatingQuestion from "../components/RatingQuestion";
 
 export default function GroupsModule() {
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
     const [students, setStudents] = useState<any[]>([])
     const [selectedStudent, setSelectedStudent] = useState<any>()
     const [rating, setRating] = useState(1);
+    const [showConfirmation, setShowConfirmation] = useState(false);
     const currentDate = new Intl.DateTimeFormat('en-US', {
         month: 'long',
         day: 'numeric',
         year: 'numeric'
     }).format(new Date());
 
+    // Load in initial list of students from MongoDB
     useEffect(() => {
         const loadStudents = async () => {
             const response = await fetch('/api/students');
@@ -26,6 +30,17 @@ export default function GroupsModule() {
         };
         loadStudents();
       }, []);
+
+    
+    useEffect(() => {
+        // Update selectedStudent to the first student in the list once students data is available
+        if (students.length > 0) {
+            const filteredStudents = students.filter(student => student.email !== userInfo?.email);
+            if (filteredStudents.length > 0) {
+                setSelectedStudent(filteredStudents[0].email);
+            }
+        }
+    }, [students]);
 
     const handleIncrement = () => {
         if (rating < 5) setRating(rating + 1);
@@ -40,19 +55,18 @@ export default function GroupsModule() {
         return <></>;
     }
 
-    // const handleSubmit = (e: React.FormEvent) => {
-    //     e.preventDefault(); // Prevent default form submission
-    //     const confirmSubmit = window.confirm("Are you sure you want to submit your ratings?");
+    const handleSubmit = () => {
+        setShowConfirmation(true);
+    };
 
-    //     if (confirmSubmit) {
-    //         // Handle the actual submission logic here
-    //         console.log("Ratings submitted");
-    //         alert("Submission completed"); // Show an alert on successful submission
-    //     } else {
-    //         console.log("Submission cancelled");
-    //         alert("Submission cancelled"); // Show an alert if cancelled
-    //     }
-    // };
+    const confirmSubmit = () => {
+        PostCreateNewRating({
+            "ratedstudent": selectedStudent,
+            "rating": rating,
+            "groupid": "67211117efa57b840254b949"
+        });
+        setShowConfirmation(false);  // Close the modal after submission
+    };
 
     // Render for student
     if (userInfo?.role === "student") {
@@ -92,7 +106,7 @@ export default function GroupsModule() {
                         {/* Member Selection */}
                         <div className="flex flex-col mb-4">
                             <label className="text-lg font-semibold text-gray-800">Choose a Team Member to Review:</label>
-                            <select className="border border-gray-300 rounded-md p-2" 
+                            <select value={selectedStudent} className="border border-gray-300 rounded-md p-2" 
                             onChange={(e) => { 
                                 setSelectedStudent(e.target.value)
                             }}
@@ -108,7 +122,17 @@ export default function GroupsModule() {
                             </select>
                         </div>
 
-
+                        <div>
+                            <h2 className="text-xl underline font-semibold text-primary-red mb-4">Cooperation</h2>
+                            <RatingQuestion label="1. Actively participating in meetings:" />
+                            <RatingQuestion label="2. Communicating within the group:" />
+                            <RatingQuestion label="3. Cooperating within the group:" />
+                            <RatingQuestion label="4. Assisting team-mates when needed:" />
+                            <RatingQuestion label="5. Volunteering for tasks:" />
+                            <CommentBox />
+                            <br></br>
+                        </div>
+                        
                         {/* Input value to add overall rating */}
                         <div className="flex flex-col mb-4">
                             <label className="text-lg font-semibold text-gray-800">Overall Rating:</label>
@@ -128,10 +152,34 @@ export default function GroupsModule() {
                             </div>
                         </div>
                         {/* Submit Button */}
-                        <button type="button" onClick={() => PostCreateNewRating( {"ratedstudent": selectedStudent, "rating": rating, "groupid": "67211117efa57b840254b949"})} className="bg-primary-red text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
+                        <button type="button" onClick={handleSubmit} className="bg-primary-red text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
                             Submit Ratings
                         </button>
                     </form>
+
+                    {/* Confirmation Modal */}
+                    {showConfirmation && (
+                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div className="bg-white p-6 rounded-md space-y-4">
+                                <p className="text-gray-800">Are you sure you want to submit this rating?</p>
+                                <div className="flex justify-end space-x-2">
+                                    <button 
+                                        onClick={() => setShowConfirmation(false)} 
+                                        className="px-4 py-2 bg-gray-300 rounded-md"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button 
+                                        onClick={confirmSubmit} 
+                                        className="px-4 py-2 bg-primary-red text-white rounded-md hover:bg-red-600"
+                                    >
+                                        Confirm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                 </div>
             </div>
 

@@ -25,15 +25,10 @@ export default function StudentCourses() {
 
         const data = await response.json();
 
-        // Log the fetched data for debugging
-        console.log("Fetched data:", data);
-
         // Directly set the courses from the data received
         if (Array.isArray(data)) {
-          console.log("Courses array:", data); // Log the courses array
           setCourses(data); // Set courses directly as it's an array
         } else {
-          console.warn("Fetched data is not an array:", data);
           setCourses([]); // Reset to empty array if not valid
         }
       } catch (error) {

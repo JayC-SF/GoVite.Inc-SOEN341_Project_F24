@@ -20,7 +20,6 @@ export default function CoursePage() {
 
         GetCourseInfo(courseid || "").then((res) => {
             setCourseInfo(res)
-            console.log(res)
         })
     }
     
