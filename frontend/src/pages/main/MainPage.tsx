@@ -13,8 +13,10 @@ const Main: React.FC = () => {
   return (
     <UserInfoContext.Provider value={userInfo}>
         <SidebarPageTemplate hidden={!displayContent}>
-          <div className="p-6 space-y-6">
+          <div className="bg-[#9B394B] p-3">
+            <div className='bg-[#FCF4F5] rounded-2xl p-6'>
               <GroupsModule />
+            </div>
           </div>
         </SidebarPageTemplate>
     </UserInfoContext.Provider>
