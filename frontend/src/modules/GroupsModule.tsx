@@ -9,6 +9,7 @@ export default function GroupsModule() {
     const [students, setStudents] = useState<any[]>([])
     const [selectedStudent, setSelectedStudent] = useState<any>()
     const [rating, setRating] = useState(1);
+    const [showConfirmation, setShowConfirmation] = useState(false);
     const currentDate = new Intl.DateTimeFormat('en-US', {
         month: 'long',
         day: 'numeric',
@@ -40,19 +41,18 @@ export default function GroupsModule() {
         return <></>;
     }
 
-    // const handleSubmit = (e: React.FormEvent) => {
-    //     e.preventDefault(); // Prevent default form submission
-    //     const confirmSubmit = window.confirm("Are you sure you want to submit your ratings?");
+    const handleSubmit = () => {
+        setShowConfirmation(true);
+    };
 
-    //     if (confirmSubmit) {
-    //         // Handle the actual submission logic here
-    //         console.log("Ratings submitted");
-    //         alert("Submission completed"); // Show an alert on successful submission
-    //     } else {
-    //         console.log("Submission cancelled");
-    //         alert("Submission cancelled"); // Show an alert if cancelled
-    //     }
-    // };
+    const confirmSubmit = () => {
+        PostCreateNewRating({
+            "ratedstudent": selectedStudent,
+            "rating": rating,
+            "groupid": "67211117efa57b840254b949"
+        });
+        setShowConfirmation(false);  // Close the modal after submission
+    };
 
     // Render for student
     if (userInfo?.role === "student") {
@@ -128,10 +128,34 @@ export default function GroupsModule() {
                             </div>
                         </div>
                         {/* Submit Button */}
-                        <button type="button" onClick={() => PostCreateNewRating( {"ratedstudent": selectedStudent, "rating": rating, "groupid": "67211117efa57b840254b949"})} className="bg-primary-red text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
+                        <button type="button" onClick={handleSubmit} className="bg-primary-red text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
                             Submit Ratings
                         </button>
                     </form>
+
+                    {/* Confirmation Modal */}
+                    {showConfirmation && (
+                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div className="bg-white p-6 rounded-md space-y-4">
+                                <p className="text-gray-800">Are you sure you want to submit this rating?</p>
+                                <div className="flex justify-end space-x-2">
+                                    <button 
+                                        onClick={() => setShowConfirmation(false)} 
+                                        className="px-4 py-2 bg-gray-300 rounded-md"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button 
+                                        onClick={confirmSubmit} 
+                                        className="px-4 py-2 bg-primary-red text-white rounded-md hover:bg-red-600"
+                                    >
+                                        Confirm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                 </div>
             </div>
 
