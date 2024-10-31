@@ -140,7 +140,7 @@ func Courses(c *gin.Context) {
 
 		// Send the course details back to the client as JSON
 		c.JSON(http.StatusOK, courseDetails)
-		
+
 	} else if role == "teacher" {
 		// Query UsersCourses collection to get course IDs for this user
 		userCoursesCursor, err := database.GetInstance().

@@ -1,19 +1,26 @@
 import { useState } from "react";
 import { CourseInfoResponse, Group } from "../network/services/courseService";
+import { JsonRequest } from "../network/http/jsonRequest";
+import { PostCreateNewGroup } from "../network/services/groupsService";
 
 export interface TeacherCourseGroupsProps {
   courseInfo?: CourseInfoResponse;
-  onAddGroup(group: Group): void;
+  refreshGroups(): void;
 }
+
 export function TeacherCourseGroups(props: TeacherCourseGroupsProps) {
   const [newGroupName, setNewGroupName] = useState<string | undefined>();
   if (props.courseInfo == undefined) {
     return <></>;
   }
 
-  const onSaveNewGroup = () => {
+  const onSaveNewGroup = async () => {
     setNewGroupName(undefined)
-    props.onAddGroup({ groupname: newGroupName || "", courseid: props.courseInfo?.course.courseid || "" })
+
+    // Makes POST Request to Create new group using group name & course information
+    await PostCreateNewGroup({ groupname: newGroupName || "", courseid: props.courseInfo?.course.courseid || "" })
+
+    props.refreshGroups()
 
   }
 

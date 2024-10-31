@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { CourseInfoResponse, GetCourseInfo, Group } from "../network/services/courseService"
+import { CourseInfoResponse, GetCourseInfo } from "../network/services/courseService"
 import UserInfoContext from "../contexts/userinfo"
 import SidebarPageTemplate from "../templates/SidebarPageTemplate"
 import { useRequireAuthenticated } from "../hooks/auth"
@@ -15,7 +15,7 @@ export default function CoursePage() {
     const [courseInfo, setCourseInfo] = useState<CourseInfoResponse>()
     const userInfo = useUserInfo()
 
-    const onAddGroup = (_: Group) => {
+    const refreshGroups = () => {
         // send post request to add a new group
 
         GetCourseInfo(courseid || "").then((res) => {
@@ -25,7 +25,7 @@ export default function CoursePage() {
     }
     
     useEffect(() => {
-        GetCourseInfo(courseid || "").then(setCourseInfo)
+        refreshGroups()
     }, [])
     // if the user is not defined render nothing and wait for user to be defined
     return (
@@ -36,7 +36,7 @@ export default function CoursePage() {
             <h1 className="text-4xl">
                 {courseInfo?.course?.coursename}
             </h1>
-            {userInfo?.role =="teacher" && <TeacherCourseGroups courseInfo={courseInfo} onAddGroup={onAddGroup}/>}
+            {userInfo?.role =="teacher" && <TeacherCourseGroups courseInfo={courseInfo} refreshGroups={refreshGroups}/>}
             {userInfo?.role =="student" && <StudentCourseGroups courseInfo={courseInfo} />}
             </div>
         </SidebarPageTemplate>
