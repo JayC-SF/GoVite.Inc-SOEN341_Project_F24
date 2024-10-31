@@ -8,6 +8,7 @@ export const SidebarOptions = () => {
     return (
         <div>
             <nav className="flex min-w-[200] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
+                <a href="/main">
                 <SidebarItem >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
                         className="w-5 h-5">
@@ -17,6 +18,7 @@ export const SidebarOptions = () => {
                     </svg>
                     Home
                 </SidebarItem >
+                </a>
                 <SidebarItem >
                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.20801 15.0209L10.7497 19.2917L19.2913 15.0209M2.20801 10.75L10.7497 15.0209L19.2913 10.75M10.7497 2.20837L2.20801 6.47921L10.7497 10.75L19.2913 6.47921L10.7497 2.20837Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />

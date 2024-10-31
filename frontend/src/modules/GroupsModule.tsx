@@ -12,6 +12,8 @@ export default function GroupsModule() {
     const [selectedStudent, setSelectedStudent] = useState<any>()
     const [rating, setRating] = useState(1);
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const [submissionMessage, setSubmissionMessage] = useState<string | null>(null);
+
     const currentDate = new Intl.DateTimeFormat('en-US', {
         month: 'long',
         day: 'numeric',
@@ -29,9 +31,8 @@ export default function GroupsModule() {
             setStudents(data);
         };
         loadStudents();
-      }, []);
+    }, []);
 
-    
     useEffect(() => {
         // Update selectedStudent to the first student in the list once students data is available
         if (students.length > 0) {
@@ -66,6 +67,7 @@ export default function GroupsModule() {
             "groupid": "67211117efa57b840254b949"
         });
         setShowConfirmation(false);  // Close the modal after submission
+        setSubmissionMessage("Your rating has been successfully submitted!");
     };
 
     // Render for student
@@ -76,7 +78,6 @@ export default function GroupsModule() {
                 <div className="bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex items-center">
                     <div className="pl-8 flex-1">
                         <p className="text-sm text-gray-200 mb-12">{currentDate}</p>
-                        
                         <h1 className="text-3xl font-bold text-white">Welcome back, {userInfo.firstname}!</h1>
                         <p className="text-sm text-gray-200 mt-1">Always stay updated in your student portal</p>
                     </div>
@@ -94,7 +95,6 @@ export default function GroupsModule() {
                     </div>
                 </div>
 
-
                 {/* Rating Form Section */}
                 <div className="rating-form-section bg-gray-100 rounded-lg shadow-md p-4 mt-6">
                     <h2 className="text-2xl font-bold text-primary-red mb-4">Rate My Peers - Assessment Form</h2>
@@ -106,16 +106,16 @@ export default function GroupsModule() {
                         {/* Member Selection */}
                         <div className="flex flex-col mb-4">
                             <label className="text-lg font-semibold text-gray-800">Choose a Team Member to Review:</label>
-                            <select value={selectedStudent} className="border border-gray-300 rounded-md p-2" 
-                            onChange={(e) => { 
-                                setSelectedStudent(e.target.value)
-                            }}
-                            required>
+                            <select value={selectedStudent} className="border border-gray-300 rounded-md p-2"
+                                onChange={(e) => {
+                                    setSelectedStudent(e.target.value)
+                                }}
+                                required>
                                 {students
                                     .filter(student => student.email !== userInfo.email)
                                     .map((student) => (
                                         <option key={student.email} value={student.email}>
-                                        {`${student.firstname} ${student.lastname}`}
+                                            {`${student.firstname} ${student.lastname}`}
                                         </option>
                                     ))
                                 }
@@ -132,21 +132,21 @@ export default function GroupsModule() {
                             <CommentBox />
                             <br></br>
                         </div>
-                        
+
                         {/* Input value to add overall rating */}
                         <div className="flex flex-col mb-4">
                             <label className="text-lg font-semibold text-gray-800">Overall Rating:</label>
                             <div className="flex items-center">
                                 <button type="button" onClick={handleDecrement} className="px-3 py-1 bg-gray-300 rounded-md">-</button>
-                                <input 
-                                    type="number" 
-                                    min="1" 
+                                <input
+                                    type="number"
+                                    min="1"
                                     max="5"
                                     value={rating}
                                     className="border border-gray-300 text-center w-12 p-1"
                                     onChange={(e) => setRating(Number(e.target.value))}
-                                    readOnly 
-                                    required 
+                                    readOnly
+                                    required
                                 />
                                 <button type="button" onClick={handleIncrement} className="px-3 py-1 bg-gray-300 rounded-md">+</button>
                             </div>
@@ -163,14 +163,14 @@ export default function GroupsModule() {
                             <div className="bg-white p-6 rounded-md space-y-4">
                                 <p className="text-gray-800">Are you sure you want to submit this rating?</p>
                                 <div className="flex justify-end space-x-2">
-                                    <button 
-                                        onClick={() => setShowConfirmation(false)} 
+                                    <button
+                                        onClick={() => setShowConfirmation(false)}
                                         className="px-4 py-2 bg-gray-300 rounded-md"
                                     >
                                         Cancel
                                     </button>
-                                    <button 
-                                        onClick={confirmSubmit} 
+                                    <button
+                                        onClick={confirmSubmit}
                                         className="px-4 py-2 bg-primary-red text-white rounded-md hover:bg-red-600"
                                     >
                                         Confirm
@@ -180,6 +180,12 @@ export default function GroupsModule() {
                         </div>
                     )}
 
+                    {/* Submission Confirmation Message */}
+                    {submissionMessage && (
+                        <div className="mt-4 p-4 bg-green-100 text-green-800 rounded-md">
+                            {submissionMessage}
+                        </div>
+                    )}
                 </div>
             </div>
 
