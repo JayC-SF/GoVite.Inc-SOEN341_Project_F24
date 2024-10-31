@@ -16,6 +16,11 @@ export const UsersRoutes = {
 export const CourseRoutes = {
     courseInfo: "/api/courses/courseinfo"
 }
+
 export const RatingsRoutes = {
     submitRating: "/api/submitRating"
+}
+
+export const GroupsRoutes = {
+    addgroup: "/api/addgroup"
 }

@@ -7,6 +7,7 @@ export interface Group {
     groupname: string
     courseid: string
 }
+
 export interface Course {
     id: string
     courseid: string
