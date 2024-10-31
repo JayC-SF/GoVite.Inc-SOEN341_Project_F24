@@ -50,3 +50,25 @@ html {
   top: 16.5px;
   z-index: 100;
 }
+
+/* My Classes */
+
+.header-w {
+  font-style: normal;
+  line-height: 48px;
+  /* identical to box height */
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #ffffff;
+}
+
+.corner {
+  position: relative;
+  height: 50px;
+  right: -110px;
+  top: 57px;
+  z-index: 100;
+  overflow: hidden;
+}

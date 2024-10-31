@@ -4,6 +4,7 @@ import TeacherSignUp from "./pages/sign-up/TeacherSignUp";
 import StudentSignUp from "./pages/sign-up/StudentSignUp";
 import Login from "./pages/login/Login";
 import Main from "./pages/main/MainPage";
+import CoursePage from "./pages/CoursePage";
 
 export const AppRoutes = createBrowserRouter([
   {
@@ -25,5 +26,9 @@ export const AppRoutes = createBrowserRouter([
   {
     path: "/main",
     element: <Main/>
+  },
+  {
+    path: "/courses/:courseid",
+    element: <CoursePage/>
   }
 ]);

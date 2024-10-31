@@ -8,12 +8,11 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // login controller supports two encoding: json and x-www-form-urlencoded
@@ -35,14 +34,7 @@ func LoginController(c *gin.Context) {
 	}
 
 	// Validate hashed password with database
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	filter := bson.M{"email": body.Email}
-	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Users")
-
-	var result bson.M
-	err := collection.FindOne(ctx, filter).Decode(&result)
+	user, err := models.GetUserFromEmail(body.Email)
 	if err != nil {
 		fmt.Println("Cannot find user!")
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found in DB!"})
@@ -50,17 +42,18 @@ func LoginController(c *gin.Context) {
 	}
 
 	var ok bool
-	hashedPassword := result["password"].(string)
+	hashedPassword := user.Password
 	ok = util.CompareHashAndPassword(hashedPassword, body.Password)
 
 	if !ok {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials or format"})
 		return
 	}
-
+	role := user.Role
+	email := user.Email
 	session := sessions.Default(c)
-	session.Set(config.SessionFields.Email, body.Email)
-	session.Set(config.SessionFields.Role, "student")
+	session.Set(config.SessionFields.Email, email)
+	session.Set(config.SessionFields.Role, role)
 
 	if err := session.Save(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Session could not be saved"})
@@ -154,11 +147,16 @@ func GetUserInfo(c *gin.Context) {
 		return
 	}
 
-	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Users")
-	opts := options.FindOne().SetProjection(bson.M{"firstname": 1, "lastname": 1})
-	filter := bson.M{"email": email}
-	var user models.User
-	collection.FindOne(context.TODO(), filter, opts).Decode(&user)
+	user, err := models.GetUserFromEmailWithProjection(email, bson.M{"firstname": 1, "lastname": 1})
+	if err != nil {
+		fmt.Errorf("%s", err.Error())
+		if err == mongo.ErrNoDocuments {
+			c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		} else {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error when fetching user"})
+		}
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"email":     email,
