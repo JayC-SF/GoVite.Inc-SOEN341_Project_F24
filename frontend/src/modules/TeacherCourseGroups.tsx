@@ -47,7 +47,7 @@ export function TeacherCourseGroups(props: TeacherCourseGroupsProps) {
         {newGroupName != undefined && (
           <div className="flex gap-2">
             <input
-              className="border border-gray-300 text-center p-1 mb-3"
+              className="text-black border border-gray-300 text-center p-1 mb-3"
               onChange={(e) => setNewGroupName(e.target.value)}
               placeholder="New Group Name"
             />
