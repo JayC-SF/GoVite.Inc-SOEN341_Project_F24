@@ -57,15 +57,16 @@ export default function GroupsModule() {
     // Render for student
     if (userInfo?.role === "student") {
         return (
-            <div className="p-6 space-y-6">
+            <div className="p-1 space-y-6">
                 {/* Welcome Section */}
-                <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex">
-                    <div className="flex-1">
-                        <p className="text-lg font-semibold text-white">
-                            Hi {userInfo.firstname} {userInfo.lastname}! Your email is {userInfo.email} and your role is {userInfo.role}!
-                        </p><br></br>
-                        <p className="text-xl text-gray-200 mb-4">{currentDate}</p>
+                <div className="bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex items-center">
+                    <div className="pl-8 flex-1">
+                        <p className="text-sm text-gray-200 mb-12">{currentDate}</p>
+                        
+                        <h1 className="text-3xl font-bold text-white">Welcome back, {userInfo.firstname}!</h1>
+                        <p className="text-sm text-gray-200 mt-1">Always stay updated in your student portal</p>
                     </div>
+                    <img src="/src/assets/student.png" alt="Welcome" className="pr-7 w-200 h-40 object-contain" />
                 </div>
 
 
