@@ -42,4 +42,8 @@ func RegisterApiRoutes(r *gin.Engine) {
 	api_session_auth.GET("/courses/courseinfo", controllers.GetCourseInformation)
 	// create a new Rating POST Request: /api/submitRating
 	api_session_auth.POST("/submitRating", controllers.RatingsController)
+
+	// GROUPS endpoint
+	// create a new Group POST Request: /api/addgroup
+	api_session_auth.POST("/addgroup", controllers.GroupsController)
 }
