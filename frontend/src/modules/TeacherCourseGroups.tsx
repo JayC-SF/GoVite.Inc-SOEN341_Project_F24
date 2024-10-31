@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { CourseInfoResponse, Group } from "../network/services/courseService";
-import { JsonRequest } from "../network/http/jsonRequest";
+import { CourseInfoResponse } from "../network/services/courseService";
 import { PostCreateNewGroup } from "../network/services/groupsService";
 
 export interface TeacherCourseGroupsProps {
