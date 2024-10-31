@@ -75,7 +75,7 @@ export default function GroupsModule() {
         return (
             <div className="p-1 space-y-6">
                 {/* Welcome Section */}
-                <div className="bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex items-center">
+                <div className="module rounded-2xl shadow-md p-4 flex items-center">
                     <div className="pl-8 flex-1">
                         <p className="text-sm text-gray-200 mb-12">{currentDate}</p>
                         <h1 className="text-3xl font-bold text-white">Welcome back, {userInfo.firstname}!</h1>
@@ -86,7 +86,7 @@ export default function GroupsModule() {
 
 
                 {/* Course Section */}
-                <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex flex">
+                <div className="welcome-section module rounded-2xl shadow-md p-4 flex">
                     <div className="flex-1">
                         <p className="header-w font-semibold text-2xl"> My Classes</p>
                         <div className="flex flex-wrap justify-around">
@@ -208,11 +208,8 @@ export default function GroupsModule() {
         return (
             <div className="p-6 space-y-6">
                 {/* Welcome Section */}
-                <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex">
+                <div className="module-t rounded-2xl shadow-md p-4 flex items-center">
                     <div className="flex-1">
-                        <p className="text-lg font-semibold text-white">
-                            Hi! {userInfo.firstname} {userInfo.lastname}, your email is {userInfo.email} and your role is {userInfo.role}
-                        </p><br></br>
                         <p className="text-xl text-gray-200 mb-4">{currentDate}</p>
                         <h2 className="text-2xl font-bold text-white mb-4">Welcome back to RateMyPeers!</h2>
                         <p className="mt-2 text-gray-200">You have 27 new students added to your domain. Please reach out to the Course Coordinator if you want them excluded from your domain.</p>
@@ -223,7 +220,7 @@ export default function GroupsModule() {
                 </div>
 
                 {/* Courses Section */}
-                <div className="welcome-section bg-gradient-to-bl from-primary-red/60 to-primary-red rounded-lg shadow-md p-4 flex flex">
+                <div className="module rounded-2xl shadow-md p-4 flex">
                     <div className="flex-1">
                         <p className="header-w font-semibold text-2xl"> Available Courses</p>
                         <div className="flex flex-wrap justify-around">
@@ -232,7 +229,7 @@ export default function GroupsModule() {
                     </div>
                 </div>
                 {/* Recent Activities Section */}
-                <div className="recent-activities bg-primary-red rounded-lg shadow-md p-4">
+                <div className="recent-activities module rounded-2xl shadow-md p-4">
                     <h2 className="text-xl font-bold text-white mb-2">Recent Activities</h2>
                     <ul className="list-disc list-inside text-gray-200">
                         <li className="text-gray-200">Group 1 has submitted the team project on {currentDate}</li>
