@@ -18,7 +18,7 @@ type User struct {
 	LastName  string             `form:"lastname" json:"lastname" bson:"lastname" binding:"required"`
 	Username  string             `form:"username" json:"username" bson:"username" binding:"required"`
 	Email     string             `form:"email" json:"email" bson:"email" binding:"required"`
-	Password  string             `form:"password" json:"password" bson:"password" binding:"required"`
+	Password  string             `form:"password" json:"password,omitempty" bson:"password" binding:"required"`
 	Role      string             `form:"role" json:"role" bson:"role" binding:"required"`
 }
 
@@ -48,4 +48,37 @@ func GetUserFromEmailWithProjection(email string, projection bson.M) (*User, err
 		return nil, err
 	}
 	return &result, nil
+}
+func (user *User) GetRatingScore(groupId string) (float64, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Ratings")
+	mongoGroupId, err := primitive.ObjectIDFromHex(groupId)
+	if err != nil {
+		return 0, err
+	}
+	filter := bson.M{
+		"ratedstudent": user.Email,
+		"groupid":      mongoGroupId,
+	}
+	cursor, err := collection.Find(ctx, filter)
+	if err != nil {
+		return 0, err
+	}
+	var ratings []Rating
+	if err := cursor.All(ctx, &ratings); err != nil {
+		return 0, err
+	}
+	if ratings == nil {
+		ratings = []Rating{}
+	}
+	if len(ratings) == 0 {
+		return -1, nil
+	}
+	score := float64(0)
+	for _, rating := range ratings {
+		score += float64(rating.Rating)
+	}
+
+	return score / float64(len(ratings)), nil
 }

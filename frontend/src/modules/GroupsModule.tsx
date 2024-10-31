@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import UserInfoContext, { UserInfo } from "../contexts/userinfo";
-import { PostCreateNewRating } from "../network/services/ratingsService";
 import StudentCourses from "../pages/home/courses/StudentCourses";
 import TeacherCourses from "../pages/home/courses/TeacherCourses";
-import CommentBox from "../components/CommentBox";
+import { PostCreateNewRating } from "../network/services/ratingsService";
 import RatingQuestion from "../components/RatingQuestion";
+import CommentBox from "../components/CommentBox";
 
 export default function GroupsModule() {
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
@@ -89,7 +89,7 @@ export default function GroupsModule() {
                 <div className="welcome-section module rounded-2xl shadow-md p-4 flex">
                     <div className="flex-1">
                         <p className="header-w font-semibold text-2xl"> My Classes</p>
-                        <div className="flex flex-wrap justify-around">
+                        <div className="flex flex-wrap justify-left">
                             <StudentCourses></StudentCourses>
                         </div>
                     </div>
@@ -223,7 +223,7 @@ export default function GroupsModule() {
                 <div className="module rounded-2xl shadow-md p-4 flex">
                     <div className="flex-1">
                         <p className="header-w font-semibold text-2xl"> Available Courses</p>
-                        <div className="flex flex-wrap justify-around">
+                        <div className="flex flex-wrap justify-left">
                             <TeacherCourses></TeacherCourses>
                         </div>
                     </div>

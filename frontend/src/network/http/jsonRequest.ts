@@ -1,8 +1,8 @@
-import { addUrlParams, Json } from "./common"
+import { addUrlParams } from "./common"
 
 export interface JsonRequestInit extends Omit<RequestInit, 'body'> {
     // body of the request as a JSON object
-    body?: Json,
+    body?: any,
     // params field to handle url params of the url
     params?: Record<string, any>
     // same type as RequestInit, except we omit the Content-Type since it has to be JSON

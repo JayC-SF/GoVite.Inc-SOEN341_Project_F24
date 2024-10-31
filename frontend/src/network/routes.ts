@@ -22,5 +22,8 @@ export const RatingsRoutes = {
 }
 
 export const GroupsRoutes = {
-    addgroup: "/api/addgroup"
+    addgroup: "/api/addgroup",
+    groupInfo: "/api/groups/groupinfo",
+    studentsWithoutGroup: "/api/groups/studentswithoutgroup",
+    newstudentingroup: "/api/groups/newstudentingroup"
 }
