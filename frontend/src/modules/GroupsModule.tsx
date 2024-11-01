@@ -36,8 +36,6 @@ export default function GroupsModule() {
                     </div>
                 </div>
 
-                {/* Rating Form Section */}
-               
                 {/* Footer with Need More Help Section */}
                 <footer className="bg-gray-800 text-white py-5 mt-10 w-full">
                     <div className="container mx-auto text-center">
