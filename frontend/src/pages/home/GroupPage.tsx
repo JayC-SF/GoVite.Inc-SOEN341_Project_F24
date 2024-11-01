@@ -49,7 +49,7 @@ export default function GroupPage() {
                         {user.firstname} {user.lastname} - {user.email}
                   </div>
                     <p className="m-3"> Score : {user.score == -1? "NA" : user.score}</p>
-                  <a href={`/ratings/${groupid}/${user.email}/new`}><RMPButton>Rate</RMPButton></a>
+                  {userInfo?.role == "student" && <a href={`/ratings/${groupid}/${user.email}/new`}><RMPButton>Rate</RMPButton></a>}
               </div>
                 ))
               : "No students belong to this group."}
