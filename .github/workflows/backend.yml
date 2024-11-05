@@ -3,12 +3,12 @@ name: Backend CI
 on:
   push:
     paths:
-      - 'backend/**'
+      - "backend/**"
   pull_request:
     branches:
       - main
-    paths: 
-      - 'backend/**'
+    paths:
+      - "backend/**"
 
 jobs:
   build:
@@ -19,6 +19,8 @@ jobs:
       - name: Setup Golang
         uses: actions/setup-go@v5
         with:
-          go-version: '1.23.1'
+          go-version: "1.23.1"
       - name: Build Go Code
         run: cd backend && go build
+      - name: Run backend test suite
+        run: cd backend && go test
