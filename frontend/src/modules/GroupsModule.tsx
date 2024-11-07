@@ -3,6 +3,7 @@ import UserInfoContext, { UserInfo } from "../contexts/userinfo";
 import StudentCourses from "../pages/home/courses/StudentCourses";
 import TeacherCourses from "../pages/home/courses/TeacherCourses";
 
+
 export default function GroupsModule() {
     const userInfo = useContext<UserInfo | undefined>(UserInfoContext);
 
@@ -58,10 +59,17 @@ export default function GroupsModule() {
             <div className="p-6 space-y-6">
                 {/* Welcome Section */}
                 <div className="module-t rounded-2xl shadow-md p-4 flex items-center">
-                    <div className="flex-1">
-                        <p className="text-xl text-gray-200 mb-4">{currentDate}</p>
-                        <h2 className="text-2xl font-bold text-white mb-4">Welcome back to RateMyPeers!</h2>
-                        <p className="mt-2 text-gray-200">You have 27 new students added to your domain. Please reach out to the Course Coordinator if you want them excluded from your domain.</p>
+                <div className="pl-8s flex-1">
+                        <p className="text-sm text-gray-200 mb-10">{currentDate}</p>
+                        <h1 className="text-3xl font-bold text-white mb-4">Welcome back, Professor {userInfo.lastname}!</h1>
+                        <p className="text-gray-200">Keep inspiring and guiding your students to reach new heights</p>
+                        <p className="pt-4 text-sm italic text-gray-300"  style={{
+                            transition: 'opacity 0.1s ease-in-out',
+                            cursor: 'pointer',
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.5')}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                    >"Education is the most powerful weapon which you can use to change the world" – Nelson Mandela</p>
                     </div>
                     <div className="flex-shrink-0">
                         <img src="/src/assets/teacher.png" alt="Welcome Image" className="w-80 h-55 object-cover rounded-lg" />
@@ -77,16 +85,7 @@ export default function GroupsModule() {
                         </div>
                     </div>
                 </div>
-                {/* Recent Activities Section */}
-                <div className="recent-activities module rounded-2xl shadow-md p-4">
-                    <h2 className="text-xl font-bold text-white mb-2">Recent Activities</h2>
-                    <ul className="list-disc list-inside text-gray-200">
-                        <li className="text-gray-200">Group 1 has submitted the team project on {currentDate}</li>
-                        <li className="text-gray-200">You Will Start Teaching Course 2 on {currentDate}</li>
-                        <li className="text-gray-200">Group 2 Joined a new team project on {currentDate}</li>
-                    </ul>
-                </div>
-
+                
                 {/* Footer with Need More Help Section */}
                 <footer className="bg-gray-800 text-white py-5 mt-10 w-full">
                     <div className="container mx-auto text-center">
