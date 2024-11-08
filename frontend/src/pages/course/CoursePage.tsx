@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  CourseInfoResponse,
-  GetCourseInfo,
-} from "../network/services/courseService";
-import UserInfoContext from "../contexts/userinfo";
-import SidebarPageTemplate from "../templates/SidebarPageTemplate";
-import { useRequireAuthenticated } from "../hooks/auth";
-import { useUserInfo } from "../hooks/useUserInfo";
-import { TeacherCourseGroups } from "../modules/TeacherCourseGroups";
-import { StudentCourseGroups } from "../modules/StudentCourseGroups";
+import UserInfoContext from "../../contexts/userinfo";
+import { useRequireAuthenticated } from "../../hooks/auth";
+import { useUserInfo } from "../../hooks/useUserInfo";
+import { StudentCourseGroups } from "../../modules/StudentCourseGroups";
+import { TeacherCourseGroups } from "../../modules/TeacherCourseGroups";
+import { CourseInfoResponse, GetCourseInfo } from "../../network/services/courseService";
+import SidebarPageTemplate from "../../templates/SidebarPageTemplate";
+
 
 export default function CoursePage() {
   const { courseid } = useParams();
@@ -47,6 +45,12 @@ export default function CoursePage() {
                             {userInfo?.role =="student" && <StudentCourseGroups courseInfo={courseInfo} />}
                         </div> 
                     </div>
+                    {userInfo?.role == "teacher" && (
+                        <div className="flex gap-4 mt-10" >
+                        <a href={`/courses/${courseid}/summary`}>Summary of results</a>
+                        <a href={`/courses/${courseid}/details`}>Details of results</a>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
