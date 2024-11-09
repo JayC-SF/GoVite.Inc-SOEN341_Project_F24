@@ -7,7 +7,7 @@ export const SidebarOptions = () => {
     const onClickLogout = () => postLogout().catch(console.error)
     return (
         <div>
-            <nav className="flex min-w-[200] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
+            <nav className="flex min-w-[200] flex-col gap-1 p-2 font-sans text-base font-normal !text-white bg-transparent">
                 <a href="/main">
                     <SidebarItem>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
