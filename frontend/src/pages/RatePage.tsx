@@ -59,7 +59,7 @@ export default function RatePage() {
     <UserInfoContext.Provider value={userInfo}>
       <SidebarPageTemplate hidden={!displayContent}>
         {
-          userInfo && <div className="rating-form-section bg-gray-100 rounded-lg shadow-md p-4 mt-6">
+          userInfo && <div className="rating-form-section bg-gray-100 rounded-lg shadow-md p-4">
           <h2 className="text-2xl font-bold text-primary-red mb-4">
             Rate My Peers - Assessment Form
           </h2>
@@ -103,9 +103,46 @@ export default function RatePage() {
               <RatingQuestion label="3. Cooperating within the group:" />
               <RatingQuestion label="4. Assisting team-mates when needed:" />
               <RatingQuestion label="5. Volunteering for tasks:" />
-              <CommentBox />
               <br></br>
             </div>
+
+            <div>
+              <h2 className="text-xl underline font-semibold text-primary-red mb-4">
+              Conceptual Contribution
+              </h2>
+              <RatingQuestion label="1. Actively participating in meetings:" />
+              <RatingQuestion label="2. Communicating within the group:" />
+              <RatingQuestion label="3. Cooperating within the group:" />
+              <RatingQuestion label="4. Assisting team-mates when needed:" />
+              <RatingQuestion label="5. Volunteering for tasks:" />
+              <br></br>
+            </div>
+
+            <div>
+              <h2 className="text-xl underline font-semibold text-primary-red mb-4">
+              Practical Contribution
+              </h2>
+              <RatingQuestion label="1. Actively participating in meetings:" />
+              <RatingQuestion label="2. Communicating within the group:" />
+              <RatingQuestion label="3. Cooperating within the group:" />
+              <RatingQuestion label="4. Assisting team-mates when needed:" />
+              <RatingQuestion label="5. Volunteering for tasks:" />
+              <br></br>
+            </div>
+
+            <div>
+              <h2 className="text-xl underline font-semibold text-primary-red mb-4">
+              Work Ethic
+              </h2>
+              <RatingQuestion label="1. Actively participating in meetings:" />
+              <RatingQuestion label="2. Communicating within the group:" />
+              <RatingQuestion label="3. Cooperating within the group:" />
+              <RatingQuestion label="4. Assisting team-mates when needed:" />
+              <RatingQuestion label="5. Volunteering for tasks:" />
+              <br></br>
+            </div>
+
+            <CommentBox></CommentBox>
 
             {/* Input value to add overall rating */}
             <div className="flex flex-col mb-4">
