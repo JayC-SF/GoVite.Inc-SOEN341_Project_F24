@@ -1,7 +1,6 @@
 
 const SelectRating = ({ required = true }) => (
     <select className="border border-gray-300 rounded-md p-2" required={required}>
-        <option value="0">Select your rating</option>
         <option value="1">1 - Poor</option>
         <option value="2">2 - Fair</option>
         <option value="3">3 - Good</option>
