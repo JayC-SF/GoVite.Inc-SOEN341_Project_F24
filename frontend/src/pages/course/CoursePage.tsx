@@ -39,7 +39,7 @@ export default function CoursePage() {
                         </div>
                         <img src="/src/assets/books.png" alt="Welcome" className="pr-12 w-[250px] h-40 object-contain" />
                     </div>
-                    <div className="module mt-10 rounded-2xl shadow-md p-4 flex items-center">
+                    <div className="module mt-5 rounded-2xl shadow-md p-4 flex items-center">
                         <div className="pl-8 flex-1 text-white">
                             {userInfo?.role =="teacher" && <TeacherCourseGroups courseInfo={courseInfo} refreshGroups={refreshGroups}/>}
                             {userInfo?.role =="student" && <StudentCourseGroups courseInfo={courseInfo} />}

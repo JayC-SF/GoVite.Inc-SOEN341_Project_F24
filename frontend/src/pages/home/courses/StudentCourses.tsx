@@ -55,12 +55,14 @@ export default function StudentCourses() {
           </p>
         </div>
       ) : (
-        <div className="flex flex-wrap gap-10 items-start">
+        <div className="flex flex-wrap gap-10 items-start ">
           {courses.map((course) => (
             <div className="" key={course.courseid}>
               <a
                 href={`/courses/${course.courseid}`}
-                className="block w-[200px] min-h-[150px] rounded-lg border-gray-200 bg-white p-6 shadow hover:bg-zinc-100 dark:border-gray-700"
+                className="block w-[200px] min-h-[150px] rounded-lg border-gray-200 bg-white p-6 shadow hover:bg-zinc-100 dark:border-gray-700
+                duration-300 transform outline-none hover:scale-105 hover:shadow-lg
+                "
               >
                 <div className="class-card-header">
                   <span className="icon">📚</span>

@@ -16,7 +16,7 @@ export default function GroupsModule() {
     // Render for student
     if (userInfo?.role === "student") {
         return (
-            <div className="p-1 space-y-6">
+            <div className="p-1 space-y-6 h-full">
                 {/* Welcome Section */}
                 <div className="module rounded-2xl shadow-md p-4 flex items-center">
                     <div className="pl-8 flex-1">
