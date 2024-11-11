@@ -3,7 +3,9 @@ package models
 import (
 	"backend/database"
 	"context"
+	"errors"
 	"fmt"
+	"log"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -49,6 +51,7 @@ func GetUserFromEmailWithProjection(email string, projection bson.M) (*User, err
 	}
 	return &result, nil
 }
+
 func (user *User) GetRatingScore(groupId string) (float64, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -57,6 +60,7 @@ func (user *User) GetRatingScore(groupId string) (float64, error) {
 	if err != nil {
 		return 0, err
 	}
+	fmt.Println(user.Email, mongoGroupId)
 	filter := bson.M{
 		"ratedstudent": user.Email,
 		"groupid":      mongoGroupId,
@@ -73,12 +77,23 @@ func (user *User) GetRatingScore(groupId string) (float64, error) {
 		ratings = []Rating{}
 	}
 	if len(ratings) == 0 {
-		return -1, nil
+		return 0, errors.New("NA rating score")
 	}
 	score := float64(0)
+	total := 0
 	for _, rating := range ratings {
-		score += float64(rating.Rating)
+		avgScore, err := rating.GetAverageGrade()
+		// omit rating if error occurs getting avg grade for a rating
+		if err != nil {
+			log.Println("Error getting rate average, skipping: ", err)
+			continue
+		}
+		total += 1
+		score += avgScore
+	}
+	if total == 0 {
+		return 0, errors.New("NA rating score")
 	}
 
-	return score / float64(len(ratings)), nil
+	return score / float64(total), nil
 }
