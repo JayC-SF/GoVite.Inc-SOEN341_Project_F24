@@ -53,7 +53,8 @@ export default function TeacherCourses() {
             <div className="" key={course.courseid}>
               <a
                 href={`/courses/${course.courseid}`}
-                className="block w-[200px] min-h-[150px] rounded-lg border-gray-200 bg-white p-6 shadow hover:bg-zinc-100 dark:border-gray-700"
+                className="block w-[200px] min-h-[150px] rounded-lg border-gray-200 bg-white p-6 shadow hover:bg-zinc-100 dark:border-gray-700
+                duration-300 transform outline-none hover:scale-105 hover:shadow-lg"
               >
                 <div className="class-card-header">
                   <span className="icon">📚</span>
