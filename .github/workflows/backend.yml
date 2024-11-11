@@ -23,4 +23,4 @@ jobs:
       - name: Build Go Code
         run: cd backend && go build
       - name: Run backend test suite
-        run: cd backend && go test
+        run: cd backend && go test ./...
