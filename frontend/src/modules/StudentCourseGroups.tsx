@@ -20,7 +20,7 @@ export function StudentCourseGroups(props: StudentCourseGroupsProps) {
         <h2 className="text-3xl mt-5 font-bold">
             Other Groups
         </h2>
-        <div className="m-5">
+        <div className="mx-5">
             
             {props.courseInfo.groups.map((g)=>(
                 <div>
