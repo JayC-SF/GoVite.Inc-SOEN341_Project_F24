@@ -12,15 +12,14 @@ import (
 )
 
 type RatingCriterionBody struct {
-	CriteriaID primitive.ObjectID `json:"criteriaid"`
-	Grade      int                `json:"grade"`
+	CriterionId primitive.ObjectID `json:"criterionid"`
+	Grade       int                `json:"grade"`
 }
 type AddNewRatingBody struct {
-	RatingStudent string                `json:"ratingstudent"`
-	RatedStudent  string                `json:"ratedstudent"`
-	GroupId       primitive.ObjectID    `json:"groupid"`
-	Comment       string                `json:"comment"`
-	Criteria      []RatingCriterionBody `json:"criteria"`
+	RatedStudent string                `json:"ratedstudent"`
+	GroupId      primitive.ObjectID    `json:"groupid"`
+	Comment      string                `json:"comment"`
+	Criteria     []RatingCriterionBody `json:"criteria"`
 }
 
 // RatingsController - Add a new rating to MongoDB
@@ -45,16 +44,16 @@ func RatingsController(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid format"})
 		return
 	}
-	reqBody.RatingStudent = email
 
 	// insert new reqBody into db
 	var rating models.Rating
 	// copy the matching fields
-	if err := util.CopyFields(&reqBody, &rating); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "error copying values"})
+	if err := util.CopyFields(reqBody, &rating); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "error copying values " + err.Error()})
 		return
 	}
 	rating.ID = primitive.NewObjectID()
+	rating.RatingStudent = email
 
 	if err := rating.Save(); err != nil {
 		c.JSON(http.StatusConflict, gin.H{"error": "Error when inserting new rating to DB!"})
@@ -66,12 +65,16 @@ func RatingsController(c *gin.Context) {
 		criterion := models.NewRatingCriterion(
 			primitive.NewObjectID(),
 			rating.ID,
-			reqCriterion.CriteriaID,
+			reqCriterion.CriterionId,
 			reqCriterion.Grade)
 
 		criteria = append(criteria, *criterion)
 	}
-	criteria.Save()
+
+	if err := criteria.Save(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "problem occurred while saving criteria"})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }

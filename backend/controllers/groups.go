@@ -4,7 +4,6 @@ import (
 	"backend/database"
 	"backend/models"
 	"context"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-// RatingsController - Add a new rating to MongoDB
 func GroupsController(c *gin.Context) {
 	var group models.Group
 
@@ -66,11 +64,9 @@ func GetGroupInfo(c *gin.Context) {
 	for _, user := range users {
 		score, err := user.GetRatingScore(groupId)
 		if err != nil {
-			fmt.Println(err.Error())
 			score = -1
 		}
 		students = append(students, StudentResponse{user, score})
-		fmt.Println(students)
 	}
 	c.JSON(http.StatusOK, GetGroupInfoResponse{
 		Group:    *group,

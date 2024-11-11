@@ -10,10 +10,10 @@ import (
 )
 
 type RatingCriterion struct {
-	ID         primitive.ObjectID `json:"id" bson:"_id"`
-	RatingId   primitive.ObjectID `json:"ratingid" bson:"ratingid"`
-	CriteriaId primitive.ObjectID `json:"criteriaid" bson:"criteriaid"`
-	Grade      int                `json:"grade" bson:"grade"`
+	ID          primitive.ObjectID `json:"id" bson:"_id"`
+	RatingId    primitive.ObjectID `json:"ratingid" bson:"ratingid"`
+	CriterionId primitive.ObjectID `json:"criterionid" bson:"criterionid"`
+	Grade       int                `json:"grade" bson:"grade"`
 }
 
 type RatingCriteriaSlice []RatingCriterion
@@ -36,11 +36,11 @@ func (rcs RatingCriteriaSlice) Save() error {
 	return err
 }
 
-func NewRatingCriterion(ID primitive.ObjectID, ratingId primitive.ObjectID, criteriaId primitive.ObjectID, grade int) *RatingCriterion {
+func NewRatingCriterion(ID primitive.ObjectID, ratingId primitive.ObjectID, criterionId primitive.ObjectID, grade int) *RatingCriterion {
 	return &RatingCriterion{
-		ID:         ID,
-		RatingId:   ratingId,
-		CriteriaId: criteriaId,
-		Grade:      grade,
+		ID:          ID,
+		RatingId:    ratingId,
+		CriterionId: criterionId,
+		Grade:       grade,
 	}
 }
