@@ -12,8 +12,8 @@ import (
 
 type Group struct {
 	ID        primitive.ObjectID `bson:"_id,omitempty" json:"id"`
-	GroupName string             `bson:"groupname"  json:"groupname,omitempty"`
-	CourseId  string             `bson:"courseid" json:"courseid,omitempty"`
+	GroupName string             `bson:"groupname"  json:"groupname,omitempty" binding:"required"`
+	CourseId  string             `bson:"courseid" json:"courseid,omitempty" binding:"required"`
 }
 
 func GetGroupFromId(groupId string) (*Group, error) {

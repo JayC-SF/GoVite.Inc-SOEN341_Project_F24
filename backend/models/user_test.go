@@ -27,37 +27,37 @@ func TestUserBinding(t *testing.T) {
 	}{
 		{
 			name:       "Complete payload",
-			payload:    `{"id":"` + userID.Hex() + `","firstname":"John","lastname":"Doe","username":"johndoe","email":"john.doe@example.com","password":"password123","role":"student"}`,
+			payload:    `{"id":"` + userID.Hex() + `","firstname":"Daniel","lastname":"Lam","username":"den1al","email":"la_dani@live.concordia.ca","password":"password123","role":"student"}`,
 			shouldBind: true,
 		},
 		{
 			name:       "Missing FirstName",
-			payload:    `{"id":"` + userID.Hex() + `","lastname":"Doe","username":"johndoe","email":"john.doe@example.com","password":"password123","role":"student"}`,
+			payload:    `{"id":"` + userID.Hex() + `","lastname":"Lam","username":"den1al","email":"la_dani@live.concordia.ca","password":"password123","role":"student"}`,
 			shouldBind: false,
 		},
 		{
 			name:       "Missing LastName",
-			payload:    `{"id":"` + userID.Hex() + `","firstname":"John","username":"johndoe","email":"john.doe@example.com","password":"password123","role":"student"}`,
+			payload:    `{"id":"` + userID.Hex() + `","firstname":"Daniel","username":"den1al","email":"la_dani@live.concordia.ca","password":"password123","role":"student"}`,
 			shouldBind: false,
 		},
 		{
 			name:       "Missing Username",
-			payload:    `{"id":"` + userID.Hex() + `","firstname":"John","lastname":"Doe","email":"john.doe@example.com","password":"password123","role":"student"}`,
+			payload:    `{"id":"` + userID.Hex() + `","firstname":"Daniel","lastname":"Lam","email":"la_dani@live.concordia.ca","password":"password123","role":"student"}`,
 			shouldBind: false,
 		},
 		{
 			name:       "Missing Email",
-			payload:    `{"id":"` + userID.Hex() + `","firstname":"John","lastname":"Doe","username":"johndoe","password":"password123","role":"student"}`,
+			payload:    `{"id":"` + userID.Hex() + `","firstname":"Daniel","lastname":"Lam","username":"den1al","password":"password123","role":"student"}`,
 			shouldBind: false,
 		},
 		{
 			name:       "Missing Password",
-			payload:    `{"id":"` + userID.Hex() + `","firstname":"John","lastname":"Doe","username":"johndoe","email":"john.doe@example.com","role":"student"}`,
+			payload:    `{"id":"` + userID.Hex() + `","firstname":"Daniel","lastname":"Lam","username":"den1al","email":"la_dani@live.concordia.ca","role":"student"}`,
 			shouldBind: false,
 		},
 		{
 			name:       "Missing Role",
-			payload:    `{"id":"` + userID.Hex() + `","firstname":"John","lastname":"Doe","username":"johndoe","email":"john.doe@example.com","password":"password123"}`,
+			payload:    `{"id":"` + userID.Hex() + `","firstname":"Daniel","lastname":"Lam","username":"den1al","email":"la_dani@live.concordia.ca","password":"password123"}`,
 			shouldBind: false,
 		},
 		{
@@ -70,7 +70,7 @@ func TestUserBinding(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			// Create a mock HTTP request with the payload
-			req := httptest.NewRequest(http.MethodPost, "/user", bytes.NewBufferString(tc.payload))
+			req := httptest.NewRequest(http.MethodPost, "/users", bytes.NewBufferString(tc.payload))
 			req.Header.Set("Content-Type", "application/json")
 
 			// Create a test context and recorder
