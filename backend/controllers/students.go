@@ -9,6 +9,14 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+// Declare a variable to hold the collection (either real or mock)
+var userCollection database.Collection
+
+// SetCollection allows for injection of a mock collection during testing
+func SetCollection(collection database.Collection) {
+	userCollection = collection
+}
+
 // GET /students - Get all students
 func GetStudents(c *gin.Context) {
 	// Find students
