@@ -44,7 +44,6 @@ export default function StudentCourses() {
     <>
       {courses.length === 0 ? (
         <div className="mx-auto">
-          <p>{courses.length}</p>
           <img
             src={NoCoursesFound}
             className="mx-auto size-36"
