@@ -9,6 +9,7 @@ export function CourseDetailsPage() {
   const userInfo = useUserInfo();
   const displayContent = useRequireAuthenticated();
   const { courseid } = useParams();
+
   return (
     <UserInfoContext.Provider value={userInfo}>
       <SidebarPageTemplate hidden={!displayContent}>

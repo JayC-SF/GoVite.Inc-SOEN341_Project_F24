@@ -33,18 +33,8 @@ func (r *Rating) Save() error {
 }
 
 func (r *Rating) GetAverageGrade() (float64, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-	collection := database.GetInstance().Database("RateMyPeersDB").Collection("RatingsCriteria")
-	filter := bson.M{
-		"ratingid": r.ID,
-	}
-	cursor, err := collection.Find(ctx, filter)
+	ratingCriteria, err := r.GetRatingCriteria()
 	if err != nil {
-		return 0, err
-	}
-	var ratingCriteria []RatingCriterion
-	if err := cursor.All(ctx, &ratingCriteria); err != nil {
 		return 0, err
 	}
 	if len(ratingCriteria) <= 0 {
@@ -55,4 +45,38 @@ func (r *Rating) GetAverageGrade() (float64, error) {
 		score += float64(ratingCriterion.Grade)
 	}
 	return score / float64(len(ratingCriteria)), nil
+}
+
+func GetRating(ratingStudentEmail, ratedStudentEmail string, groupId primitive.ObjectID) (*Rating, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Ratings")
+	filter := bson.M{
+		"ratingstudent": ratingStudentEmail,
+		"ratedstudent":  ratedStudentEmail,
+		"groupid":       groupId,
+	}
+	var rating Rating
+	if err := collection.FindOne(ctx, filter).Decode(&rating); err != nil {
+		return nil, err
+	}
+	return &rating, nil
+}
+
+func (r *Rating) GetRatingCriteria() ([]RatingCriterion, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	collection := database.GetInstance().Database("RateMyPeersDB").Collection("RatingsCriteria")
+	filter := bson.M{
+		"ratingid": r.ID,
+	}
+	cursor, err := collection.Find(ctx, filter)
+	if err != nil {
+		return nil, err
+	}
+	var ratingCriteria []RatingCriterion
+	if err := cursor.All(ctx, &ratingCriteria); err != nil {
+		return nil, err
+	}
+	return ratingCriteria, nil
 }

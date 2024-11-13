@@ -40,6 +40,7 @@ func RegisterApiRoutes(r *gin.Engine) {
 
 	// courses endpoint
 	api_session_auth.GET("/courses/courseinfo", controllers.GetCourseInformation)
+	api_session_auth.GET("/courses/details", controllers.GetDetailedCourseInfo)
 	// create a new Rating POST Request: /api/submitRating
 	api_session_auth.POST("/submitRating", controllers.RatingsController)
 
