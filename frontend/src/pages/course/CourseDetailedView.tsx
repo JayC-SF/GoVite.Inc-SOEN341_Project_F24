@@ -1,98 +1,65 @@
 import { useEffect, useState } from "react";
 import CommentIcon from "../../assets/CommentIcon.svg";
+import { GetDetailedCourseInfo, StudentResponse } from "../../network/services/courseService";
 
-interface Rating {
-  cooperation: number;
-  conceptual: number;
-  practical: number;
-  workethic: number;
-}
-
-interface RatedBy {
-  firstname: string;
-  lastname: string;
-  email: string;
-  ratings: Rating;
-  average: number;
-  comment: string;
-}
-
-interface Student {
-  firstname: string;
-  lastname: string;
-  averagerating: number;
-  ratedby: RatedBy[];
-}
-
-interface Team {
-  teamname: string;
-  students: Student[];
-}
 
 interface StudentReview {
   teamname: string;
-  student: Student;
+  student: StudentResponse;
 }
 
-export function CourseDetailedView() {
-  const [reviews, setReviews] = useState<StudentReview[]>([]);
-
+export function CourseDetailedView(props: {courseid:string}) {
+  const [reviews, setReviews] = useState<StudentReview[]>();
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await fetch(
-          "https://dummyjson.com/c/67b7-3ef4-4be2-b353"
-        );
+    GetDetailedCourseInfo(props.courseid).then((data) =>{
+      // iterates through each team in the teams array.
+      const flattenedReviews: StudentReview[] = data.teams.flatMap((team) =>
+        team.students.map((student) => ({
+          teamname: team.teamname,
+          student,
+        }))
+      );
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+      setReviews(flattenedReviews);      
+    })
 
-        const data: { teams: Team[] } = await response.json();
 
-        // iterates through each team in the teams array.
-        const flattenedReviews: StudentReview[] = data.teams.flatMap((team) =>
-          team.students.map((student) => ({
-            teamname: team.teamname,
-            student,
-          }))
-        );
-
-        setReviews(flattenedReviews);
-      } catch (error) {
-        console.error("Error fetching reviews:", error);
-      }
-    };
-
-    fetchReviews();
   }, []);
 
   return (
     <>
-      {reviews.length === 0 ? (
+      {reviews === undefined && (
+        <div className="mx-auto">
+          <p className="text-2xl text-center font-semibold text-white">
+            Loading course reviews...
+          </p>
+        </div>
+      )}
+      {reviews?.length === 0 && (
         <div className="mx-auto">
           <p className="text-2xl text-center font-semibold text-white">
             There are no reviews...
           </p>
         </div>
-      ) : (
+      )}
+      {reviews && reviews.length > 0 && (
         <>
           {reviews.map((review, index) => (
             <div key={index} className="">
               <div className="flex gap-2 mt-4">
                 <div className="student-tag text-center h-10 bg-[#b1d2f9]">
-                  <span className="inline-block text-center py-1.5">
+                  <span className="inline-block text-center p-1.5 w-content">
                     {review.student.firstname + " " + review.student.lastname}
                   </span>
                 </div>
                 <div className="student-tag text-center h-10 bg-[#FF9AA2]">
-                  <span className="inline-block text-center py-1.5">
+                  <span className="inline-block text-center p-1.5">
                     {review.teamname}
                   </span>
                 </div>
 
                 <div className="student-tag text-center h-10 bg-[#CAB576]">
-                  <span className="inline-block text-center py-1.5">
+                  <span className="inline-block text-center p-1.5">
                     {review.student.firstname[0] + review.student.lastname[0]}
                   </span>
                 </div>
@@ -122,11 +89,11 @@ export function CourseDetailedView() {
                         <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                           {reviewer.firstname + " " + reviewer.lastname}
                         </td>
-                        <td>{reviewer.ratings.cooperation.toFixed(1)}</td>
-                        <td>{reviewer.ratings.conceptual.toFixed(1)}</td>
-                        <td>{reviewer.ratings.practical.toFixed(1)}</td>
-                        <td>{reviewer.ratings.workethic.toFixed(1)}</td>
-                        <td>{reviewer.average.toFixed(1)}</td>
+                        <td>{reviewer.ratings.cooperation.toFixed(1) || "NA"}</td>
+                        <td>{reviewer.ratings.conceptual.toFixed(1) || "NA"}</td>
+                        <td>{reviewer.ratings.practical.toFixed(1) || "NA"}</td>
+                        <td>{reviewer.ratings.workethic.toFixed(1) || "NA"}</td>
+                        <td>{reviewer.average.toFixed(1) || "NA"}</td>
                       </tr>
                     ))}
                   </tbody>

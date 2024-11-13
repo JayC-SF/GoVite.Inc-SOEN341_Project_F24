@@ -19,7 +19,7 @@ export function CourseDetailsPage() {
               <h1 className="text-2xl font-bold text-white">
                 Detailed View of {courseid}
               </h1>
-              <CourseDetailedView></CourseDetailedView>
+              <CourseDetailedView courseid={courseid||""}/>
             </div>
           </div>
         </div>
