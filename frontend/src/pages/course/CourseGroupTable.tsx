@@ -77,7 +77,7 @@ export function CourseGroupTable(props: {courseid: string}) {
             <thead className="text-xs uppercase bg-[#F5F5F5]">
               <tr>
                 <th scope="col" className="px-6 py-4">
-                  Student ID
+                  Student Username
                 </th>
                 <th scope="col" className="px-3 py-3">
                   First Name
@@ -115,7 +115,7 @@ export function CourseGroupTable(props: {courseid: string}) {
                   className="bg-white hover:bg-slate-100 border-b text-[#333333]"
                 >
                   <td className="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    {review.student.firstname[0] + review.student.lastname[0]}
+                    {review.student.username}
                   </td>
                   <td className=" px-3 py-4 text-center">
                     {review.student.firstname}
