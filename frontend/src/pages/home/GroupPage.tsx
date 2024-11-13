@@ -48,7 +48,7 @@ export default function GroupPage() {
                   <div key={idx} className="m-3 flex items-center gap-4">
                         {user.firstname} {user.lastname} - {user.email}
                   </div>
-                    <p className="m-3"> Score : {user.score == -1? "NA" : user.score}</p>
+                    <p className="m-3"> Score : {user.score == -1? "NA" : Math.round(user.score * 100) / 100}</p>
                   {userInfo?.role == "student" && <a href={`/ratings/${groupid}/${user.email}/new`}><RMPButton>Rate</RMPButton></a>}
               </div>
                 ))
