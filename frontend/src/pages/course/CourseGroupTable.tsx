@@ -74,7 +74,7 @@ export function CourseGroupTable(props: {courseid: string}) {
       {(reviews && reviews.length > 0 )&& (
         <div className=" mt-3 rounded-lg relative overflow-x-auto">
           <table className="w-full text-sm text-left rtl:text-right text-gray-400">
-            <thead className="text-xs uppercase bg-[#F5F5F5]">
+            <thead className="text-xs uppercase bg-[#F5F5F5] text-center">
               <tr>
                 <th scope="col" className="px-6 py-4">
                   Student Username
@@ -112,32 +112,32 @@ export function CourseGroupTable(props: {courseid: string}) {
               {reviews.map((review, index) => (
                 <tr
                   key={index}
-                  className="bg-white hover:bg-slate-100 border-b text-[#333333]"
+                  className="bg-white hover:bg-slate-100 border-b text-[#333333] text-center"
                 >
-                  <td className="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {review.student.username}
                   </td>
-                  <td className=" px-3 py-4 text-center">
+                  <td className=" px-3 py-4">
                     {review.student.firstname}
                   </td>
-                  <td className="px-3 py-4 text-center">
+                  <td className="px-3 py-4">
                     {review.student.lastname}
                   </td>
-                  <td className="px-3 py-4 text-center">{review.teamname}</td>
-                  <td className="px-3 py-4 text-center">
+                  <td className="px-3 py-4">{review.teamname}</td>
+                  <td className="px-3 py-4">
                     {review.ratings.cooperation? review.ratings.cooperation.toFixed(1): "NA"}
                   </td>
-                  <td className="px-3 py-4 text-center">
+                  <td className="px-3 py-4">
                     {review.ratings.conceptual? review.ratings.conceptual.toFixed(1): "NA"}
                   </td>
-                  <td className="px-3 py-4 text-center">
+                  <td className="px-3 py-4">
                     {review.ratings.practical? review.ratings.practical.toFixed(1): "NA"}
                   </td>
-                  <td className="px-3 py-4 text-center">
+                  <td className="px-3 py-4">
                     {review.ratings.workethic? review.ratings.workethic.toFixed(1): "NA"}
                   </td>
-                  <td className="px-3 py-4 text-center">{review.peerCount}</td>
-                  <td className="px-3 py-4 text-center">
+                  <td className="px-3 py-4">{review.peerCount}</td>
+                  <td className="px-3 py-4">
                     {review.student.averagerating?.toFixed(1) || "NA"}
                   </td>
                 </tr>
