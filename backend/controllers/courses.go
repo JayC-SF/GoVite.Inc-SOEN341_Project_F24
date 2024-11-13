@@ -197,6 +197,7 @@ type Student struct {
 	FirstName     string   `json:"firstname"`
 	LastName      string   `json:"lastname"`
 	Email         string   `json:"email"`
+	Username      string   `json:"username"`
 	AverageRating *float64 `json:"averagerating"`
 	Ratedby       []Rater  `json:"ratedby"`
 }
@@ -268,6 +269,7 @@ func GetStudentsInfo(group *models.Group, user *models.User) (*Student, error) {
 		FirstName: user.FirstName,
 		LastName:  user.LastName,
 		Email:     user.Email,
+		Username:  user.Username,
 		Ratedby:   []Rater{},
 	}
 	avgRate, err := user.GetRatingScore(group.ID.Hex())

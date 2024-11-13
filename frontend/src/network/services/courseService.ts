@@ -48,6 +48,7 @@ export interface StudentResponse {
     firstname: string
     lastname: string
     email: string
+    username: string
     averagerating: number | null
     ratedby: RaterResponse[]
 }

@@ -60,7 +60,7 @@ export function CourseDetailedView(props: {courseid:string}) {
 
                 <div className="student-tag text-center h-10 bg-[#CAB576]">
                   <span className="inline-block text-center p-1.5">
-                    {review.student.firstname[0] + review.student.lastname[0]}
+                    {review.student.username}
                   </span>
                 </div>
               </div>
