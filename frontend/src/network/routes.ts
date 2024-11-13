@@ -14,7 +14,8 @@ export const UsersRoutes = {
 }
 
 export const CourseRoutes = {
-    courseInfo: "/api/courses/courseinfo"
+    courseInfo: "/api/courses/courseinfo",
+    courseDetails: "/api/courses/details"
 }
 
 export const RatingsRoutes = {

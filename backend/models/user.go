@@ -60,7 +60,6 @@ func (user *User) GetRatingScore(groupId string) (float64, error) {
 	if err != nil {
 		return 0, err
 	}
-	fmt.Println(user.Email, mongoGroupId)
 	filter := bson.M{
 		"ratedstudent": user.Email,
 		"groupid":      mongoGroupId,
@@ -96,4 +95,36 @@ func (user *User) GetRatingScore(groupId string) (float64, error) {
 	}
 
 	return score / float64(total), nil
+}
+
+func (user *User) GetRaters(groupId string) ([]User, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Ratings")
+	groupIdOI, err := primitive.ObjectIDFromHex(groupId)
+	if err != nil {
+		return nil, err
+	}
+	filter := bson.M{
+		"ratedstudent": user.Email,
+		"groupid":      groupIdOI,
+	}
+	cursor, err := collection.Find(ctx, filter)
+	var ratings []Rating
+	err = cursor.All(ctx, &ratings)
+	if err != nil {
+		return nil, err
+	}
+	var users []User
+	for _, ratings := range ratings {
+		user, err := GetUserFromEmail(ratings.RatingStudent)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, *user)
+	}
+	if users == nil {
+		users = []User{}
+	}
+	return users, nil
 }

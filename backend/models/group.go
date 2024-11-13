@@ -142,3 +142,15 @@ func (g *Group) GetPotentialStudents() ([]User, error) {
 	}
 	return users, nil
 }
+func GetGroups() ([]Group, error) {
+	collection := database.GetInstance().Database("RateMyPeersDB").Collection("Groups")
+	cursor, err := collection.Find(context.TODO(), bson.M{})
+	if err != nil {
+		return nil, err
+	}
+	var groups []Group
+	if err := cursor.All(context.TODO(), &groups); err != nil {
+		return nil, err
+	}
+	return groups, nil
+}
