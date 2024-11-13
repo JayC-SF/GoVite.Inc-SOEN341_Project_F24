@@ -48,7 +48,7 @@ export interface StudentResponse {
     firstname: string
     lastname: string
     email: string
-    averagerating: number
+    averagerating: number | null
     ratedby: RaterResponse[]
 }
 export interface TeamResponse {

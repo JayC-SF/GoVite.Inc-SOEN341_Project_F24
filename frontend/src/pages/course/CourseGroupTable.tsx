@@ -1,58 +1,19 @@
 import { useEffect, useState } from "react";
-
-interface Rating {
-  cooperation: number;
-  conceptual: number;
-  practical: number;
-  workethic: number;
-}
-
-interface RatedBy {
-  firstname: string;
-  lastname: string;
-  email: string;
-  ratings: Rating;
-  average: number;
-  comment: string;
-}
-
-interface Student {
-  firstname: string;
-  lastname: string;
-  averagerating: number;
-  ratedby: RatedBy[];
-}
-
-interface Team {
-  teamname: string;
-  students: Student[];
-}
+import { GetDetailedCourseInfo, RatingResponse, StudentResponse } from "../../network/services/courseService";
 
 interface StudentReview {
   teamname: string;
-  student: Student;
+  student: StudentResponse;
   peerCount: number;
-  ratings: Rating;
+  ratings: RatingResponse;
 }
 
-export function CourseGroupTable() {
-  const [reviews, setReviews] = useState<StudentReview[]>([]);
+export function CourseGroupTable(props: {courseid: string}) {
+  const [reviews, setReviews] = useState<StudentReview[]>();
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await fetch(
-           // Replace with approriate API
-          "https://dummyjson.com/c/9069-b2fd-4103-90af"
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data: { teams: Team[] } = await response.json();
-
-        // Flatten the data into a list of StudentReview objects
+      GetDetailedCourseInfo(props.courseid)
+      .then((data)=> {
         const flattenedReviews: StudentReview[] = data.teams.flatMap((team) =>
           team.students.map((student) => {
             // Counts how many peers have rated the student
@@ -87,23 +48,30 @@ export function CourseGroupTable() {
         );
 
         setReviews(flattenedReviews);
-      } catch (error) {
-        console.error("Error fetching reviews:", error);
-      }
-    };
+      })
 
-    fetchReviews();
   }, []);
 
   return (
     <>
-      {reviews.length === 0 ? (
+      {/* case loading reviews */}
+      {reviews === undefined && (
+        <div className="mx-auto">
+          <p className="text-2xl text-center font-semibold text-white">
+            Loading course reviews...
+          </p>
+        </div>
+      )}
+      {/* case there are no reviews */}
+      {reviews?.length === 0 && (
         <div className="mx-auto">
           <p className="text-2xl text-center font-semibold text-white">
             There are no reviews...
           </p>
         </div>
-      ) : (
+      )}
+      {/* case there are reviews */}
+      {(reviews && reviews.length > 0 )&& (
         <div className=" mt-3 rounded-lg relative overflow-x-auto">
           <table className="w-full text-sm text-left rtl:text-right text-gray-400">
             <thead className="text-xs uppercase bg-[#F5F5F5]">
@@ -157,20 +125,20 @@ export function CourseGroupTable() {
                   </td>
                   <td className="px-3 py-4 text-center">{review.teamname}</td>
                   <td className="px-3 py-4 text-center">
-                    {review.ratings.cooperation.toFixed(1)}
+                    {review.ratings.cooperation? review.ratings.cooperation.toFixed(1): "NA"}
                   </td>
                   <td className="px-3 py-4 text-center">
-                    {review.ratings.conceptual.toFixed(1)}
+                    {review.ratings.conceptual? review.ratings.conceptual.toFixed(1): "NA"}
                   </td>
                   <td className="px-3 py-4 text-center">
-                    {review.ratings.practical.toFixed(1)}
+                    {review.ratings.practical? review.ratings.practical.toFixed(1): "NA"}
                   </td>
                   <td className="px-3 py-4 text-center">
-                    {review.ratings.workethic.toFixed(1)}
+                    {review.ratings.workethic? review.ratings.workethic.toFixed(1): "NA"}
                   </td>
                   <td className="px-3 py-4 text-center">{review.peerCount}</td>
                   <td className="px-3 py-4 text-center">
-                    {review.student.averagerating.toFixed(1)}
+                    {review.student.averagerating?.toFixed(1) || "NA"}
                   </td>
                 </tr>
               ))}
@@ -181,3 +149,5 @@ export function CourseGroupTable() {
     </>
   );
 }
+
+
