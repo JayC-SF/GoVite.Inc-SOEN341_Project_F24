@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import HomePage from '../src/pages/home/HomePage';
-import LoginPage from '../src/pages/login/Login'
 import React from 'react';
 import '@testing-library/jest-dom';
 
