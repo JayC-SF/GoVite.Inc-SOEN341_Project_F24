@@ -328,12 +328,14 @@ func GetRaterInfo(group *models.Group, ratedStudent *models.User, ratingStudent 
 	ratingAverages.Conceptual /= 5
 	ratingAverages.WorkEthic /= 5
 	ratingAverages.Practical /= 5
-
+	avg := ratingAverages.Cooperation + ratingAverages.Conceptual + ratingAverages.WorkEthic + ratingAverages.Practical
+	avg /= 4
 	raterResponse := &Rater{
 		FirstName: ratingStudent.FirstName,
 		LastName:  ratingStudent.LastName,
 		Email:     ratingStudent.Email,
 		Ratings:   ratingAverages,
+		Average:   avg,
 		Comment:   rating.Comment,
 	}
 
