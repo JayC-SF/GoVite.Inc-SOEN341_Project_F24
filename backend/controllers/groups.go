@@ -127,5 +127,4 @@ func PostNewUsersGroups(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Success"})
-
 }
