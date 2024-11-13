@@ -46,9 +46,13 @@ export default function CoursePage() {
                         </div> 
                     </div>
                     {userInfo?.role == "teacher" && (
-                        <div className="flex gap-4 mt-10" >
-                        <a href={`/courses/${courseid}/summary`}>Summary of results</a>
-                        <a href={`/courses/${courseid}/details`}>Details of results</a>
+                        <div className="flex gap-4 mt-5 ml-2">
+                            <button className="bg-[#9B394B] text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
+                                <a href={`/courses/${courseid}/summary`}>Summary of results</a>
+                            </button>
+                            <button className="bg-[#9B394B] text-white font-bold py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">
+                                <a href={`/courses/${courseid}/details`}>Details of results</a>
+                            </button>
                         </div>
                     )}
                 </div>
