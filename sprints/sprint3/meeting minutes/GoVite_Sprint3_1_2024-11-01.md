@@ -9,6 +9,7 @@ Date: 2024/11/01
 - Juan-Carlos Sreng-Flores (40101813)  
 - Ming-Yang Calvin Lee (40264581)  
 - Mouhamed Coundoul (40248237)
+- Samuditha Wijenarayana (40224895) 
 
 **Executive summary**  
 In this meeting, we reviewed last sprint’s outcomes, identifying effective practices to continue, such as our integration approach, while addressing areas for improvement, including merge conflict resolution, task adherence, and accountability. For Sprint 3, we agreed to assign tasks based on team members' strengths, with a focus on implementing unit tests for existing features. We also discussed the requirements for completing Dimension-Based Assessment and Instructor Dashboard features, breaking them into clear tasks with acceptance criteria. Additionally, we standardized GitHub issue creation and labeled tasks for streamlined tracking. We scheduled a mid-sprint check-in to monitor progress and make necessary adjustments
