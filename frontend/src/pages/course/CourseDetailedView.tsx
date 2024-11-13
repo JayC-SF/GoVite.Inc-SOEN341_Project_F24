@@ -66,58 +66,67 @@ export function CourseDetailedView(props: {courseid:string}) {
               </div>
 
               {/* Table of Peer Reviews for Each Student */}
-              <div className="rounded-lg mt-3 relative overflow-x-auto">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-400">
-                  <thead className="text-xs uppercase bg-[#F5F5F5]">
-                    <tr className="text-center">
-                      <th scope="col" className="px-6 py-4">
-                        Reviewer
-                      </th>
-                      <th scope="col">Cooperation</th>
-                      <th scope="col">Conceptual</th>
-                      <th scope="col">Practical</th>
-                      <th scope="col">Work Ethic</th>
-                      <th scope="col">Average</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-center">
-                    {review.student.ratedby.map((reviewer, reviewerIndex) => (
-                      <tr
-                        key={reviewerIndex}
-                        className="bg-white hover:bg-slate-100 border-b text-[#333333]"
-                      >
-                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                          {reviewer.firstname + " " + reviewer.lastname}
-                        </td>
-                        <td>{reviewer.ratings.cooperation.toFixed(1) || "NA"}</td>
-                        <td>{reviewer.ratings.conceptual.toFixed(1) || "NA"}</td>
-                        <td>{reviewer.ratings.practical.toFixed(1) || "NA"}</td>
-                        <td>{reviewer.ratings.workethic.toFixed(1) || "NA"}</td>
-                        <td>{reviewer.average.toFixed(1) || "NA"}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              {review.student.ratedby.map(
-                (reviewer) =>
-                  reviewer.comment.length !== 0 && (
-                    <div className="comment mt-3 flex" key={reviewer.email}>
-                      <img
-                        src={CommentIcon}
-                        className="size-12 self-center"
-                        alt="Comment Icon"
-                      />
-                      <div>
-                        <p className="text-gray-400 self-center">
-                          {reviewer.firstname + " " + reviewer.lastname}
-                        </p>
-                        <p className="text-lg self-center">
-                          {reviewer.comment}
-                        </p>
-                      </div>
-                    </div>
-                  )
+              {review.student.ratedby.length !== 0? (
+                <>
+                  <div className="rounded-lg mt-3 relative overflow-x-auto">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-400">
+                      <thead className="text-xs uppercase bg-[#F5F5F5]">
+                        <tr className="text-center">
+                          <th scope="col" className="px-6 py-4">
+                            Reviewer
+                          </th>
+                          <th scope="col">Cooperation</th>
+                          <th scope="col">Conceptual</th>
+                          <th scope="col">Practical</th>
+                          <th scope="col">Work Ethic</th>
+                          <th scope="col">Average</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-center">
+                        {review.student.ratedby.map((reviewer, reviewerIndex) => (
+                          <tr
+                            key={reviewerIndex}
+                            className="bg-white hover:bg-slate-100 border-b text-[#333333]"
+                          >
+                            <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                              {reviewer.firstname + " " + reviewer.lastname}
+                            </td>
+                            <td>{reviewer.ratings.cooperation.toFixed(1) || "NA"}</td>
+                            <td>{reviewer.ratings.conceptual.toFixed(1) || "NA"}</td>
+                            <td>{reviewer.ratings.practical.toFixed(1) || "NA"}</td>
+                            <td>{reviewer.ratings.workethic.toFixed(1) || "NA"}</td>
+                            <td>{reviewer.average.toFixed(1) || "NA"}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  {review.student.ratedby.map(
+                    (reviewer) =>
+                      reviewer.comment.length !== 0 && (
+                        <div className="comment mt-3 flex" key={reviewer.email}>
+                          <img
+                            src={CommentIcon}
+                            className="size-12 self-center"
+                            alt="Comment Icon"
+                          />
+                          <div>
+                            <p className="text-gray-400 self-center">
+                              {reviewer.firstname + " " + reviewer.lastname}
+                            </p>
+                            <p className="text-lg self-center">
+                              {reviewer.comment}
+                            </p>
+                          </div>
+                        </div>
+                      )
+                  )}
+                </>
+              ): (
+                <div className="bg-white my-3 rounded-md p-4 ">
+                  No reviews
+                </div>
+                
               )}
 
               {/* Horizontal line between students */}
