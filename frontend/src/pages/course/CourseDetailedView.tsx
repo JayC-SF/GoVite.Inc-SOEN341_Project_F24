@@ -123,8 +123,8 @@ export function CourseDetailedView(props: {courseid:string}) {
                   )}
                 </>
               ): (
-                <div className="bg-white my-3 rounded-md p-4 ">
-                  No reviews
+                <div className="my-3 rounded-md p-4 text-2xl font-semibold  text-white text-center">
+                  This student has no reviews...
                 </div>
                 
               )}
