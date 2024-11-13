@@ -137,3 +137,20 @@ nav svg {
   color: #6b7280;
   font-size: 14px;
 }
+
+.student-tag {
+  box-sizing: border-box;
+  width: 102px;
+  border: 2px solid #333333;
+  box-shadow: 0px 4px 0px #333333;
+  border-radius: 100px;
+}
+
+.comment {
+  align-items: flex-start;
+  padding: 16px 24px;
+  gap: 20px;
+  background: #ffffff;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2), 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 32px 32px 32px 0px;
+}
