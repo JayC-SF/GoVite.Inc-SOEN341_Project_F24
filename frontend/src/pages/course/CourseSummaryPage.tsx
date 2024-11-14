@@ -39,7 +39,7 @@ export function CourseSummaryPage() {
   return (
     <UserInfoContext.Provider value={userInfo}>
       <SidebarPageTemplate hidden={!displayContent}>
-        <div className="bg-[#9B394B] p-3 h-full">
+        <div className="bg-[#9B394B] p-3 min-h-full">
           <div className="bg-[#FCF4F5] rounded-2xl p-6 h-full">
             <div className="flex flex-col module rounded-2xl shadow-md p-4">
               <h1 className="text-2xl font-bold text-white">
