@@ -9,6 +9,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type RatingCriterionBody struct {
@@ -46,13 +47,19 @@ func RatingsController(c *gin.Context) {
 	}
 
 	// insert new reqBody into db
-	var rating models.Rating
-	// copy the matching fields
-	if err := util.CopyFields(reqBody, &rating); err != nil {
+	rating, err := models.GetRating(email, reqBody.RatedStudent, reqBody.GroupId)
+	if err != nil && err != mongo.ErrNoDocuments {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "error getting rating" + err.Error()})
+		return
+	} else if rating == nil {
+		rating = &models.Rating{}
+		rating.ID = primitive.NewObjectID()
+	}
+	// copy the matching fields from reqBody to rating
+	if err := util.CopyFields(reqBody, rating); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "error copying values " + err.Error()})
 		return
 	}
-	rating.ID = primitive.NewObjectID()
 	rating.RatingStudent = email
 
 	if err := rating.Save(); err != nil {
@@ -63,7 +70,7 @@ func RatingsController(c *gin.Context) {
 	criteria := models.RatingCriteriaSlice{}
 	for _, reqCriterion := range reqBody.Criteria {
 		criterion := models.NewRatingCriterion(
-			primitive.NewObjectID(),
+			primitive.NilObjectID,
 			rating.ID,
 			reqCriterion.CriterionId,
 			reqCriterion.Grade)
