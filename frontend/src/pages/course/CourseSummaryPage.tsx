@@ -5,7 +5,7 @@ import { useUserInfo } from "../../hooks/useUserInfo";
 import SidebarPageTemplate from "../../templates/SidebarPageTemplate";
 import { CourseGroupTable } from "./CourseGroupTable";
 import { useState, useEffect } from "react";
-
+import { DownloadCSVButton } from "../../components/DownloadCSVButton";
 
 export function CourseSummaryPage() {
   const [courseCode, setCourseCode] = useState<string | null>(null);
@@ -45,7 +45,8 @@ export function CourseSummaryPage() {
               <h1 className="text-2xl font-bold text-white">
                 Summary View of {courseCode}
               </h1>
-              <CourseGroupTable courseid={courseid||""}/>
+              <CourseGroupTable courseid={courseid || ""} />
+              <DownloadCSVButton courseid={courseid || ""} />
             </div>
           </div>
         </div>
