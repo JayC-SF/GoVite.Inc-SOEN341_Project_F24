@@ -9,6 +9,7 @@ import { DownloadCSVButton } from "../../components/DownloadCSVButton";
 
 export function CourseSummaryPage() {
   const [courseCode, setCourseCode] = useState<string | null>(null);
+  const [isTableRendered, setIsTableRendered] = useState(false);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -45,8 +46,9 @@ export function CourseSummaryPage() {
               <h1 className="text-2xl font-bold text-white">
                 Summary View of {courseCode}
               </h1>
-              <CourseGroupTable courseid={courseid || ""} />
-              <DownloadCSVButton courseid={courseid || ""} />
+              <CourseGroupTable courseid={courseid || ""} 
+              onTableRendered={() => setIsTableRendered(true)}/>
+              {isTableRendered && <DownloadCSVButton courseid={courseid || ""} />}
             </div>
           </div>
         </div>
