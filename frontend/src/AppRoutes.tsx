@@ -9,6 +9,7 @@ import RatePage from "./pages/RatePage";
 import { CourseDetailsPage } from "./pages/course/CourseDetailsPage";
 import { CourseSummaryPage } from "./pages/course/CourseSummaryPage";
 import CoursePage from "./pages/course/CoursePage";
+import { UserProfilePage } from "./pages/userProfile/UserProfilePage";
 
 export const AppRoutes = createBrowserRouter([
   {
@@ -50,5 +51,9 @@ export const AppRoutes = createBrowserRouter([
   {
     path: "/ratings/:groupid/:email/new",
     element: <RatePage/>
+  },
+  {
+    path: "/profile/:email",
+    element: <UserProfilePage/>
   }
 ]);
