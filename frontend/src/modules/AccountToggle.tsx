@@ -15,21 +15,23 @@ export const AccountToggle = () => {
 
   return (
     <div className='mb-4 mt-2 pd-4 border-stone-300'>
-      <button className='flex account py-5 hover:bg-rose-900 p-3 rounded-lg transition-colors relative gap-2 w-full items-center mb-2'>
-        <img
-          src={profileIconUrl}
-          alt="avatar"
-          className='size-8 rounded shrink-0 bg-indigo-600'
-        />
-        <div className='text-start'>
-          <div className="text-start text-white">
-            <span className="text-sm font-extrabold block ">
-              {userInfo?.firstname} {userInfo?.lastname}
-            </span>
-            <span className="text-xs block">{capitalizeRole(userInfo?.role)}</span>
+      <a href={`/profile/${userInfo?.email}`} > 
+        <button className='flex account py-5 hover:bg-rose-900 p-3 rounded-lg transition-colors relative gap-2 w-full items-center mb-2'>
+          <img
+            src={profileIconUrl}
+            alt="avatar"
+            className='size-8 rounded shrink-0 bg-indigo-600'
+          />
+          <div className='text-start'>
+            <div className="text-start text-white">
+              <span className="text-sm font-extrabold block ">
+                {userInfo?.firstname} {userInfo?.lastname}
+              </span>
+              <span className="text-xs block">{capitalizeRole(userInfo?.role)}</span>
+            </div>
           </div>
-        </div>
-      </button>
+        </button>
+      </a>
     </div>
   );
 };
