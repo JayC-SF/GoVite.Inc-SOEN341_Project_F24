@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import UserInfoContext from "../../contexts/userinfo";
+import UserInfoContext, { UserInfo } from "../../contexts/userinfo";
 import { useRequireAuthenticated } from "../../hooks/auth";
 import { useUserInfo } from "../../hooks/useUserInfo";
 import { StudentCourseGroups } from "../../modules/StudentCourseGroups";
@@ -10,18 +10,23 @@ import {
   GetCourseInfo,
 } from "../../network/services/courseService";
 import SidebarPageTemplate from "../../templates/SidebarPageTemplate";
+import { GetUserInfo } from "../../network/services/commonService";
+import { CourseInstructorInfo } from "../../modules/CourseInstructorInfo";
 
 export default function CoursePage() {
   const { courseid } = useParams();
   const displayContent = useRequireAuthenticated();
 
   const [courseInfo, setCourseInfo] = useState<CourseInfoResponse>();
+  const [teacherInfo, setTeacherInfo] = useState<UserInfo>()
   const userInfo = useUserInfo();
 
   const refreshGroups = () => {
     // send post request to add a new group
-
-    GetCourseInfo(courseid || "").then(setCourseInfo);
+    GetCourseInfo(courseid || "").then((courseInfo => {
+      setCourseInfo(courseInfo)
+      GetUserInfo(courseInfo.course.teacher).then(setTeacherInfo)
+    }));
   };
 
   useEffect(() => {
@@ -51,6 +56,7 @@ export default function CoursePage() {
             </div>
             <div className="module mt-5 rounded-2xl shadow-md p-4 flex items-center">
               <div className="pl-8 flex-1 text-white">
+                {teacherInfo && <CourseInstructorInfo {...teacherInfo} />}
                 {userInfo?.role == "teacher" && (
                   <TeacherCourseGroups
                     courseInfo={courseInfo}
