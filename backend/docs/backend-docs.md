@@ -79,11 +79,18 @@ Provides utility functions and helper logic.
 - **`authentication.go`**: Helper functions for authentication workflows.
 - **`util.go`**: General-purpose utility functions.
 
-### **Tests**
-Contains all unit and integration tests.
-- **General Structure**: Test files are organized alongside their respective implementation files. Use `*_test.go` naming convention.
+## Testing
 
----
+- **Test Framework**: The project uses Go's built-in testing package.
+- **Run All Tests**: To execute all unit and integration tests, use:
+  ```bash
+  go test ./... -v
+  ```
+
+
+
+
+
 
 
 
