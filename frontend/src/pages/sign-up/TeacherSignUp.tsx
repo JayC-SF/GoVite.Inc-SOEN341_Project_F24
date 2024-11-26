@@ -1,4 +1,5 @@
 import { useRequireUnauthenticated } from "../../hooks/auth";
+import Footer from "../../modules/Footer";
 import { AuthRoutes } from "../../network/routes";
 
 export default function TeacherSignUp() {
@@ -245,6 +246,7 @@ export default function TeacherSignUp() {
           />
         </div>
       </div>
+      <Footer />
     </>
   );
 }
