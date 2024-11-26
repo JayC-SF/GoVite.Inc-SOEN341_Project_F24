@@ -49,7 +49,9 @@ export function CourseDetailedView(props: {courseid:string}) {
               <div className="flex gap-2 mt-4">
                 <div className="student-tag text-center h-10 bg-[#b1d2f9]">
                   <span className="inline-block text-center p-1.5 w-content">
-                    {review.student.firstname + " " + review.student.lastname}
+                    <a href={`/profile/${review.student.email}`}>
+                      {review.student.firstname + " " + review.student.lastname}
+                    </a>
                   </span>
                 </div>
                 <div className="student-tag text-center h-10 bg-[#FF9AA2]">
@@ -60,7 +62,9 @@ export function CourseDetailedView(props: {courseid:string}) {
 
                 <div className="student-tag text-center h-10 bg-[#CAB576]">
                   <span className="inline-block text-center p-1.5">
-                    {review.student.username}
+                    <a href={`/profile/${review.student.email}`}>
+                      {review.student.username}
+                    </a>
                   </span>
                 </div>
               </div>
@@ -89,7 +93,9 @@ export function CourseDetailedView(props: {courseid:string}) {
                             className="bg-white hover:bg-slate-100 border-b text-[#333333]"
                           >
                             <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                              {reviewer.firstname + " " + reviewer.lastname}
+                              <a href={`/profile/${reviewer.email}`}>
+                                {reviewer.firstname + " " + reviewer.lastname}
+                              </a>
                             </td>
                             <td>{reviewer.ratings.cooperation.toFixed(1) || "NA"}</td>
                             <td>{reviewer.ratings.conceptual.toFixed(1) || "NA"}</td>
