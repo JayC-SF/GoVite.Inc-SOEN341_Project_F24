@@ -1,3 +1,5 @@
+import Footer from "../../modules/Footer";
+
 export default function HomePage() {
   return (
     <div className="bg-white">
@@ -172,6 +174,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

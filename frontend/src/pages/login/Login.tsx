@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { AuthRoutes } from "../../network/routes";
 import { useRequireUnauthenticated } from "../../hooks/auth";
+import Footer from "../../modules/Footer";
 
 export default function LoginPage() {
     const isLoggedOut = useRequireUnauthenticated()
@@ -163,11 +164,7 @@ export default function LoginPage() {
             </div>
 
             {/* Footer */}
-            <footer className="bg-gray-800 text-white py-5 mt-10 w-full">
-                <div className="container mx-auto text-center">
-                    <p>&copy; 2024 GoVite Inc. All rights reserved.</p>
-                </div>
-            </footer>
+            <Footer />
         </div>
         </>
     );
