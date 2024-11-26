@@ -46,7 +46,9 @@ export default function GroupPage() {
             {groupInfo?.students?.length
               ? groupInfo?.students?.map((user, idx) => (<div>
                   <div key={idx} className="m-3 flex items-center gap-4">
-                        {user.firstname} {user.lastname} - {user.email}
+                        <a href={`/profile/${user.email}`}>
+                          {user.firstname} {user.lastname} - {user.email}
+                        </a>
                   </div>
                     <p className="m-3"> Score : {user.score == -1? "NA" : Math.round(user.score * 100) / 100}</p>
                   {
