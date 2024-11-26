@@ -140,14 +140,21 @@ func IsLoggedIn(c *gin.Context) {
 // the AuthenticationMiddleware in the middleware package
 func GetUserInfo(c *gin.Context) {
 	session := sessions.Default(c)
+	emailParam := c.Query("email")
 	email, ok1 := session.Get(config.SessionFields.Email).(string)
-	role, ok2 := session.Get(config.SessionFields.Role).(string)
-	if !ok1 || !ok2 {
+
+	// request is requesting user info of another user
+	if emailParam != "" {
+		email = emailParam
+		ok1 = true
+	}
+
+	if !ok1 {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
 		return
 	}
 
-	user, err := models.GetUserFromEmailWithProjection(email, bson.M{"firstname": 1, "lastname": 1})
+	user, err := models.GetUserFromEmailWithProjection(email, bson.M{"firstname": 1, "lastname": 1, "role": 1})
 	if err != nil {
 		fmt.Errorf("%s", err.Error())
 		if err == mongo.ErrNoDocuments {
@@ -160,7 +167,7 @@ func GetUserInfo(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"email":     email,
-		"role":      role,
+		"role":      user.Role,
 		"firstname": user.FirstName,
 		"lastname":  user.LastName,
 	})
