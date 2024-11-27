@@ -36,19 +36,6 @@ export default function GroupsModule() {
                         </div>
                     </div>
                 </div>
-
-                {/* Footer with Need More Help Section */}
-                <footer className="bg-gray-800 text-white py-5 mt-10 w-full">
-                    <div className="container mx-auto text-center">
-                        <p className="text-sm text-gray-400 mt-2 mb-2">
-                            Need more help? Contact us at{" "}
-                            <a href="tel:514-848-2424" className="text-[#ca3448] hover:text-[#E9D3D7]">
-                                514-848-2424
-                            </a>
-                        </p>
-                        <p>&copy; 2024 GoVite Inc. All rights reserved.</p>
-                    </div>
-                </footer>
             </div>
         );
     }
@@ -85,19 +72,6 @@ export default function GroupsModule() {
                         </div>
                     </div>
                 </div>
-                
-                {/* Footer with Need More Help Section */}
-                <footer className="bg-gray-800 text-white py-5 mt-10 w-full">
-                    <div className="container mx-auto text-center">
-                        <p className="text-sm text-gray-400 mt-2 mb-2">
-                            Need more help? Contact us at{" "}
-                            <a href="tel:514-848-2424" className="text-[#ca3448] hover:text-[#E9D3D7]">
-                                514-848-2424
-                            </a>
-                        </p>
-                        <p>&copy; 2024 GoVite Inc. All rights reserved.</p>
-                    </div>
-                </footer>
             </div>
         );
     }
