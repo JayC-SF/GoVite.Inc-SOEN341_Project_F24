@@ -1,4 +1,5 @@
 import { useRequireUnauthenticated } from "../../hooks/auth";
+import Footer from "../../modules/Footer";
 import { AuthRoutes } from "../../network/routes";
 
 export default function StudentSignUp() {
@@ -244,6 +245,8 @@ export default function StudentSignUp() {
           />
         </div>
       </div>
+      <br></br><br></br><br></br>
+      <Footer />
     </>
   );
 }
