@@ -246,6 +246,7 @@ export default function TeacherSignUp() {
           />
         </div>
       </div>
+      <br></br><br></br><br></br>
       <Footer />
     </>
   );

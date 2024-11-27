@@ -174,6 +174,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <br></br><br></br><br></br>
       <Footer />
     </div>
   );
