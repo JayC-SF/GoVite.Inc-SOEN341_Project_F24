@@ -115,7 +115,8 @@ export function CourseGroupTable(props: { courseid: string; onTableRendered?: ()
               {reviews.map((review, index) => (
                 <tr
                   key={index}
-                  className="bg-white hover:bg-slate-100 border-b text-[#333333] text-center"
+                  className="bg-white hover:bg-slate-100 border-b text-[#333333] text-center cursor-pointer"
+                  onClick={() => window.open(`/profile/${review.student.email}`)}
                 >
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {review.student.username}
