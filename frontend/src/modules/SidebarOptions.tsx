@@ -1,8 +1,6 @@
 import { SidebarItem } from "../components/SidebarItem"
 import { postLogout } from "../network/services/authService"
 
-
-
 export const SidebarOptions = () => {
     const onClickLogout = () => postLogout().catch(console.error)
     return (
