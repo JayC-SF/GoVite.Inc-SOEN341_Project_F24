@@ -117,9 +117,14 @@ export function CourseDetailedView(props: {courseid:string}) {
                             alt="Comment Icon"
                           />
                           <div>
-                            <p className="text-gray-400 self-center">
-                              {reviewer.firstname + " " + reviewer.lastname}
-                            </p>
+                            <a
+                            target="blank"
+                            className="hover:underline hover:text-[#9B394B]"
+                            href={"/profile/" + reviewer.email}>
+                              <p className="text-gray-400 self-center hover:text-[#BE5A6C]">
+                                {reviewer.firstname + " " + reviewer.lastname}
+                              </p>
+                            </a>
                             <p className="text-lg self-center">
                               {reviewer.comment}
                             </p>
