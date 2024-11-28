@@ -86,6 +86,20 @@ html {
   border-radius: 16px;
 }
 
+.banner-user {
+  box-shadow: 8px 8px 48px 8px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(90deg, #cc6772 0%, #dbb8da 78.1%, #dfcff7 100%);
+  /* Inside auto layout */
+}
+
+.user-email {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 30px;
+  color: #000000;
+  opacity: 0.5;
+}
+
 .account {
   background: #be5a6c;
   border-radius: 10px;

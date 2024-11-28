@@ -4,6 +4,7 @@ export interface UserInfo {
     firstname: string
     lastname: string
     role: string
+    username: string
 }
 
 const UserInfoContext = createContext<UserInfo | undefined>(undefined)
