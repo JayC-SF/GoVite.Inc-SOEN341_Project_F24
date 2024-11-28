@@ -4,7 +4,7 @@ interface SelectRatingProps {
     required?:boolean
     onSelectRating?(_:number): void
 }
-const SelectRating = ({ value, required = true, onSelectRating = (_:number)=>{}}: SelectRatingProps) => (
+const SelectRating = ({ value, required = true, onSelectRating = ()=>{}}: SelectRatingProps) => (
     <select value={value}className="border border-gray-300 rounded-md p-2" required={required} onChange={(e) => onSelectRating(Number(e.target.value))}>
         <option value={1}>1 - Poor</option>
         <option value={2}>2 - Fair</option>

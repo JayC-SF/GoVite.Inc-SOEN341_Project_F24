@@ -1,7 +1,7 @@
-import { describe, it, expect, test } from 'vitest';
+import {expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import {SidebarLogo} from '../src/components/SidebarLogo';
-import React, { isValidElement } from 'react';
+import React from 'react';
 import '@testing-library/jest-dom';
 
 //test sidebar logo
