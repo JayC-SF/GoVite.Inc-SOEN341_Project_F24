@@ -154,7 +154,7 @@ func GetUserInfo(c *gin.Context) {
 		return
 	}
 
-	user, err := models.GetUserFromEmailWithProjection(email, bson.M{"firstname": 1, "lastname": 1, "role": 1})
+	user, err := models.GetUserFromEmailWithProjection(email, bson.M{"username": 1, "firstname": 1, "lastname": 1, "role": 1})
 	if err != nil {
 		fmt.Errorf("%s", err.Error())
 		if err == mongo.ErrNoDocuments {
@@ -167,6 +167,7 @@ func GetUserInfo(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"email":     email,
+		"username":  user.Username,
 		"role":      user.Role,
 		"firstname": user.FirstName,
 		"lastname":  user.LastName,
