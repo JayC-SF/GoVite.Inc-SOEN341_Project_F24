@@ -25,4 +25,6 @@ jobs:
       - name: Build react files
         run: cd frontend && npm run build
       - name: Run front end test suite
-        run: cd frontend && npm run test && npm run lint
+        run: cd frontend && npm run test
+      - name: Run front end linter
+        run: cd frontend && npm run lint
