@@ -11,16 +11,16 @@ interface RatingQuestionProps {
 
 const RatingQuestion: React.FC<RatingQuestionProps> = ({ idx, label, criterionId }) => {
   const useFormData = useFormHookContext<NewRatingForm>()
-  const {watch,setValue} = useFormData || {watch:undefined, setValue:undefined}
-  useEffect(()=>{
-    setValue?.(`criteria.${idx}.criterionId`, criterionId)
-  },[idx, criterionId, setValue])
   if (!useFormData) return <></> 
-  const onSelectRating = (rating:number) => setValue?.(`criteria.${idx}.grade`,rating)
+  const {watch,setValue} = useFormData
+  const onSelectRating = (rating:number) => setValue(`criteria.${idx}.grade`,rating)
+  useEffect(()=>{
+    setValue(`criteria.${idx}.criterionId`, criterionId)
+  },[])
   return (
     <div className="flex flex-col mb-6">
       <label className="text-lg font-semibold text-gray-800">{label}</label>
-      <SelectRating value={watch?.(`criteria.${idx}.grade`) || 1} onSelectRating={onSelectRating}/>
+      <SelectRating value={watch(`criteria.${idx}.grade`) || 1} onSelectRating={onSelectRating}/>
     </div>
   );
 };
