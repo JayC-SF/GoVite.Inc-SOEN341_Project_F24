@@ -21,6 +21,7 @@ export function UserProfilePage() {
       <SidebarPageTemplate hidden={!displayContent}>
         <div className="bg-[#9B394B] p-3 h-full">
           <div className="bg-[#FCF4F5] rounded-2xl p-6 h-full">
+          <div className="rounded-t-2xl banner-user shadow-md p-4 h-1/4"></div>
             <div className="bg-white flex flex-col h-3/4 rounded-b-2xl px-28">
               <div className="flex justify-between pt-9">
                 <div className="flex">
