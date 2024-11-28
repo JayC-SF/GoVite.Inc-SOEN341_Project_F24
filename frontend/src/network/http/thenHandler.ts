@@ -1,1 +1,1 @@
-export const assertType = <T>(result: any) => result as unknown as T
+export const assertType = <T>(result: unknown) => result as T

@@ -13,7 +13,7 @@ export interface JsonRequestInit extends Omit<RequestInit, 'body'> {
 export async function JsonRequest(url: string, options: JsonRequestInit = {}) {
     // if params are defined, add it to url
     url = addUrlParams(url, options.params)
-    let response = await fetch(url, {
+    const response = await fetch(url, {
         headers: {
             ...options.headers,
             "Content-Type": "application/json"
